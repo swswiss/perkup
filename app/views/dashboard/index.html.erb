@@ -1,0 +1,311 @@
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+
+/* ── MAIN ── */
+.content{flex:1;margin-left:240px;min-height:100vh;}
+
+/* Top bar */
+.topbar{
+  height:64px;background:rgba(245,240,232,0.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid #EBE3D7;display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;position:sticky;top:0;z-index:50;
+}
+.topbar h1{font-family:'DM Serif Display',serif;font-size:22px;color:#2D1B06;}
+.topbar-r{display:flex;align-items:center;gap:12px;}
+.tb-btn{
+  width:36px;height:36px;border-radius:10px;background:#FFFCF8;border:1px solid #F0E9DE;
+  display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;
+  transition:all .15s;position:relative;
+}
+.tb-btn:hover{background:#fff;border-color:#D4C4AC;}
+.tb-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:#DC2626;border:2px solid #F5F0E8;}
+
+/* ── DASHBOARD BODY ── */
+.dash{padding:28px 32px 48px;}
+
+/* Welcome */
+.welcome{margin-bottom:28px;}
+.welcome h2{font-family:'DM Serif Display',serif;font-size:28px;color:#2D1B06;margin-bottom:4px;}
+.welcome p{font-size:14px;color:#8C7A65;}
+
+/* Stat cards */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.stat-card{
+  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:16px;padding:22px 20px;
+  transition:all .25s;
+}
+.stat-card:hover{border-color:#D4C4AC;box-shadow:0 4px 20px rgba(45,27,6,0.04);transform:translateY(-2px);}
+.sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.sc-label{font-size:12px;font-weight:600;color:#B8A898;text-transform:uppercase;letter-spacing:1px;}
+.sc-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.sc-icon.c1{background:#FEF3C7;}
+.sc-icon.c2{background:#DBEAFE;}
+.sc-icon.c3{background:#D1FAE5;}
+.sc-icon.c4{background:#FCE7F3;}
+.sc-num{font-family:'DM Serif Display',serif;font-size:32px;color:#2D1B06;margin-bottom:4px;}
+.sc-sub{font-size:12px;color:#8C7A65;}
+.sc-sub span{font-weight:700;}
+.sc-sub .up{color:#16A34A;}
+.sc-sub .dn{color:#DC2626;}
+
+/* Two column */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;}
+
+/* Card container */
+.card{background:#FFFCF8;border:1px solid #F0E9DE;border-radius:16px;overflow:hidden;}
+.card-h{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #F5EFE6;}
+.card-h h3{font-size:15px;font-weight:700;color:#2D1B06;}
+.card-h a{font-size:12px;color:#A16207;text-decoration:none;font-weight:600;}
+.card-h a:hover{text-decoration:underline;}
+
+/* Loyalty card */
+.loyalty{padding:24px 20px;text-align:center;}
+.loyalty .lbl{font-size:11px;color:#B8A898;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.loyalty .pts{font-family:'DM Serif Display',serif;font-size:48px;color:#A16207;}
+.loyalty .nxt{font-size:13px;color:#8C7A65;margin-top:6px;margin-bottom:20px;}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;max-width:280px;margin:0 auto;}
+.stmp{
+  aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.stmp.on{background:#FEF3C7;border:1.5px solid #F3D675;}
+.stmp.off{background:#F8F4ED;border:1.5px dashed #E0D5C7;}
+.stmp.gift{background:linear-gradient(135deg,#A16207,#D4A017);border:none;box-shadow:0 3px 12px rgba(161,98,7,0.25);}
+.loyalty .prog{margin-top:16px;}
+.prog-bar{height:6px;background:#F0E9DE;border-radius:99px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#A16207,#D4A017);border-radius:99px;transition:width .6s ease;}
+.prog-text{display:flex;justify-content:space-between;font-size:11px;color:#B8A898;}
+
+/* Recent activity */
+.activity-list{padding:0;}
+.act-item{
+  display:flex;align-items:center;gap:14px;padding:14px 20px;
+  border-bottom:1px solid #F8F4ED;transition:background .15s;
+}
+.act-item:last-child{border-bottom:none;}
+.act-item:hover{background:#FDFAF5;}
+.act-icon{width:38px;height:38px;border-radius:11px;background:#F8F1E7;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.act-info{flex:1;min-width:0;}
+.act-name{font-size:13px;font-weight:600;color:#2D1B06;}
+.act-date{font-size:11px;color:#B8A898;margin-top:1px;}
+.act-pts{font-size:14px;font-weight:700;color:#16A34A;white-space:nowrap;}
+.act-pts.used{color:#A16207;}
+
+/* Rewards */
+.rewards-list{padding:12px 20px 20px;display:flex;flex-direction:column;gap:10px;}
+.rew{
+  display:flex;align-items:center;gap:14px;padding:14px 16px;
+  border-radius:12px;border:1px solid #F0E9DE;background:#FDFAF5;
+  transition:all .2s;
+}
+.rew:hover{border-color:#D4C4AC;box-shadow:0 2px 10px rgba(45,27,6,0.04);}
+.rew-icon{width:40px;height:40px;border-radius:10px;background:#FEF3C7;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.rew-info{flex:1;min-width:0;}
+.rew-name{font-size:13px;font-weight:700;color:#2D1B06;}
+.rew-desc{font-size:11px;color:#B8A898;margin-top:1px;}
+.rew-badge{
+  padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;white-space:nowrap;
+}
+.rew-badge.ready{background:#D1FAE5;color:#166534;}
+.rew-badge.lock{background:#F3ECE2;color:#8C7A65;}
+
+/* Quick actions */
+.actions-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.qa{
+  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:14px;
+  padding:20px;text-align:center;cursor:pointer;transition:all .2s;
+}
+.qa:hover{border-color:#D4C4AC;box-shadow:0 4px 16px rgba(45,27,6,0.04);transform:translateY(-2px);}
+.qa-icon{font-size:28px;margin-bottom:10px;}
+.qa-title{font-size:13px;font-weight:700;color:#2D1B06;margin-bottom:3px;}
+.qa-desc{font-size:11px;color:#B8A898;}
+
+/* ── MOBILE ── */
+.burger{display:none;width:36px;height:36px;border-radius:10px;background:#FFFCF8;border:1px solid #F0E9DE;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:99;}
+
+@media(max-width:900px){
+  .side{transform:translateX(-100%);}
+  .side.open{transform:translateX(0);}
+  .overlay.open{display:block;}
+  .content{margin-left:0;}
+  .burger{display:flex;}
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .two-col{grid-template-columns:1fr;}
+  .actions-row{grid-template-columns:1fr;}
+  .topbar{padding:0 20px;}
+  .dash{padding:20px 20px 40px;}
+}
+@media(max-width:480px){
+  .stats-row{grid-template-columns:1fr;}
+}
+</style>
+
+<!-- MAIN -->
+<div class="content">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="burger" id="burger">☰</div>
+      <h1>Dashboard</h1>
+    </div>
+  </header>
+
+  <!-- DASHBOARD -->
+  <div class="dash">
+
+    <!-- Welcome -->
+    <div class="welcome">
+      <h2>Good morning, Alex ☀️</h2>
+      <p>You're 2 stamps away from a free coffee. Keep it up!</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="sc-top"><span class="sc-label">Points</span><div class="sc-icon c1">⭐</div></div>
+        <div class="sc-num">1,280</div>
+        <div class="sc-sub"><span class="up">↑ 120</span> this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-top"><span class="sc-label">Visits</span><div class="sc-icon c2">📊</div></div>
+        <div class="sc-num">47</div>
+        <div class="sc-sub"><span class="up">↑ 8</span> this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-top"><span class="sc-label">Stamps</span><div class="sc-icon c3">💳</div></div>
+        <div class="sc-num">8/10</div>
+        <div class="sc-sub">2 more for <span>free coffee</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-top"><span class="sc-label">Rewards</span><div class="sc-icon c4">🎁</div></div>
+        <div class="sc-num">3</div>
+        <div class="sc-sub"><span>1 ready</span> to redeem</div>
+      </div>
+    </div>
+
+    <!-- Two column -->
+    <div class="two-col">
+
+      <!-- Loyalty Card -->
+      <div class="card">
+        <div class="card-h"><h3>My Loyalty Card</h3><a href="#">View card</a></div>
+        <div class="loyalty">
+          <div class="lbl">Total Points</div>
+          <div class="pts">1,280</div>
+          <div class="nxt">120 points to next reward</div>
+          <div class="stamps">
+            <div class="stmp on">☕</div>
+            <div class="stmp on">☕</div>
+            <div class="stmp on">☕</div>
+            <div class="stmp on">☕</div>
+            <div class="stmp on">☕</div>
+            <div class="stmp on">☕</div>
+            <div class="stmp on">☕</div>
+            <div class="stmp on">☕</div>
+            <div class="stmp off"></div>
+            <div class="stmp gift">🎁</div>
+          </div>
+          <div class="prog" style="margin-top:20px;">
+            <div class="prog-bar"><div class="prog-fill" style="width:80%"></div></div>
+            <div class="prog-text"><span>8 stamps</span><span>10 for free coffee</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <div class="card-h"><h3>Recent Activity</h3><a href="#">View all</a></div>
+        <div class="activity-list">
+          <div class="act-item">
+            <div class="act-icon">☕</div>
+            <div class="act-info"><div class="act-name">Flat White</div><div class="act-date">Today, 8:32 AM · Downtown</div></div>
+            <div class="act-pts">+15 pts</div>
+          </div>
+          <div class="act-item">
+            <div class="act-icon">🥐</div>
+            <div class="act-info"><div class="act-name">Almond Croissant</div><div class="act-date">Yesterday, 9:15 AM · Central</div></div>
+            <div class="act-pts">+10 pts</div>
+          </div>
+          <div class="act-item">
+            <div class="act-icon">☕</div>
+            <div class="act-info"><div class="act-name">Oat Milk Latte</div><div class="act-date">Mon, 7:48 AM · Downtown</div></div>
+            <div class="act-pts">+15 pts</div>
+          </div>
+          <div class="act-item">
+            <div class="act-icon">🎁</div>
+            <div class="act-info"><div class="act-name">Free Coffee Redeemed</div><div class="act-date">Sun, 10:20 AM · Central</div></div>
+            <div class="act-pts used">-200 pts</div>
+          </div>
+          <div class="act-item">
+            <div class="act-icon">☕</div>
+            <div class="act-info"><div class="act-name">Double Espresso</div><div class="act-date">Sat, 8:05 AM · Downtown</div></div>
+            <div class="act-pts">+15 pts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rewards -->
+    <div class="card" style="margin-bottom:28px;">
+      <div class="card-h"><h3>My Rewards</h3><a href="#">Browse all</a></div>
+      <div class="rewards-list">
+        <div class="rew">
+          <div class="rew-icon">☕</div>
+          <div class="rew-info"><div class="rew-name">Free Oat Milk Latte</div><div class="rew-desc">Any size · Expires in 14 days</div></div>
+          <span class="rew-badge ready">Ready</span>
+        </div>
+        <div class="rew">
+          <div class="rew-icon">🧁</div>
+          <div class="rew-info"><div class="rew-name">Free Pastry of Choice</div><div class="rew-desc">Croissant, muffin or danish</div></div>
+          <span class="rew-badge lock">480 pts</span>
+        </div>
+        <div class="rew">
+          <div class="rew-icon">⭐</div>
+          <div class="rew-info"><div class="rew-name">Double Points Day</div><div class="rew-desc">Earn 2x points on your next visit</div></div>
+          <span class="rew-badge lock">600 pts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="actions-row">
+      <div class="qa">
+        <div class="qa-icon">📷</div>
+        <div class="qa-title">Scan QR Code</div>
+        <div class="qa-desc">Earn stamps at checkout</div>
+      </div>
+      <div class="qa">
+        <div class="qa-icon">📍</div>
+        <div class="qa-title">Find a Shop</div>
+        <div class="qa-desc">Nearby PerkUp locations</div>
+      </div>
+      <div class="qa">
+        <div class="qa-icon">👥</div>
+        <div class="qa-title">Refer a Friend</div>
+        <div class="qa-desc">Both earn 50 bonus points</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var burger=document.getElementById('burger');
+var sidebar=document.getElementById('sidebar');
+var overlay=document.getElementById('overlay');
+burger.addEventListener('click',function(){sidebar.classList.toggle('open');overlay.classList.toggle('open');});
+overlay.addEventListener('click',function(){sidebar.classList.remove('open');overlay.classList.remove('open');});
+
+// Nav active state
+document.querySelectorAll('.sn-item').forEach(function(item){
+  item.addEventListener('click',function(){
+    document.querySelectorAll('.sn-item').forEach(function(i){i.classList.remove('active');});
+    this.classList.add('active');
+    if(window.innerWidth<=900){sidebar.classList.remove('open');overlay.classList.remove('open');}
+  });
+});
+</script>

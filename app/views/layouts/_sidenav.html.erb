@@ -1,0 +1,28 @@
+<!-- SIDEBAR -->
+
+<div class="overlay" id="overlay"></div>
+<aside class="side" id="sidebar">
+  <div class="side-head">
+    <span class="lm">☕</span>
+    <span class="lt">PerkUp</span>
+  </div>
+  <nav class="side-nav">
+    <%= link_to 'Dashboard', dashboard_path, method: :get, class: "sn-item active" %>
+    <a class="sn-item">My Card</a>
+    <a class="sn-item">Rewards</a>
+    <a class="sn-item">Locations</a>
+    <a class="sn-item">History</a>
+    <div class="sn-sep"></div>
+    <a class="sn-item">Settings</a>
+    <a class="sn-item">Help</a>
+    <%= link_to 'Logout', destroy_customer_session_path, method: :delete, class: "sn-item" %>
+  </nav>
+  <div class="side-foot">
+    <div class="side-user">
+      <div class="u-info">
+        <div class="u-name"><%= current_customer.name %></div>
+        <div class="u-email"><%= current_customer.email %></div>
+      </div>
+    </div>
+  </div>
+</aside>
