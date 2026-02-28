@@ -18,7 +18,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body data-turbo-prefetch="false">
     <% if customer_signed_in? %>
       <%= render "layouts/sidenav"%>
         <main class="container mx-auto mt-28 px-5 flex">  

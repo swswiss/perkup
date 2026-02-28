@@ -7,8 +7,9 @@
     <span class="lt">PerkUp</span>
   </div>
   <nav class="side-nav">
-    <%= link_to 'Dashboard', dashboard_path, method: :get, class: "sn-item active" %>
-    <a class="sn-item">My Card</a>
+    <%= link_to 'Dashboard', customers_dashboard_path, class: "sn-item active" %>
+    <%= link_to "My Cards", customers_cards_path, class: "sn-item" %>
+    <%= link_to "Create new Card", new_customers_card_path, class: "sn-item" %>
     <a class="sn-item">Rewards</a>
     <a class="sn-item">Locations</a>
     <a class="sn-item">History</a>
