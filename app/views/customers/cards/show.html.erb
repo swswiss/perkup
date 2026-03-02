@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrewPoints — Card Details</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+
+.layout{display:flex;min-height:100vh;}
+
+/* ── SIDEBAR ── */
+.side{width:240px;background:#FFFCF8;border-right:1px solid #F0E9DE;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s;}
+.side-head{padding:24px 22px 20px;display:flex;align-items:center;gap:10px;}
+.lm{width:32px;height:32px;border-radius:10px;background:#2D1B06;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0;}
+.lt{font-weight:800;font-size:17px;color:#2D1B06;}
+.side-nav{flex:1;padding:8px 12px;display:flex;flex-direction:column;gap:2px;}
+.sn-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;font-size:14px;font-weight:500;color:#8C7A65;cursor:pointer;transition:all .15s;text-decoration:none;}
+.sn-item:hover{background:#F8F1E7;color:#2D1B06;}
+.sn-item.active{background:#F3ECE2;color:#2D1B06;font-weight:700;}
+.sn-item .icon{width:20px;text-align:center;font-size:16px;flex-shrink:0;}
+.sn-sep{height:1px;background:#F0E9DE;margin:10px 8px;}
+.side-foot{padding:16px;border-top:1px solid #F0E9DE;}
+.side-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;}
+.avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#A16207,#D4A017);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.u-name{font-size:13px;font-weight:700;color:#2D1B06;}
+.u-email{font-size:11px;color:#B8A898;}
+
+/* ── MAIN ── */
+.content{flex:1;margin-left:240px;min-height:100vh;}
+.topbar{height:64px;background:rgba(245,240,232,0.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #EBE3D7;display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
+.topbar h1{font-family:'DM Serif Display',serif;font-size:22px;color:#2D1B06;}
+.topbar-r{display:flex;align-items:center;gap:8px;}
+.burger{display:none;width:36px;height:36px;border-radius:10px;background:#FFFCF8;border:1px solid #F0E9DE;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:99;}
+
+/* Breadcrumb */
+.crumb{display:flex;align-items:center;gap:6px;padding:16px 32px 0;font-size:13px;}
+.crumb a{color:#8C7A65;text-decoration:none;font-weight:500;}
+.crumb a:hover{color:#2D1B06;text-decoration:underline;}
+.crumb .sep{color:#D5C9BA;}
+.crumb .current{color:#2D1B06;font-weight:600;}
+
+/* ── PAGE ── */
+.page{padding:20px 32px 60px;max-width:1100px;}
+
+/* Top actions */
+.page-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px;}
+.page-top h2{font-family:'DM Serif Display',serif;font-size:28px;color:#2D1B06;}
+.top-actions{display:flex;gap:8px;}
+.btn-o{
+  display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;
+  border:1.5px solid #E8DFD2;background:#FFFCF8;font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;color:#5C4A35;cursor:pointer;transition:all .15s;
+}
+.btn-o:hover{border-color:#D4C4AC;background:#fff;}
+.btn-d{
+  display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;
+  border:none;background:#2D1B06;font-family:'DM Sans',sans-serif;
+  font-size:13px;font-weight:600;color:#FFFCF8;cursor:pointer;transition:all .15s;
+}
+.btn-d:hover{background:#1A0F00;}
+
+/* Card + details row */
+.show-row{display:flex;gap:28px;align-items:flex-start;}
+.show-left{flex:0 0 340px;}
+.show-right{flex:1;min-width:0;}
+
+/* Preview card */
+.card-visual{
+  width:100%;aspect-ratio:1.55/1;border-radius:20px;padding:32px 28px;
+  position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(135deg,#1C1108,#2D1B06);color:#FFFCF8;
+  box-shadow:0 12px 40px rgba(45,27,6,0.16);
+}
+.card-visual::before{
+  content:'';position:absolute;top:-40%;right:-20%;width:60%;height:120%;
+  background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);pointer-events:none;
+}
+.card-visual::after{
+  content:'☕';position:absolute;bottom:14px;right:22px;font-size:56px;opacity:0.05;pointer-events:none;
+}
+.cv-shop{font-size:10px;text-transform:uppercase;letter-spacing:2.5px;opacity:.5;position:relative;}
+.cv-name{font-family:'DM Serif Display',serif;font-size:24px;margin-top:4px;position:relative;}
+.cv-rule{font-size:12px;opacity:.5;margin-top:6px;position:relative;}
+.cv-bottom{display:flex;align-items:flex-end;justify-content:space-between;position:relative;}
+.cv-stamps{display:flex;flex-wrap:wrap;gap:5px;max-width:200px;}
+.cv-s{width:20px;height:20px;border-radius:6px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:9px;border:1px solid rgba(255,255,255,0.08);}
+.cv-s.last{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.15);}
+.cv-qr{width:52px;height:52px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.cv-qr canvas,.cv-qr img{width:44px!important;height:44px!important;}
+
+/* Status badge */
+.status-row{text-align:center;margin-top:16px;}
+.status{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:8px;font-size:12px;font-weight:700;}
+.status.active{background:#D1FAE5;color:#166534;}
+
+/* Detail card */
+.detail-card{background:#FFFCF8;border:1px solid #F0E9DE;border-radius:16px;overflow:hidden;}
+.dc-row{display:flex;align-items:flex-start;padding:16px 22px;border-bottom:1px solid #F8F4ED;}
+.dc-row:last-child{border-bottom:none;}
+.dc-label{width:120px;flex-shrink:0;font-size:12px;font-weight:600;color:#8C7A65;text-transform:uppercase;letter-spacing:1px;padding-top:2px;}
+.dc-value{flex:1;font-size:14px;color:#2D1B06;font-weight:500;min-width:0;}
+.dc-value.mono{
+  font-family:'DM Sans',monospace;font-size:13px;color:#5C4A35;
+  background:#F8F4ED;padding:6px 12px;border-radius:8px;
+  display:inline-flex;align-items:center;gap:8px;word-break:break-all;
+}
+.copy-btn{
+  flex-shrink:0;padding:4px 10px;border-radius:6px;border:1px solid #E8DFD2;
+  background:#FFFCF8;font-size:11px;font-weight:600;color:#8C7A65;
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.copy-btn:hover{background:#F3ECE2;color:#5C4A35;}
+.copy-btn.copied{background:#D1FAE5;color:#166534;border-color:#A7F3D0;}
+
+/* QR section */
+.qr-section{margin-top:20px;background:#FFFCF8;border:1px solid #F0E9DE;border-radius:16px;padding:28px;text-align:center;}
+.qr-section h3{font-size:15px;font-weight:700;margin-bottom:4px;}
+.qr-section p{font-size:12px;color:#8C7A65;margin-bottom:20px;}
+.qr-big{display:inline-flex;padding:20px;background:#fff;border-radius:14px;border:1px solid #F0E9DE;margin-bottom:16px;}
+.qr-big canvas,.qr-big img{width:200px!important;height:200px!important;}
+.qr-actions{display:flex;gap:8px;justify-content:center;}
+
+@media(max-width:900px){
+  .side{transform:translateX(-100%);}
+  .side.open{transform:translateX(0);}
+  .overlay.open{display:block;}
+  .content{margin-left:0;}
+  .burger{display:flex;}
+  .topbar{padding:0 20px;}
+  .crumb{padding:12px 20px 0;}
+  .page{padding:16px 20px 40px;}
+  .show-row{flex-direction:column;}
+  .show-left{flex:0 0 auto;width:100%;max-width:380px;}
+}
+</style>
+
+<!-- MAIN -->
+<div class="content">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="burger" id="burger">☰</div>
+      <h1>Card Details</h1>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <!-- Top -->
+    <div class="page-top">
+      <h2><%= @card.name %></h2>
+      <div class="top-actions">
+        <button class="btn-o">Edit</button>
+        <%= button_to "Delete",
+          customers_card_path(@card),
+          method: :delete,
+          data: { turbo: false },
+          class: "btn-o",
+          form: { 
+            style: "display:inline;",
+            onsubmit: "return confirm('Are you sure?');"
+          } %>
+      </div>
+    </div>
+
+    <div class="show-row">
+      <!-- LEFT: Card visual -->
+      <div class="show-left">
+        <div class="card-visual" style="background: <%= color_gradient(@card.color) %>">
+          <div>
+            <div class="cv-shop">PerkUp</div>
+            <div class="cv-name"><%= @card.name %></div>
+            <div class="cv-rule">Buy <%= @card.reward_rule %> coffees → next <%= @card.how_many %> are free</div>
+          </div>
+          <div class="cv-bottom">
+            <div class="cv-stamps">
+              <% @card.reward_rule.times do%>
+                <div class="cv-s">☕</div>
+              <%end%>
+              <% @card.how_many.times do%>
+                <div class="cv-s last">🎁</div>
+              <%end%>
+            </div>
+            <div class="cv-qr">
+              <%= image_tag qr_customers_card_path(@card),
+                    style: "width:44px;height:44px;" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Details -->
+      <div class="show-right">
+        <div class="detail-card">
+          <div class="dc-row">
+            <div class="dc-label">Name</div>
+            <div class="dc-value"><%= @card.name %></div>
+          </div>
+          <div class="dc-row">
+            <div class="dc-label">Reward Rule</div>
+            <div class="dc-value">Buy <%= @card.reward_rule %> coffees → next <%= @card.how_many %> are free</div>
+          </div>
+          <div class="dc-row">
+            <div class="dc-label">Description</div>
+            <div class="dc-value"><%= @card.description %></div>
+          </div>
+          <div class="dc-row">
+            <div class="dc-label">Stamps</div>
+            <div class="dc-value"><%= @card.reward_rule %> purchases + <%= @card.how_many %> reward</div>
+          </div>
+          <div class="dc-row">
+            <div class="dc-label">Created</div>
+            <div class="dc-value">Feb 28, 2026</div>
+          </div>
+          <div class="dc-row">
+            <div class="dc-label">UUID</div>
+            <div class="dc-value">
+              <span class="mono"><%= @card.uuid %></span>
+
+              <button class="copy-btn"
+                      data-uuid="<%= @card.uuid %>"
+                      onclick="copyUuid(this)">
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR Code -->
+        <div class="qr-section">
+          <h3>QR Code</h3>
+          <p>Print or display at your counter for customers to scan</p>
+          <div class="qr-big" id="qr-to-print">
+            <%= image_tag qr_customers_card_path(@card),
+                  style: "width:200px;height:200px;" %>
+          </div>
+          <div class="qr-actions">
+            <%= link_to "⬇ Download PNG",
+            qr_customers_card_path(@card),
+            class: "btn-d",
+            download: "card-#{@card.uuid}.png" %>
+            <button class="btn-o" onclick="printQr()">🖨 Print</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function printQr() {
+  var qrElement = document.getElementById('qr-to-print');
+  var qrHtml = qrElement.outerHTML;
+
+  // Remove inline styles so CSS can control size
+  qrHtml = qrHtml.replace(/style="[^"]*"/, "");
+
+  var newWindow = window.open('', '_blank');
+
+  newWindow.document.write(`
+    <html>
+      <head>
+        <title>Print QR</title>
+        <style>
+          body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #fff;
+            font-family: sans-serif;
+          }
+          h1 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #2D1B06;
+          }
+          #qr-to-print img {
+            width: 400px !important;
+            height: 400px !important;
+          }
+        </style>
+      </head>
+      <body>
+        <h1><%= j @card.name %></h1>
+        ${qrHtml}
+      </body>
+    </html>
+  `);
+
+  newWindow.document.close();
+  newWindow.focus();
+  newWindow.print();
+  newWindow.close();
+}
+
+
+
+function copyUuid(button) {
+  var uuid = button.dataset.uuid;
+
+  navigator.clipboard.writeText(uuid);
+
+  button.textContent = "✓ Copied";
+  button.classList.add("copied");
+
+  setTimeout(function () {
+    button.textContent = "Copy";
+    button.classList.remove("copied");
+  }, 2000);
+}
+
+// Sidebar
+var burger = document.getElementById('burger');
+var sidebar = document.getElementById('sidebar');
+var ov = document.getElementById('overlay');
+burger.addEventListener('click', function() { sidebar.classList.toggle('open'); ov.classList.toggle('open'); });
+ov.addEventListener('click', function() { sidebar.classList.remove('open'); ov.classList.remove('open'); });
+document.querySelectorAll('.sn-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.sn-item').forEach(function(i) { i.classList.remove('active'); });
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

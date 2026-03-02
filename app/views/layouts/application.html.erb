@@ -21,14 +21,18 @@
   <body data-turbo-prefetch="false">
     <%= render "customers/shared/flash" %>
     <% if customer_signed_in? %>
-      <%= render "layouts/sidenav"%>
-        <main class="container mx-auto mt-28 px-5 flex">  
-          <%= yield %>
-        </main>
+      <%= render "layouts/sidenav_customer"%>
+      <main class="container mx-auto mt-28 px-5 flex">  
+        <%= yield %>
+      </main>
+    <%elsif user_signed_in?%>
+      <main class="container mx-auto mt-28 px-5 flex">  
+        <%= yield %>
+      </main>
     <%else%>
-        <main class="container mx-auto mt-28 px-5 flex">  
-          <%= yield %>
-        </main>
+      <main class="container mx-auto mt-28 px-5 flex">  
+        <%= yield %>
+      </main>
     <%end%>
   </body>
 </html>

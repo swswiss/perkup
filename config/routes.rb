@@ -4,10 +4,17 @@ Rails.application.routes.draw do
     registrations: 'customers/registrations',
     sessions: 'customers/sessions'
   }
-  devise_for :users, path: 'users'
+  devise_for :users, path: 'users', controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
 
   devise_scope :customer do  
     get '/customers/sign_out' => 'devise/sessions#destroy'     
+  end
+
+  devise_scope :user do  
+    get '/users/sign_out' => 'devise/sessions#destroy'     
   end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -24,7 +31,16 @@ Rails.application.routes.draw do
   root "home#index"
 
   namespace :customers do
-    resources :cards
+    resources :cards do
+      member do
+        get :qr
+      end
+    end
+    get "dashboard", to: "dashboard#index"
+    get "scan/:uuid", to: "scans#show", as: :scan
+  end
+
+  namespace :users do
     get "dashboard", to: "dashboard#index"
   end
 end

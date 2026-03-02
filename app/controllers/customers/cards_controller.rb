@@ -48,8 +48,30 @@ class Customers::CardsController < ApplicationController
           turbo_stream.update("flash-container", partial: "customers/shared/flash_messages")
         ]
       end
-      format.html { redirect_to cards_path, notice: "Card destroyed!" }
+      format.html { redirect_to customers_cards_path, notice: "Card destroyed!" }
     end
+  end
+
+  def qr
+    require "rqrcode"
+    @card = current_customer.cards.find(params[:id])
+    
+    expires_in 24.hours, public: true
+
+    qr = RQRCode::QRCode.new(customers_scan_url(@card.uuid))
+
+    png = qr.as_png(
+      bit_depth: 1,
+      border_modules: 4,
+      color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+      color: "black",
+      fill: "white",
+      size: 700
+    )
+
+    send_data png.to_s,
+              type: "image/png",
+              disposition: "inline"
   end
 
   private

@@ -9,8 +9,23 @@
     <a href="#feat" class="link">Features</a>
     <a href="#how" class="link">How it works</a>
     <a href="#pricing" class="link">Pricing</a>
-    <a href="<%= new_customer_session_path %>" class="btn-s btn-s-o">Log in</a>
-    <a href="<%= new_customer_registration_path %>" class="btn-s btn-s-f">Get started</a>
+    <!-- Log in button with dropdown -->
+<div class="dropdown">
+  <button class="btn-s btn-s-o">Log in</button>
+  <div class="dropdown-content">
+    <%= link_to "As Customer", new_customer_session_path %>
+    <%= link_to "As User", new_user_session_path %>
+  </div>
+</div>
+
+<!-- Get started button with dropdown -->
+<div class="dropdown">
+  <button class="btn-s btn-s-f">Get started</button>
+  <div class="dropdown-content">
+    <%= link_to "As Customer", new_customer_registration_path %>
+    <%= link_to "As User", new_user_registration_path %>
+  </div>
+</div>
   </div>
 </div></nav>
 

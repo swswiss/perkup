@@ -20,53 +20,64 @@
             new_customers_card_path,
             class: "btn-new" %>
     </div>
-
-    <div class="toolbar">
-      <div class="search-box">
-        <span class="s-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search cards...">
+    
+    <% if @cards.exists? %>
+      <div class="toolbar">
+        <div class="search-box">
+          <span class="s-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search cards...">
+        </div>
+        <button class="filter-btn" id="filterBtn">📋 All statuses</button>
       </div>
-      <button class="filter-btn" id="filterBtn">📋 All statuses</button>
-    </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Reward Rule</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>UUID</th>
-            <th style="text-align:right;">Actions</th>
-          </tr>
-        </thead>
-        <%= turbo_frame_tag "cards_table" do %>
-          <tbody id="tableBody">
-            <% @cards.each do |card| %>
-              <tr id="card_<%= card.id %>">
-                <td><div class="td-name"><%= card.name %></div></td>
-                <td class="td-rule">Buy <%= card.reward_rule %> <%= card.product %> → next <%= card.how_many %> are free</td>
-                <td class="td-desc">Earn a stamp with every coffee</td>
-                <td><span class="status active">Active</span></td>
-                <td><span class="td-uuid" onclick="copyUuid(this)" title="Click to copy"><%= card.uuid %><span class="copy-icon">📋</span></span></td>
-                <td><div class="td-actions"><button class="act-btn" title="View">👁</button><button class="act-btn" title="Edit">✏️</button>
-                <%= link_to "🗑",
-                  customers_card_path(card),
-                  data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  },
-                  class: "act-btn del",
-                  title: "Delete" %>
-                </div>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        <% end %>
-      </table>
-    </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Reward Rule</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>UUID</th>
+              <th style="text-align:right;">Actions</th>
+            </tr>
+          </thead>
+          <%= turbo_frame_tag "cards_table" do %>
+            <tbody id="tableBody">
+              <% @cards.each do |card| %>
+                <tr id="card_<%= card.id %>">
+                  <td><div class="td-name"><%= card.name %></div></td>
+                  <td class="td-rule">Buy <%= card.reward_rule %> <%= card.product %> → next <%= card.how_many %> are free</td>
+                  <td class="td-desc">Earn a stamp with every coffee</td>
+                  <td><span class="status active">Active</span></td>
+                  <td><span class="td-uuid" onclick="copyUuid(this)" title="Click to copy"><%= card.uuid %><span class="copy-icon">📋</span></span></td>
+                  <td><div class="td-actions">
+                  <%= link_to "👁",
+                    customers_card_path(card),
+                    class: "act-btn",
+                    title: "View" %>
+
+                  <button class="act-btn" title="Edit">✏️</button>
+                  <%= link_to "🗑",
+                    customers_card_path(card),
+                    data: {
+                      turbo_method: :delete,
+                      turbo_confirm: "Are you sure?"
+                    },
+                    class: "act-btn del",
+                    title: "Delete" %>
+                  </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+    <%else%>
+      <br><br><br>
+      <center>You have no cards yet.</center>
+    <%end%>
 
   </div>
 </div>

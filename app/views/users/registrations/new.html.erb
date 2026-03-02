@@ -1,29 +1,309 @@
-<h2>Sign up</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PerkUp — Sign Up</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{width:100%;min-height:100vh;overflow-x:hidden;display:block;background:#FFFCF8;color:#2D1B06;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+body{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;background:#FFFCF8;color:#2D1B06;font-family:'DM Sans',system-ui,sans-serif;}
+body>*{display:block;width:100%;}
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+/* ── NAV ── */
+.nav{background:#FFFCF8;border-bottom:1px solid rgba(0,0,0,0.05);height:64px;}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#2D1B06;font-weight:800;font-size:18px;}
+.logo-mark{width:32px;height:32px;border-radius:10px;background:#2D1B06;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;}
+.nav-link{font-size:14px;color:#8C7A65;text-decoration:none;font-weight:500;transition:color .2s;}
+.nav-link:hover{color:#2D1B06;}
 
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
+/* ── MAIN ── */
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 24px;}
 
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+.card{width:100%;max-width:420px;background:#fff;border:1px solid #F0E9DE;border-radius:20px;padding:44px 40px;box-shadow:0 4px 24px rgba(45,27,6,0.04);}
+
+.card-head{text-align:center;margin-bottom:36px;}
+.card-icon{width:48px;height:48px;border-radius:14px;background:#F8F1E7;display:inline-flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;}
+.card-head h1{font-family:'DM Serif Display',serif;font-size:28px;color:#2D1B06;margin-bottom:6px;}
+.card-head p{font-size:14px;color:#8C7A65;}
+
+/* ── FORM ── */
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:13px;font-weight:600;color:#5C4A35;margin-bottom:7px;}
+.field input{
+  width:100%;padding:13px 16px;border-radius:12px;
+  border:1.5px solid #E8DFD2;background:#FFFCF8;
+  font-family:'DM Sans',sans-serif;font-size:15px;color:#2D1B06;
+  outline:none;transition:all .2s;
+}
+.field input::placeholder{color:#C4B5A2;}
+.field input:focus{border-color:#A16207;box-shadow:0 0 0 3px rgba(161,98,7,0.08);}
+.field input.err{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,0.06);}
+.field .hint{font-size:11px;margin-top:6px;color:#B8A898;display:flex;align-items:center;gap:4px;}
+.field .hint.err-msg{color:#DC2626;}
+
+/* password strength */
+.strength-bar{display:flex;gap:4px;margin-top:8px;}
+.strength-bar .seg{height:4px;flex:1;border-radius:99px;background:#F0E9DE;transition:background .3s;}
+.strength-bar .seg.s1{background:#DC2626;}
+.strength-bar .seg.s2{background:#F59E0B;}
+.strength-bar .seg.s3{background:#16A34A;}
+.strength-label{font-size:11px;margin-top:4px;font-weight:600;}
+.strength-label.c1{color:#DC2626;}
+.strength-label.c2{color:#F59E0B;}
+.strength-label.c3{color:#16A34A;}
+
+/* toggle */
+.pw-toggle{position:relative;}
+.pw-toggle input{padding-right:48px;}
+.pw-toggle button{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;color:#B8A898;
+  font-size:18px;padding:0;line-height:1;transition:color .2s;
+}
+.pw-toggle button:hover{color:#6B5A47;}
+
+.submit{
+  width:100%;padding:15px;border-radius:12px;border:none;
+  background:#2D1B06;color:#FFFCF8;font-family:'DM Sans',sans-serif;
+  font-size:15px;font-weight:700;cursor:pointer;transition:all .25s;
+  margin-top:8px;
+}
+.submit:hover{background:#1A0F00;box-shadow:0 4px 16px rgba(45,27,6,0.2);transform:translateY(-1px);}
+.submit:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.divider{display:flex;align-items:center;gap:14px;margin:24px 0;}
+.divider span{font-size:12px;color:#C4B5A2;white-space:nowrap;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:#F0E9DE;}
+
+.social-btn{
+  width:100%;padding:13px;border-radius:12px;
+  border:1.5px solid #E8DFD2;background:#fff;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#2D1B06;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.social-btn:hover{border-color:#D4C4AC;background:#FDFAF5;}
+
+.footer-text{text-align:center;margin-top:28px;font-size:13px;color:#8C7A65;}
+.footer-text a{color:#A16207;text-decoration:none;font-weight:600;}
+.footer-text a:hover{text-decoration:underline;}
+
+/* ── TERMS ── */
+.terms{display:flex;align-items:flex-start;gap:10px;margin-top:4px;margin-bottom:24px;}
+.terms input[type=checkbox]{
+  width:18px;height:18px;margin-top:1px;accent-color:#A16207;cursor:pointer;flex-shrink:0;
+}
+.terms label{font-size:12px;color:#8C7A65;line-height:1.5;cursor:pointer;}
+.terms label a{color:#A16207;text-decoration:none;}
+.terms label a:hover{text-decoration:underline;}
+
+/* ── PAGE FOOTER ── */
+.page-foot{padding:24px;text-align:center;font-size:11px;color:#C4B5A2;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:480px){
+  .card{padding:32px 24px;border-radius:16px;}
+  .card-head h1{font-size:24px;}
+}
+</style>
+</head>
+<body>
+
+
+<!-- MAIN -->
+<div class="main">
+  <div class="card">
+    <div class="card-head">
+      <div class="card-icon">☕</div>
+      <h1>Create your account</h1>
+    </div>
+
+    <!-- FORM -->
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "customers/shared/error_messages", resource: resource %>
+    
+    <div id="form">
+      <div class="field">
+        <label for="email">Email address</label>
+        <p>
+          <%= f.email_field :email, 
+                id: "email", 
+                placeholder: "you@example.com", 
+                autofocus: true, 
+                autocomplete: "email", 
+                class: "input-field" %>
+        </p>
+        <div class="hint err-msg" id="email-err" style="display:none"></div>
+      </div>
+
+      <div class="field">
+        <label for="name">First name</label>
+        <p>
+          <%= f.text_field :first_name, 
+                id: "name",
+                autofocus: true, 
+                class: "input-field" %>
+        </p>
+        <label for="name">Last name</label>
+        <p>
+          <%= f.text_field :last_name, 
+                id: "name",
+                autofocus: true, 
+                class: "input-field" %>
+        </p>
+        <div class="hint err-msg" id="email-err" style="display:none"></div>
+      </div>
+
+      <div class="field">
+        <label for="pw">Password</label>
+        <div class="pw-toggle">
+        <p>
+          <%= f.password_field :password,
+                id: "pw",
+                placeholder: "Min. 8 characters",
+                autocomplete: "new-password",
+                class: "input-field" %>
+        </p>
+          <button type="button" id="pw-eye" title="Show password">👁</button>
+        </div>
+        <div class="strength-bar" id="str-bar">
+          <div class="seg" id="s1"></div><div class="seg" id="s2"></div><div class="seg" id="s3"></div>
+        </div>
+        <div class="strength-label" id="str-label"></div>
+      </div>
+
+      <div class="field">
+        <label for="pw2">Confirm password</label>
+        <div class="pw-toggle">
+        <p>
+          <%= f.password_field :password_confirmation,
+                id: "pw2",
+                placeholder: "Confirm your password",
+                autocomplete: "new-password",
+                class: "input-field" %>
+        </p>
+
+          <button type="button" id="pw2-eye" title="Show password">👁</button>
+        </div>
+        <div class="hint err-msg" id="pw2-err" style="display:none"></div>
+      </div>
+
+      <div class="terms">
+        <input type="checkbox" id="agree">
+        <label for="agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+      </div>
+
+      <%= f.submit "Create Account", 
+      class: "submit btn-s btn-s-f",
+      disabled: false %>
+
+    </div>
     <% end %>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
-  </div>
 
-  <div class="field">
-    <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
+    <div class="footer-text">Already have an account? <a href="<%= new_user_session_path %>">Log in</a></div>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+<!-- FOOTER -->
+<div class="page-foot">© 2026 PerkUp</div>
 
-<%= render "users/shared/links" %>
+<script>
+var email=document.getElementById('email');
+var pw=document.getElementById('pw');
+var pw2=document.getElementById('pw2');
+var btn=document.getElementById('submit-btn');
+var agree=document.getElementById('agree');
+var emailErr=document.getElementById('email-err');
+var pw2Err=document.getElementById('pw2-err');
+var strLabel=document.getElementById('str-label');
+var s1=document.getElementById('s1'),s2=document.getElementById('s2'),s3=document.getElementById('s3');
+
+function togglePw(inputId,btnId){
+  var i=document.getElementById(inputId);
+  var b=document.getElementById(btnId);
+  b.addEventListener('click',function(){
+    if(i.type==='password'){i.type='text';b.textContent='🙈';}
+    else{i.type='password';b.textContent='👁';}
+  });
+}
+togglePw('pw','pw-eye');
+togglePw('pw2','pw2-eye');
+
+function getStrength(v){
+  if(!v)return 0;
+  var score=0;
+  if(v.length>=8)score++;
+  if(v.length>=12)score++;
+  if(/[A-Z]/.test(v)&&/[a-z]/.test(v))score++;
+  if(/[0-9]/.test(v))score++;
+  if(/[^A-Za-z0-9]/.test(v))score++;
+  if(score<=2)return 1;
+  if(score<=3)return 2;
+  return 3;
+}
+
+pw.addEventListener('input',function(){
+  var str=getStrength(pw.value);
+  s1.className='seg';s2.className='seg';s3.className='seg';
+  strLabel.className='strength-label';strLabel.textContent='';
+  if(pw.value.length===0)return;
+  if(str>=1){s1.className='seg s'+str;}
+  if(str>=2){s2.className='seg s'+str;}
+  if(str>=3){s3.className='seg s'+str;}
+  var labels=['','Weak — add uppercase, numbers or symbols','Fair — almost there','Strong password'];
+  strLabel.textContent=labels[str];
+  strLabel.className='strength-label c'+str;
+  checkMatch();
+  validate();
+});
+
+pw2.addEventListener('input',function(){checkMatch();validate();});
+email.addEventListener('input',function(){
+  emailErr.style.display='none';
+  email.classList.remove('err');
+  validate();
+});
+email.addEventListener('blur',function(){
+  if(email.value&&!isValidEmail(email.value)){
+    emailErr.textContent='Please enter a valid email address';
+    emailErr.style.display='flex';
+    email.classList.add('err');
+  }
+});
+agree.addEventListener('change',function(){validate();});
+
+function isValidEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+
+function checkMatch(){
+  if(pw2.value.length===0){pw2Err.style.display='none';pw2.classList.remove('err');return;}
+  if(pw.value!==pw2.value){
+    pw2Err.textContent='Passwords do not match';
+    pw2Err.style.display='flex';
+    pw2.classList.add('err');
+  }else{
+    pw2Err.style.display='none';
+    pw2.classList.remove('err');
+  }
+}
+
+function validate(){
+  var ok=isValidEmail(email.value)&&pw.value.length>=8&&pw.value===pw2.value&&agree.checked;
+  btn.disabled=!ok;
+}
+
+btn.addEventListener('click',function(){
+  if(!btn.disabled){
+    btn.textContent='Creating account...';
+    btn.disabled=true;
+    setTimeout(function(){
+      btn.textContent='✓ Account created!';
+      btn.style.background='#16A34A';
+    },1500);
+  }
+});
+</script>
+</body>
+</html>

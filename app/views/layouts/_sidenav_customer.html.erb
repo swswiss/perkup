@@ -7,9 +7,17 @@
     <span class="lt">PerkUp</span>
   </div>
   <nav class="side-nav">
-    <%= link_to 'Dashboard', customers_dashboard_path, class: "sn-item active" %>
-    <%= link_to "My Cards", customers_cards_path, class: "sn-item" %>
-    <%= link_to "Create new Card", new_customers_card_path, class: "sn-item" %>
+    <%= link_to 'Dashboard',
+    customers_dashboard_path,
+    class: "sn-item #{nav_active(customers_dashboard_path)}" %>
+
+    <%= link_to "My Cards",
+      customers_cards_path,
+      class: "sn-item #{nav_active(customers_cards_path)}" %>
+
+    <%= link_to "Create new Card",
+      new_customers_card_path,
+      class: "sn-item #{nav_active(new_customers_card_path)}" %>
     <a class="sn-item">Rewards</a>
     <a class="sn-item">Locations</a>
     <a class="sn-item">History</a>

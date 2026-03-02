@@ -486,6 +486,7 @@ tr:hover td{background:#FDFAF5;}
 .flash {
   pointer-events: auto;
   position: relative;
+  z-index: 9999;
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -547,6 +548,7 @@ tr:hover td{background:#FDFAF5;}
   color: #B8A898;
   transition: all 0.15s;
   flex-shrink: 0;
+  z-index: 9999;
 }
 
 .flash__close:hover {
@@ -563,6 +565,7 @@ tr:hover td{background:#FDFAF5;}
   width: 100%;
   border-radius: 0 0 12px 12px;
   transform-origin: left;
+  z-index: 9999;
 }
 
 .flash__progress--running {
@@ -579,18 +582,22 @@ tr:hover td{background:#FDFAF5;}
 /* Success / Notice */
 .flash--success {
   border-left: 4px solid #16A34A;
+  z-index: 9999;
 }
 .flash--success .flash__icon {
   background: #D1FAE5;
   color: #166534;
+  z-index: 9999;
 }
 .flash--success .flash__progress {
   background: #16A34A;
+  z-index: 9999;
 }
 
 /* Error / Alert */
 .flash--error {
   border-left: 4px solid #DC2626;
+  z-index: 9999;
 }
 .flash--error .flash__icon {
   background: #FEF2F2;
@@ -598,15 +605,18 @@ tr:hover td{background:#FDFAF5;}
 }
 .flash--error .flash__progress {
   background: #DC2626;
+  z-index: 9999;
 }
 
 /* Warning */
 .flash--warning {
   border-left: 4px solid #F59E0B;
+  z-index: 9999;
 }
 .flash--warning .flash__icon {
   background: #FEF3C7;
   color: #92400E;
+  z-index: 9999;
 }
 .flash--warning .flash__progress {
   background: #F59E0B;
@@ -615,11 +625,56 @@ tr:hover td{background:#FDFAF5;}
 /* Info */
 .flash--info {
   border-left: 4px solid #3B82F6;
+  z-index: 9999;
 }
 .flash--info .flash__icon {
   background: #DBEAFE;
   color: #1E40AF;
+  z-index: 9999;
 }
 .flash--info .flash__progress {
   background: #3B82F6;
+  z-index: 9999;
+}
+
+
+
+
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown content hidden by default */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  z-index: 999;
+  margin-top: 1px;
+}
+
+/* Dropdown links */
+.dropdown-content a {
+  display: block;
+  padding: 10px 14px;
+  color: #2D1B06;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.dropdown-content a:hover {
+  background: #F3ECE2;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
 }
