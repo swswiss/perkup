@@ -1,146 +1,5 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
-
-.layout{display:flex;min-height:100vh;}
-
-
-/* ── MAIN ── */
-.content{flex:1;margin-left:240px;min-height:100vh;}
-.topbar{height:64px;background:rgba(245,240,232,0.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #EBE3D7;display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
-.topbar h1{font-family:'DM Serif Display',serif;font-size:22px;color:#2D1B06;}
-.burger{display:none;width:36px;height:36px;border-radius:10px;background:#FFFCF8;border:1px solid #F0E9DE;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:99;}
-
-/* ── PAGE ── */
-.page{padding:28px 32px 60px;max-width:1060px;}
-.page-desc{font-size:14px;color:#8C7A65;margin-bottom:32px;}
-.page-row{display:flex;gap:28px;align-items:flex-start;}
-.page-left{flex:1;min-width:0;}
-.page-right{flex:0 0 440px;position:sticky;top:92px;}
-
-/* ── FORM ── */
-.form-section{background:#FFFCF8;border:1px solid #F0E9DE;border-radius:16px;padding:28px 28px 32px;margin-bottom:32px;}
-.form-title{font-size:16px;font-weight:700;color:#2D1B06;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
-.form-title .ft-icon{font-size:18px;}
-
-.field{margin-bottom:20px;}
-.field:last-child{margin-bottom:0;}
-.field label{display:block;font-size:13px;font-weight:600;color:#5C4A35;margin-bottom:7px;}
-.field .hint{font-size:11px;color:#B8A898;margin-top:5px;}
-.field input,.field select,.field textarea{
-  width:100%;padding:12px 16px;border-radius:12px;
-  border:1.5px solid #E8DFD2;background:#FFFCF8;
-  font-family:'DM Sans',sans-serif;font-size:14px;color:#2D1B06;
-  outline:none;transition:all .2s;
-}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:#A16207;box-shadow:0 0 0 3px rgba(161,98,7,0.08);}
-.field input::placeholder,.field textarea::placeholder{color:#C4B5A2;}
-.field textarea{resize:vertical;min-height:60px;}
-
-.rule-row{display:grid;grid-template-columns:1fr auto 1fr auto;gap:10px;align-items:end;}
-.rule-row .connector{font-size:14px;font-weight:600;color:#8C7A65;padding-bottom:14px;text-align:center;}
-
-.color-row{display:flex;gap:10px;flex-wrap:wrap;}
-.color-opt{position:relative;}
-.color-opt input{position:absolute;opacity:0;width:0;height:0;}
-.color-opt label{
-  width:40px;height:40px;border-radius:10px;cursor:pointer;display:block;
-  border:2.5px solid transparent;transition:all .2s;
-}
-.color-opt input:checked+label{border-color:#2D1B06;box-shadow:0 0 0 2px #FFFCF8,0 0 0 4px #2D1B06;}
-
-.gen-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:14px 28px;border-radius:12px;border:none;
-  background:#2D1B06;color:#FFFCF8;font-family:'DM Sans',sans-serif;
-  font-size:14px;font-weight:700;cursor:pointer;transition:all .25s;
-  margin-top:8px;
-}
-.gen-btn:hover{background:#1A0F00;box-shadow:0 4px 16px rgba(45,27,6,0.18);transform:translateY(-1px);}
-
-/* ── CARD PREVIEW ── */
-.preview-section{margin-bottom:32px;}
-.preview-label{font-size:12px;font-weight:600;color:#B8A898;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-.preview-label::after{content:'';flex:1;height:1px;background:#EBE3D7;}
-
-.card-preview{
-  width:100%;aspect-ratio:1.55/1;border-radius:22px;
-  padding:36px 32px;position:relative;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:space-between;
-  transition:background .4s,box-shadow .4s;
-  box-shadow:0 12px 40px rgba(0,0,0,0.14),0 0 0 1px rgba(255,255,255,0.1) inset;
-}
-.card-preview::before{
-  content:'';position:absolute;top:-40%;right:-20%;width:60%;height:120%;
-  background:radial-gradient(circle,rgba(255,255,255,0.08) 0%,transparent 70%);
-  pointer-events:none;
-}
-.card-preview::after{
-  content:'☕';position:absolute;bottom:16px;right:24px;font-size:64px;opacity:0.06;
-  pointer-events:none;
-}
-
-.cp-top{position:relative;z-index:1;}
-.cp-shop{font-size:11px;text-transform:uppercase;letter-spacing:2.5px;opacity:0.6;margin-bottom:4px;}
-.cp-name{font-family:'DM Serif Display',serif;font-size:28px;line-height:1.2;min-height:34px;}
-.cp-rule{font-size:12px;opacity:0.55;margin-top:8px;min-height:16px;}
-
-.cp-bottom{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;}
-.cp-stamps-mini{display:flex;flex-wrap:wrap;gap:5px;max-width:260px;}
-.cp-s{width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;border:1px solid rgba(255,255,255,0.1);flex-shrink:0;}
-.cp-s.last{background:rgba(255,255,255,0.25);border:1px solid rgba(255,255,255,0.2);}
-.cp-qr{width:56px;height:56px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;transition:opacity .4s;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-.cp-qr.show{opacity:1;}
-.cp-qr canvas,.cp-qr img{width:48px!important;height:48px!important;}
-
-/* Color themes */
-.theme-dark{background:linear-gradient(135deg,#1C1108,#2D1B06);color:#FFFCF8;}
-.theme-amber{background:linear-gradient(135deg,#92400E,#B45309);color:#FFFCF8;}
-.theme-green{background:linear-gradient(135deg,#14532D,#166534);color:#FFFCF8;}
-.theme-navy{background:linear-gradient(135deg,#1E293B,#334155);color:#FFFCF8;}
-.theme-wine{background:linear-gradient(135deg,#4C1D2F,#7F1D3F);color:#FFFCF8;}
-.theme-slate{background:linear-gradient(135deg,#E8E0D4,#D5C9BA);color:#2D1B06;}
-
-/* ── QR MODAL ── */
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;align-items:center;justify-content:center;padding:24px;}
-.modal-bg.show{display:flex;}
-.modal{background:#FFFCF8;border-radius:20px;padding:40px 36px;text-align:center;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;}
-.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:8px;border:none;background:#F3ECE2;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s;}
-.modal-close:hover{background:#EAE0D2;}
-.modal h3{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:6px;}
-.modal p{font-size:13px;color:#8C7A65;margin-bottom:24px;}
-.modal-qr{display:inline-flex;padding:16px;background:#fff;border-radius:14px;border:1px solid #F0E9DE;margin-bottom:20px;}
-.modal-qr canvas,.modal-qr img{width:180px!important;height:180px!important;}
-.modal-actions{display:flex;gap:10px;justify-content:center;}
-.m-btn{padding:11px 22px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s;}
-.m-btn-d{background:#2D1B06;color:#FFFCF8;}
-.m-btn-d:hover{background:#1A0F00;}
-.m-btn-l{background:#F3ECE2;color:#5C4A35;}
-.m-btn-l:hover{background:#EAE0D2;}
-
-/* ── RESPONSIVE ── */
-@media(max-width:1100px){
-  .page-row{flex-direction:column;}
-  .page-right{flex:0 0 auto;position:static;width:100%;max-width:480px;}
-}
-@media(max-width:900px){
-  .side{transform:translateX(-100%);}
-  .side.open{transform:translateX(0);}
-  .overlay.open{display:block;}
-  .content{margin-left:0;}
-  .burger{display:flex;}
-  .topbar{padding:0 20px;}
-  .page{padding:20px 20px 40px;}
-  .page-row{flex-direction:column;}
-  .page-right{flex:0 0 auto;position:static;width:100%;}
-  .rule-row{grid-template-columns:1fr;gap:0;}
-  .rule-row .connector{padding:4px 0;text-align:left;}
-}
-</style>
-
 <!-- MAIN -->
 <div class="content">
   <header class="topbar">
@@ -161,7 +20,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       <%= form_with(model: [:customers, @card], local: true) do |f| %>
       <div class="field">
         <label for="cardName">Card name</label>
-        <%= f.text_field :name, placeholder: "e.g. Morning Brew Loyalty", maxlength: 40, id:"cardName" %>
+        <%= f.text_field :name, maxlength: 40, id:"cardName" %>
         <div class="hint">This appears as the title on your card</div>
       </div>
 
@@ -177,9 +36,22 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
           </div>
           <div class="connector">→</div>
         </div>
+
         <div style="margin-top:10px;">
-          <%= f.text_field :reward, placeholder: "e.g. 7th is free, next one free...", style: "width:100%;padding:12px 16px;border-radius:12px;border:1.5px solid #E8DFD2;background:#FFFCF8;font-family:'DM Sans',sans-serif;font-size:14px;color:#2D1B06;outline:none;transition:all .2s;", id:"ruleFree" %>
+          <div class="rule-row">
+            <div class="connector">Next</div>
+            <div class="field" style="margin:0;">
+              <%= f.number_field :how_many,
+                    value: 1,
+                    min: 1,
+                    max: 10,
+                    style: "text-align:center;",
+                    id: "ruleFree" %>
+            </div>
+            <div class="connector">free</div>
+          </div>
         </div>
+
         <div class="hint" style="margin-top:8px;">Set how many purchases earn a reward</div>
       </div>
 
@@ -201,13 +73,9 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       </div>
 
       <div class="actions">
-        <%= f.submit "Create Card", class: "submit", id: "submit-btn" %>
+        <%= f.submit "Create Card", class: "submit", id: "submit-btn", class: "gen-btn" %>
       </div>
       <% end %>
-      <button class="gen-btn" id="genBtn">
-        <span id="genIcon">⬡</span>
-        Generate QR Code
-      </button>
     </div>
     </div><!-- end page-left -->
 
@@ -217,7 +85,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       <div class="preview-label">Live Preview</div>
       <div class="card-preview theme-dark" id="cardPreview">
         <div class="cp-top">
-          <div class="cp-shop">BrewPoints</div>
+          <div class="cp-shop">PerkUp</div>
           <div class="cp-name" id="cpName">Your Card Name</div>
           <div class="cp-rule" id="cpRule">Buy 6 coffees → next one is free</div>
         </div>
@@ -231,7 +99,6 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
             <div class="cp-s">☕</div>
             <div class="cp-s last">🎁</div>
           </div>
-          <div class="cp-qr" id="cpQr"></div>
         </div>
       </div>
     </div>
@@ -241,124 +108,63 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
   </div>
 </div>
 
-<!-- QR MODAL -->
-<div class="modal-bg" id="modal">
-  <div class="modal">
-    <button class="modal-close" id="modalClose">✕</button>
-    <h3>Your QR Code</h3>
-    <p>Print this or display it at your counter for customers to scan.</p>
-    <div class="modal-qr" id="modalQr"></div>
-    <div style="font-size:13px;font-weight:700;color:#2D1B06;margin-bottom:4px;" id="modalName"></div>
-    <div style="font-size:12px;color:#8C7A65;margin-bottom:20px;" id="modalRule"></div>
-    <div class="modal-actions">
-      <button class="m-btn m-btn-d" id="downloadBtn">⬇ Download PNG</button>
-      <button class="m-btn m-btn-l" id="modalCloseBtn">Close</button>
-    </div>
-  </div>
-</div>
-
 <script>
-var cardName=document.getElementById('cardName');
-var ruleNum=document.getElementById('ruleNum');
-var ruleItem=document.getElementById('ruleItem');
-var ruleFree=document.getElementById('ruleFree');
-var cardDesc=document.getElementById('cardDesc');
-var cpName=document.getElementById('cpName');
-var cpRule=document.getElementById('cpRule');
-var cpStamps=document.getElementById('cpStamps');
-var cpQr=document.getElementById('cpQr');
-var preview=document.getElementById('cardPreview');
-var genBtn=document.getElementById('genBtn');
-var modal=document.getElementById('modal');
+  var cardName=document.getElementById('cardName');
+  var ruleNum=document.getElementById('ruleNum');
+  var ruleItem=document.getElementById('ruleItem');
+  var ruleFree=document.getElementById('ruleFree');
+  var cardDesc=document.getElementById('cardDesc');
+  var cpName=document.getElementById('cpName');
+  var cpRule=document.getElementById('cpRule');
+  var cpStamps=document.getElementById('cpStamps');
+  var cpQr=document.getElementById('cpQr');
+  var preview=document.getElementById('cardPreview');
+  var genBtn=document.getElementById('genBtn');
+  var modal=document.getElementById('modal');
 
-// Live update card name
-cardName.addEventListener('input',function(){
-  cpName.textContent=this.value||'Your Card Name';
-});
-
-// Live update rule
-function updateRule(){
-  var n=ruleNum.value||'6';
-  var item=ruleItem.value||'coffees';
-  var f=ruleFree.value||'next one is free';
-  cpRule.textContent='Buy '+n+' '+item+' → '+f;
-  updateStamps(parseInt(n)||6);
-}
-ruleNum.addEventListener('input',updateRule);
-ruleItem.addEventListener('input',updateRule);
-ruleFree.addEventListener('input',updateRule);
-
-// Update stamp count
-function updateStamps(n){
-  var html='';
-  for(var i=0;i<n;i++) html+='<div class="cp-s">☕</div>';
-  html+='<div class="cp-s last">🎁</div>';
-  cpStamps.innerHTML=html;
-}
-
-// Theme
-document.querySelectorAll('input[name="theme"]').forEach(function(r){
-  r.addEventListener('change',function(){
-    preview.className='card-preview theme-'+this.value;
+  // Live update card name
+  cardName.addEventListener('input',function(){
+    cpName.textContent=this.value||'Your Card Name';
   });
-});
 
-// Generate QR
-var qrSmall=null,qrBig=null;
-genBtn.addEventListener('click',function(){
-  var name=cardName.value||'BrewPoints Card';
-  var n=ruleNum.value||'6';
-  var item=ruleItem.value||'coffees';
-  var f=ruleFree.value||'next one is free';
-  var data='https://brewpoints.app/card/'+encodeURIComponent(name.toLowerCase().replace(/\s+/g,'-'))+'?rule='+n+'&item='+encodeURIComponent(item)+'&reward='+encodeURIComponent(f);
+  // Live update rule
+  function updateRule(){
+    var n=ruleNum.value||'6';
+    var item=ruleItem.value||'coffees';
+    var f='next ' + ruleFree.value + ' are free';
+    cpRule.textContent='Buy '+n+' '+item+' → '+f;
+    updateStamps(parseInt(n)||6);
+  }
+  ruleNum.addEventListener('input',updateRule);
+  ruleItem.addEventListener('input',updateRule);
+  ruleFree.addEventListener('input',updateRule);
 
-  // Small QR on card
-  cpQr.innerHTML='';
-  qrSmall=new QRCode(cpQr,{text:data,width:48,height:48,colorDark:'#2D1B06',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
-  cpQr.classList.add('show');
+  // Update stamp count
+  function updateStamps(n){
+    var html='';
+    for(var i=0;i<n;i++) html+='<div class="cp-s">☕</div>';
+    html+='<div class="cp-s last">🎁</div>';
+    cpStamps.innerHTML=html;
+  }
 
-  // Modal
-  document.getElementById('modalQr').innerHTML='';
-  qrBig=new QRCode(document.getElementById('modalQr'),{text:data,width:180,height:180,colorDark:'#2D1B06',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H});
-  document.getElementById('modalName').textContent=name;
-  document.getElementById('modalRule').textContent='Buy '+n+' '+item+' → '+f;
-  modal.classList.add('show');
-
-  // Animate button
-  genBtn.innerHTML='✓ QR Generated';
-  genBtn.style.background='#166534';
-  setTimeout(function(){
-    genBtn.innerHTML='<span>⬡</span> Generate QR Code';
-    genBtn.style.background='';
-  },2000);
-});
-
-// Modal close
-document.getElementById('modalClose').addEventListener('click',function(){modal.classList.remove('show');});
-document.getElementById('modalCloseBtn').addEventListener('click',function(){modal.classList.remove('show');});
-modal.addEventListener('click',function(e){if(e.target===modal)modal.classList.remove('show');});
-
-// Download
-document.getElementById('downloadBtn').addEventListener('click',function(){
-  var canvas=document.querySelector('#modalQr canvas');
-  if(!canvas)return;
-  var a=document.createElement('a');
-  a.download='brewpoints-qr.png';
-  a.href=canvas.toDataURL('image/png');
-  a.click();
-});
-
-// Sidebar
-var burger=document.getElementById('burger');
-var sidebar=document.getElementById('sidebar');
-var ov=document.getElementById('overlay');
-burger.addEventListener('click',function(){sidebar.classList.toggle('open');ov.classList.toggle('open');});
-ov.addEventListener('click',function(){sidebar.classList.remove('open');ov.classList.remove('open');});
-document.querySelectorAll('.sn-item').forEach(function(item){
-  item.addEventListener('click',function(){
-    document.querySelectorAll('.sn-item').forEach(function(i){i.classList.remove('active');});
-    this.classList.add('active');
-    if(window.innerWidth<=900){sidebar.classList.remove('open');ov.classList.remove('open');}
+  // Theme
+  document.querySelectorAll('input[name="theme"]').forEach(function(r){
+    r.addEventListener('change',function(){
+      preview.className='card-preview theme-'+this.value;
+    });
   });
-});
+
+  // Sidebar
+  var burger=document.getElementById('burger');
+  var sidebar=document.getElementById('sidebar');
+  var ov=document.getElementById('overlay');
+  burger.addEventListener('click',function(){sidebar.classList.toggle('open');ov.classList.toggle('open');});
+  ov.addEventListener('click',function(){sidebar.classList.remove('open');ov.classList.remove('open');});
+  document.querySelectorAll('.sn-item').forEach(function(item){
+    item.addEventListener('click',function(){
+      document.querySelectorAll('.sn-item').forEach(function(i){i.classList.remove('active');});
+      this.classList.add('active');
+      if(window.innerWidth<=900){sidebar.classList.remove('open');ov.classList.remove('open');}
+    });
+  });
 </script>

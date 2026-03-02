@@ -14,12 +14,16 @@ class Customers::CardsController < ApplicationController
   end
 
   def create
-    binding.pry
     @card = current_customer.cards.build(card_params)
-    if @card.save
-      redirect_to customers_cards_path, notice: "Card created successfully."
+    @card.color = params[:theme]
+
+    # later i will add index unique on customer_id and validates :customer_id, uniqueness: true
+    if current_customer.cards.exists?
+      redirect_to customers_cards_path, alert: "Could not create card: You have already one!"
+    elsif @card.save
+      redirect_to customers_cards_path, notice: "Card \"#{@card.name}\" created successfully!"
     else
-      render :new
+      redirect_to customers_cards_path, alert: "Could not create card: #{@card.errors.full_messages.to_sentence}"
     end
   end
 
@@ -36,7 +40,16 @@ class Customers::CardsController < ApplicationController
 
   def destroy
     @card.destroy
-    redirect_to customers_cards_path, notice: "Card deleted successfully."
+    flash.now[:success] = "Card \"#{@card.name}\" destroyed!"
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove("card_#{@card.id}"),
+          turbo_stream.update("flash-container", partial: "customers/shared/flash_messages")
+        ]
+      end
+      format.html { redirect_to cards_path, notice: "Card destroyed!" }
+    end
   end
 
   private
@@ -46,6 +59,6 @@ class Customers::CardsController < ApplicationController
   end
 
   def card_params
-    params.require(:card).permit(:name, :reward_rule, :product, :reward, :description, :color)
+    params.require(:card).permit(:name, :reward_rule, :product, :reward, :description, :color, :how_many)
   end  
 end

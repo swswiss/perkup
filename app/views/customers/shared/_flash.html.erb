@@ -1,0 +1,29 @@
+<%# Icons per flash type %>
+<% icons = { "notice" => "✓", "success" => "✓", "alert" => "✕", "error" => "✕", "warning" => "⚠", "info" => "ℹ" } %>
+<% type_map = { "notice" => "success", "alert" => "error" } %>
+
+<div id="flash-container" class="flash-container">
+  <% flash.each do |type, message| %>
+    <% css_type = type_map[type] || type %>
+    <div class="flash flash--<%= css_type %>"
+         data-controller="flash"
+         data-flash-duration-value="5000">
+
+      <div class="flash__icon">
+        <%= icons[type] || "ℹ" %>
+      </div>
+
+      <div class="flash__body">
+        <p class="flash__message"><%= message %></p>
+      </div>
+
+      <button class="flash__close"
+              data-action="flash#dismiss"
+              aria-label="Dismiss">
+        ✕
+      </button>
+
+      <div class="flash__progress"></div>
+    </div>
+  <% end %>
+</div>

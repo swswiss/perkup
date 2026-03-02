@@ -1,0 +1,136 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<!-- MAIN -->
+<div class="content">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="burger" id="burger">☰</div>
+      <h1>My Cards</h1>
+    </div>
+  </header>
+
+  <div class="page">
+
+    <div class="page-header">
+      <div class="page-header-left">
+        <h2>All Loyalty Cards</h2>
+        <p>Manage your loyalty cards, rules and QR codes</p>
+      </div>
+      <%= link_to "+ New Card",
+            new_customers_card_path,
+            class: "btn-new" %>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <span class="s-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search cards...">
+      </div>
+      <button class="filter-btn" id="filterBtn">📋 All statuses</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Reward Rule</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>UUID</th>
+            <th style="text-align:right;">Actions</th>
+          </tr>
+        </thead>
+        <%= turbo_frame_tag "cards_table" do %>
+          <tbody id="tableBody">
+            <% @cards.each do |card| %>
+              <tr id="card_<%= card.id %>">
+                <td><div class="td-name"><%= card.name %></div></td>
+                <td class="td-rule">Buy <%= card.reward_rule %> <%= card.product %> → next <%= card.how_many %> are free</td>
+                <td class="td-desc">Earn a stamp with every coffee</td>
+                <td><span class="status active">Active</span></td>
+                <td><span class="td-uuid" onclick="copyUuid(this)" title="Click to copy"><%= card.uuid %><span class="copy-icon">📋</span></span></td>
+                <td><div class="td-actions"><button class="act-btn" title="View">👁</button><button class="act-btn" title="Edit">✏️</button>
+                <%= link_to "🗑",
+                  customers_card_path(card),
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  },
+                  class: "act-btn del",
+                  title: "Delete" %>
+                </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ UUID copied to clipboard</div>
+
+<script>
+// Sidebar toggle
+var burger=document.getElementById('burger');
+var sidebar=document.getElementById('sidebar');
+var ov=document.getElementById('overlay');
+burger.addEventListener('click',function(){sidebar.classList.toggle('open');ov.classList.toggle('open');});
+ov.addEventListener('click',function(){sidebar.classList.remove('open');ov.classList.remove('open');});
+document.querySelectorAll('.sn-item').forEach(function(item){
+  item.addEventListener('click',function(){
+    document.querySelectorAll('.sn-item').forEach(function(i){i.classList.remove('active');});
+    this.classList.add('active');
+    if(window.innerWidth<=900){sidebar.classList.remove('open');ov.classList.remove('open');}
+  });
+});
+
+// Copy UUID
+function copyUuid(el){
+  var text=el.textContent.replace('📋','').trim();
+  navigator.clipboard.writeText(text).then(function(){
+    showToast();
+  });
+}
+
+// Toast
+var toastEl=document.getElementById('toast');
+var toastTimer;
+function showToast(){
+  clearTimeout(toastTimer);
+  toastEl.classList.add('show');
+  toastTimer=setTimeout(function(){toastEl.classList.remove('show');},2000);
+}
+
+// Search
+var searchInput=document.getElementById('searchInput');
+searchInput.addEventListener('input',function(){
+  var q=this.value.toLowerCase();
+  var rows=document.querySelectorAll('#tableBody tr');
+  rows.forEach(function(row){
+    var text=row.textContent.toLowerCase();
+    row.style.display=text.includes(q)?'':'none';
+  });
+});
+
+// Filter
+var filterBtn=document.getElementById('filterBtn');
+var filterStates=['all','active','draft','paused'];
+var filterLabels=['📋 All statuses','● Active','● Drafts','● Paused'];
+var filterIdx=0;
+filterBtn.addEventListener('click',function(){
+  filterIdx=(filterIdx+1)%filterStates.length;
+  filterBtn.textContent=filterLabels[filterIdx];
+  var state=filterStates[filterIdx];
+  var rows=document.querySelectorAll('#tableBody tr');
+  rows.forEach(function(row){
+    if(state==='all'){row.style.display='';return;}
+    var s=row.querySelector('.status');
+    row.style.display=s.classList.contains(state)?'':'none';
+  });
+});
+</script>
