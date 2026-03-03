@@ -120,7 +120,7 @@ body{display:flex;flex-direction:column;}
   padding:6px 12px;font-size:10px;font-weight:600;color:#B8A898;
   text-decoration:none;transition:color .15s;
 }
-.mn-item .mn-icon{font-size:20px;}
+.mn-item {font-size:15px;}
 .mn-item.active{color:#A16207;}
 
 @media(max-width:600px){
@@ -158,7 +158,7 @@ body{display:flex;flex-direction:column;}
 
   <!-- Welcome -->
   <div class="welcome">
-    <h1>Hey Alex ☀️</h1>
+    <h1>Hey <%= current_user.full_name %> ☀️</h1>
     <p>2 stamps away from a free coffee!</p>
   </div>
 
@@ -239,11 +239,11 @@ body{display:flex;flex-direction:column;}
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mob-nav">
   <div class="mob-nav-inner">
-    <a href="#" class="mn-item active"><span class="mn-icon">🏠</span>Home</a>
-    <a href="#" class="mn-item"><span class="mn-icon">🎁</span>Rewards</a>
-    <a href="#" class="mn-item"><span class="mn-icon">📷</span>Scan</a>
-    <a href="#" class="mn-item"><span class="mn-icon">📜</span>History</a>
-    <a href="#" class="mn-item"><span class="mn-icon">👤</span>Profile</a>
+    <a href="#" class="mn-item active">Home</a>
+    <a href="#" class="mn-item">Rewards</a>
+    <a href="#" class="mn-item">Scan</a>
+    <a href="#" class="mn-item">History</a>
+    <a href="#" class="mn-item">Profile</a>
   </div>
 </nav>
 
