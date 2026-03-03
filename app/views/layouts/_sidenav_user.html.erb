@@ -1,0 +1,19 @@
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="topnav-l">
+    <span class="logo-m">☕</span>
+    <span class="logo-t">PerkUp</span>
+  </div>
+  <div class="topnav-r">
+    <div class="nav-links-desktop">
+      <a href="#" class="nav-link active">Home</a>
+      <a href="#" class="nav-link">Rewards</a>
+      <a href="#" class="nav-link">History</a>
+      <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "sn-item" %>
+    </div>
+    <div class="user-pill">
+      <div class="av"></div>
+      <span class="un"><%= current_user.last_name %></span>
+    </div>
+  </div>
+</nav>

@@ -10,8 +10,7 @@
     <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="icon" href="/coffee.png" type="image/png">
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -20,15 +19,21 @@
 
   <body data-turbo-prefetch="false">
     <%= render "customers/shared/flash" %>
-    <% if customer_signed_in? %>
+    <% if customer_signed_in? && params[:action] == 'live_qrcode' %>
+      <main class="container mx-auto mt-28 px-5 flex">  
+        <%= yield %>
+      </main>
+    <% elsif customer_signed_in? %>
       <%= render "layouts/sidenav_customer"%>
       <main class="container mx-auto mt-28 px-5 flex">  
         <%= yield %>
       </main>
     <%elsif user_signed_in?%>
+      <%= render "layouts/sidenav_user"%>
       <main class="container mx-auto mt-28 px-5 flex">  
         <%= yield %>
       </main>
+      <%= render "layouts/sidenav_bottom_user"%>
     <%else%>
       <main class="container mx-auto mt-28 px-5 flex">  
         <%= yield %>

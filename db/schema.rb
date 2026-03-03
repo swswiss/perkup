@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_02_201017) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_03_120211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,26 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_02_201017) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
+  create_table "stamps", force: :cascade do |t|
+    t.bigint "user_card_id", null: false
+    t.string "scan_token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["scan_token"], name: "index_stamps_on_scan_token", unique: true
+    t.index ["user_card_id"], name: "index_stamps_on_user_card_id"
+  end
+
+  create_table "user_cards", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "card_id", null: false
+    t.integer "points", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_user_cards_on_card_id"
+    t.index ["user_id", "card_id"], name: "index_user_cards_on_user_id_and_card_id", unique: true
+    t.index ["user_id"], name: "index_user_cards_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -57,4 +77,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_02_201017) do
   end
 
   add_foreign_key "cards", "customers"
+  add_foreign_key "stamps", "user_cards"
+  add_foreign_key "user_cards", "cards"
+  add_foreign_key "user_cards", "users"
 end

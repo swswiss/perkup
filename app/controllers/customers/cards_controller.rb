@@ -1,6 +1,6 @@
 class Customers::CardsController < ApplicationController
   before_action :authenticate_customer!
-  before_action :set_card, only: [:show, :edit, :update, :destroy]
+  before_action :set_card, only: [:show, :edit, :update, :destroy, :live_qrcode]
 
   def index
     @cards = current_customer.cards
@@ -52,13 +52,17 @@ class Customers::CardsController < ApplicationController
     end
   end
 
+  def live_qrcode
+    @token = SecureRandom.hex(16)
+    MyRedis.instance.set("scan_token:#{@token}", @card.id, ex: 60)
+  end
+
   def qr
     require "rqrcode"
-    @card = current_customer.cards.find(params[:id])
-    
-    expires_in 24.hours, public: true
+    card = current_customer.cards.find(params[:id])
 
-    qr = RQRCode::QRCode.new(customers_scan_url(@card.uuid))
+    token = params[:token]
+    qr = RQRCode::QRCode.new(users_scan_url(token: token))
 
     png = qr.as_png(
       bit_depth: 1,

@@ -1,0 +1,162 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{
+  width:100%;height:100%;
+  min-height:100vh;min-height:100dvh;
+  background:#FFFCF8;
+  font-family:'DM Sans',system-ui,sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+  position:fixed;inset:0;
+}
+
+.screen{
+  text-align:center;
+  padding:40px;
+  width:100%;
+}
+
+.shop-name{
+  font-family:'DM Serif Display',serif;
+  font-size:36px;
+  color:#2D1B06;
+  margin-bottom:6px;
+}
+
+.shop-tag{
+  font-size:14px;
+  color:#8C7A65;
+  margin-bottom:40px;
+}
+
+.qr-box{
+  display:inline-flex;
+  padding:28px;
+  background:#fff;
+  border-radius:24px;
+  border:2px solid #F0E9DE;
+  box-shadow:0 8px 40px rgba(45,27,6,0.06);
+  margin-bottom:32px;
+}
+
+#qr canvas,#qr img{
+  width:280px!important;
+  height:280px!important;
+}
+
+.scan-label{
+  font-size:18px;
+  font-weight:700;
+  color:#2D1B06;
+  margin-bottom:6px;
+}
+
+.scan-sub{
+  font-size:14px;
+  color:#8C7A65;
+  margin-bottom:28px;
+}
+
+.timer-wrap{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:#F8F1E7;
+  padding:10px 20px;
+  border-radius:99px;
+}
+
+.timer-bar{
+  width:120px;
+  height:6px;
+  background:#EBE3D7;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.timer-fill{
+  height:100%;
+  background:linear-gradient(90deg,#A16207,#D4A017);
+  border-radius:99px;
+  transition:width 1s linear;
+}
+
+.timer-text{
+  font-size:13px;
+  font-weight:700;
+  color:#5C4A35;
+  min-width:30px;
+}
+
+.footer{
+  position:fixed;
+  bottom:20px;
+  left:0;right:0;
+  text-align:center;
+  font-size:11px;
+  color:#D5C9BA;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+
+.footer-dot{
+  width:20px;height:20px;border-radius:6px;
+  background:#2D1B06;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:10px;color:#fff;
+}
+</style>
+<meta http-equiv="refresh" content="60">
+<div class="screen">
+  <h1 class="shop-name"><%= current_customer.name %></h1>
+  <p class="shop-tag">Loyalty Program</p>
+
+  <div class="qr-box">
+    <div id="qr">
+      <%= image_tag qr_customers_card_path(@card, token: @token), style: "width:200px;height:200px;" %>
+    </div>
+  </div>
+
+  <div class="scan-label">Scan to earn your stamp</div>
+  <p class="scan-sub">Open your camera and point it at the QR code</p>
+
+  <div class="timer-wrap">
+    <div class="timer-bar"><div class="timer-fill" id="fill"></div></div>
+    <div class="timer-text" id="countdown">60s</div>
+  </div>
+</div>
+
+<div class="footer">
+  <span class="footer-dot">☕</span>
+  Powered by PerkUp
+</div>
+
+<script>
+  var DURATION = 60;
+  var remaining = DURATION;
+
+  var fill = document.getElementById('fill');
+  var countdown = document.getElementById('countdown');
+
+  if (window.timerInterval) {
+    clearInterval(window.timerInterval);
+  }
+
+  function tick() {
+    remaining--;
+
+    var pct = (remaining / DURATION) * 100;
+    fill.style.width = pct + '%';
+    countdown.textContent = remaining + 's';
+
+    if (remaining <= 0) {
+      clearInterval(window.timerInterval);
+    }
+  }
+  window.timerInterval = setInterval(tick, 1000);
+</script>

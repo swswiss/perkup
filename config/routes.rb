@@ -34,13 +34,14 @@ Rails.application.routes.draw do
     resources :cards do
       member do
         get :qr
+        get :live_qrcode
       end
     end
     get "dashboard", to: "dashboard#index"
-    get "scan/:uuid", to: "scans#show", as: :scan
   end
 
   namespace :users do
     get "dashboard", to: "dashboard#index"
+    get "scan/:token", to: "scans#show", as: :scan
   end
 end

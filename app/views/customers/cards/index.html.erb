@@ -58,6 +58,10 @@
                     title: "View" %>
 
                   <button class="act-btn" title="Edit">✏️</button>
+                  <%= link_to "🖥️",
+                    live_qrcode_customers_card_path(card),
+                    class: "act-btn",
+                    title: "View" %>
                   <%= link_to "🗑",
                     customers_card_path(card),
                     data: {

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BrewPoints — Card Details</title>
+<title>PerkUp — Card Details</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -184,10 +184,6 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
                 <div class="cv-s last">🎁</div>
               <%end%>
             </div>
-            <div class="cv-qr">
-              <%= image_tag qr_customers_card_path(@card),
-                    style: "width:44px;height:44px;" %>
-            </div>
           </div>
         </div>
       </div>
@@ -228,24 +224,6 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
             </div>
           </div>
         </div>
-
-        <!-- QR Code -->
-        <div class="qr-section">
-          <h3>QR Code</h3>
-          <p>Print or display at your counter for customers to scan</p>
-          <div class="qr-big" id="qr-to-print">
-            <%= image_tag qr_customers_card_path(@card),
-                  style: "width:200px;height:200px;" %>
-          </div>
-          <div class="qr-actions">
-            <%= link_to "⬇ Download PNG",
-            qr_customers_card_path(@card),
-            class: "btn-d",
-            download: "card-#{@card.uuid}.png" %>
-            <button class="btn-o" onclick="printQr()">🖨 Print</button>
-          </div>
-        </div>
-
       </div>
     </div>
 
