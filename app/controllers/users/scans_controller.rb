@@ -17,6 +17,7 @@ class Users::ScansController < ApplicationController
     binding.pry
     card = Card.find(card_id)
     user_card = UserCard.find_or_create_by(user: current_user, card: card)
+    Stamp.create(user_card_id: user_card.id, scan_token: token) if user_card && token
 
     user_card.increment!(:points)
 

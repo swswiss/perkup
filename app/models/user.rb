@@ -8,6 +8,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
 
   has_many :user_cards
+  has_many :stamps, through: :user_cards
 
   def full_name
     "#{first_name} #{last_name}"
