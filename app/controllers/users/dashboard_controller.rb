@@ -19,6 +19,7 @@ class Users::DashboardController < ApplicationController
         0
       end
     @empty_stamps = @card&.reward_rule - @how_many_stamps_on_user_card rescue nil
-    @last_4_stamps = @user_card&.stamps&.last(4)
+    @last_4_stamps = @user_card&.stamps&.last(3)
+    @coupons = current_user.coupons.last(3)
 	end
 end

@@ -16,7 +16,7 @@ body>*,section,nav,footer{display:block;width:100%;}
 .w{width:100%;max-width:1080px;margin-left:auto;margin-right:auto;padding-left:24px;padding-right:24px;}
 
 /* ── NAV ── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(255,252,248,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.05);height:64px;}
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(255,252,248,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.05);height:64px;}
 .nav .w{display:flex;align-items:center;justify-content:space-between;height:64px;}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#2D1B06;font-weight:800;font-size:18px;}
 .logo-mark{width:32px;height:32px;border-radius:10px;background:#2D1B06;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;}

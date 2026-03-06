@@ -1,10 +1,10 @@
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mob-nav">
   <div class="mob-nav-inner">
-    <a href="#" class="mn-item active">Home</a>
+    <%= link_to 'Home', users_dashboard_path, class: "mn-item #{nav_active(users_dashboard_path)}" %>
     <a href="#" class="mn-item">Rewards</a>
-    <a href="#" class="mn-item">Scan</a>
     <a href="#" class="mn-item">History</a>
     <a href="#" class="mn-item">Profile</a>
+    <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "mn-item" %>
   </div>
 </nav>

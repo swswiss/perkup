@@ -21,4 +21,14 @@ module ApplicationHelper
     end
   end
   
+  def status_coupon(coupon)
+    if coupon.used == false
+      {used: false, label: "Redeem", class: "ready"}
+    elsif coupon.used == true
+      {used: true, label: "Redeemed", class: "lock"}
+    elsif coupon.expires_at < Time.current
+      {used: true, label: "Expired", class: "lock"}
+    end
+  end
+  
 end

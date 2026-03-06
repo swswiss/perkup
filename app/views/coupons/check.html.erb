@@ -1,0 +1,11 @@
+<h2>Coupon</h2>
+
+<p>Free Coffee</p>
+
+<% if @coupon.used? %>
+  <p style="color:red;">Already used</p>
+<% elsif @coupon.expires_at < Time.current %>
+  <p style="color:red;">Expired</p>
+<% else %>
+  <%= button_to "Redeem", redeem_coupons_path(token: @coupon.code), method: :post %>
+<% end %>

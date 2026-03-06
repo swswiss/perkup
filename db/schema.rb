@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_03_120211) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_06_084221) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,20 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_03_120211) do
     t.integer "how_many", default: 1, null: false
     t.index ["customer_id"], name: "index_cards_on_customer_id"
     t.index ["uuid"], name: "index_cards_on_uuid", unique: true
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "code", null: false
+    t.bigint "user_id", null: false
+    t.bigint "card_id", null: false
+    t.boolean "used", default: false
+    t.datetime "used_at"
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_coupons_on_card_id"
+    t.index ["code"], name: "index_coupons_on_code", unique: true
+    t.index ["user_id"], name: "index_coupons_on_user_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -77,6 +91,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_03_120211) do
   end
 
   add_foreign_key "cards", "customers"
+  add_foreign_key "coupons", "cards"
+  add_foreign_key "coupons", "users"
   add_foreign_key "stamps", "user_cards"
   add_foreign_key "user_cards", "cards"
   add_foreign_key "user_cards", "users"

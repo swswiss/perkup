@@ -44,4 +44,15 @@ Rails.application.routes.draw do
     get "dashboard", to: "dashboard#index"
     get "scan/:token", to: "scans#show", as: :scan
   end
+
+  resources :coupons do
+    member do
+      get :qr
+    end
+    collection do
+      get :check
+      post :redeem
+    end
+    get :activities, on: :collection
+  end
 end

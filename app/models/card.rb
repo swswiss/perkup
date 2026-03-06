@@ -2,6 +2,7 @@ class Card < ApplicationRecord
   belongs_to :customer
   has_many :user_cards, dependent: :destroy
   has_many :users, through: :user_cards
+  has_many :coupons, dependent: :destroy
 
   validates :name, :uuid, presence: true
   validates :name,

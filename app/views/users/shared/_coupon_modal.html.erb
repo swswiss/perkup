@@ -1,0 +1,74 @@
+<div data-controller="coupon-modal"
+     data-action="keydown@document->coupon-modal#closeOnEscape">
+
+  <%# This is the modal overlay %>
+  <div class="cm-overlay"
+       data-coupon-modal-target="overlay"
+       data-action="click->coupon-modal#backdropClose">
+
+    <div class="cm-modal">
+      <button class="cm-close"
+              data-action="coupon-modal#close"
+              aria-label="Close">✕</button>
+
+      <div class="cm-icon">☕</div>
+
+      <h3 class="cm-title"
+          data-coupon-modal-target="name">Free Coffee</h3>
+
+      <p class="cm-expires"
+         data-coupon-modal-target="expires"></p>
+
+      <div class="cm-qr-box">
+        <img src="" alt="QR Code"
+             data-coupon-modal-target="qrImage"
+             class="cm-qr-img">
+        <div class="cm-qr-loading">Loading QR...</div>
+      </div>
+
+      <div class="cm-code"
+           data-coupon-modal-target="code"></div>
+
+      <p class="cm-hint">Show this to the cashier to redeem</p>
+    </div>
+  </div>
+
+  <%# Coupons list — each coupon triggers the modal %>
+  <div class="section">
+    <div class="section-h">
+      <h2>My Coupons</h2>
+      <%= link_to 'View all', coupons_path %>
+    </div>
+
+    <% if @coupons.any? %>
+      <% @coupons.each do |coupon| %>
+        <a href="#"
+           class="rew-link"
+           data-action="click->coupon-modal#open"
+           data-coupon-id="<%= coupon.id %>"
+           data-coupon-name="Free Coffee"
+           data-coupon-expires="Expires in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>"
+           data-coupon-code="<%= coupon.code %>">
+          <div class="rew">
+            <div class="rew-icon">☕</div>
+            <div class="rew-info">
+              <div class="rew-name">Free Coffee</div>
+              <div class="rew-desc">
+                Any size · Expires in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>
+              </div>
+            </div>
+            <span class="rew-badge <%= status_coupon(coupon)[:class] %>">
+              <%= status_coupon(coupon)[:label] %>
+            </span>
+          </div>
+        </a>
+      <% end %>
+    <% else %>
+      <div class="rew">
+        <div class="rew-info">
+          <div class="rew-name">You have no Coupons yet!</div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
