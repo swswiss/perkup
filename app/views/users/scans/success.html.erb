@@ -136,7 +136,9 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
       <% @remaining.times do %>
         <div class="st off"></div>
       <% end %>
-      <div class="st gift">🎁</div>
+      <% @card.how_many.times do %>
+        <div class="st gift">🎁</div>
+      <% end %>
     </div>
   </div>
 
