@@ -31,7 +31,7 @@
       <main class="container mx-auto mt-28 px-5 flex">  
         <%= yield %>
       </main>
-    <% elsif user_signed_in? && params[:action] == 'check' %>
+    <% elsif user_signed_in? && (params[:action] == 'check' || params[:action] == 'success' || params[:action] == 'reward' || params[:action] == 'expired') %>
       <main class="container mx-auto mt-28 px-5 flex">  
         <%= yield %>
       </main>

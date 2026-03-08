@@ -43,6 +43,9 @@ Rails.application.routes.draw do
   namespace :users do
     get "dashboard", to: "dashboard#index"
     get "scan/:token", to: "scans#show", as: :scan
+    get "scan-success", to: "scans#success", as: :scan_success
+    get "scan-reward",  to: "scans#reward",  as: :scan_reward
+    get "scan-expired", to: "scans#expired",  as: :scan_expired
   end
 
   resources :coupons do

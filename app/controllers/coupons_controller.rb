@@ -46,7 +46,12 @@ class CouponsController < ApplicationController
     elsif @coupon.expires_at < Time.current
       redirect_to check_coupons_path(token: @coupon.code), alert: "Coupon expired"
     else
-      @coupon.update!(used: true, used_at: Time.current)
+      @coupon.update!(used: true, used_at: Time.now)
+      card = @coupon.card
+      user_card = UserCard.find_by(user: current_user, card: card)
+      Stamp.create(user_card_id: user_card.id, scan_token: SecureRandom.hex(16)) if user_card
+
+      user_card.increment!(:points) if user_card
       redirect_to check_coupons_path(token: @coupon.code), notice: "Coupon redeemed"
     end
   end  

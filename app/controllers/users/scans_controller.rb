@@ -6,8 +6,7 @@ class Users::ScansController < ApplicationController
     card_id = MyRedis.instance.get("scan_token:#{token}")
 
     if card_id.nil?
-      render plain: "QR expired or invalid", status: :forbidden
-      return
+      return redirect_to users_scan_expired_path
     end
 
     # Invalidate immediately (one-time use)
@@ -19,9 +18,27 @@ class Users::ScansController < ApplicationController
     return unless stamp.persisted?
 
     user_card.increment!(:points)
-    create_coupon(user_card, card)
+    coupon = create_coupon(user_card, card)
 
-    render plain: "Points added!"
+    if coupon
+      redirect_to users_scan_reward_path(card_id: card.id, coupon_id: coupon.id)
+    else
+      redirect_to users_scan_success_path(card_id: card.id)
+    end
+  end
+
+  def success
+    @card = Card.find(params[:card_id])
+    @user_card = UserCard.find_by(user: current_user, card: @card)
+    @stamps = @user_card.points
+    @total = @card.reward_rule
+    @remaining = @total - @stamps
+  end
+
+  def reward
+  end
+
+  def expired
   end
 
   private
