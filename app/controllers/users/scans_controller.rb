@@ -45,7 +45,9 @@ class Users::ScansController < ApplicationController
 
   def create_coupon(user_card, card)
     if user_card.stamps.count % card.reward_rule == 0
-      Coupon.create(user_id: current_user.id, card_id: card.id, used: false)
+      card.how_many.times do
+        Coupon.create(user_id: current_user.id, card_id: card.id, used: false)
+      end
     end
   end
 end
