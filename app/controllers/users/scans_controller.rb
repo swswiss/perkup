@@ -19,7 +19,7 @@ class Users::ScansController < ApplicationController
     return unless stamp.persisted?
 
     user_card.increment!(:points)
-    create_coupon(user_card, )
+    create_coupon(user_card, card)
 
     render plain: "Points added!"
   end

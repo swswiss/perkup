@@ -252,14 +252,12 @@ pw.addEventListener('input',function(){
   strLabel.textContent=labels[str];
   strLabel.className='strength-label c'+str;
   checkMatch();
-  validate();
 });
 
-pw2.addEventListener('input',function(){checkMatch();validate();});
+pw2.addEventListener('input',function(){checkMatch();});
 email.addEventListener('input',function(){
   emailErr.style.display='none';
   email.classList.remove('err');
-  validate();
 });
 email.addEventListener('blur',function(){
   if(email.value&&!isValidEmail(email.value)){
@@ -268,7 +266,7 @@ email.addEventListener('blur',function(){
     email.classList.add('err');
   }
 });
-agree.addEventListener('change',function(){validate();});
+agree.addEventListener('change',function(){});
 
 function isValidEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
 
@@ -283,22 +281,6 @@ function checkMatch(){
     pw2.classList.remove('err');
   }
 }
-
-function validate(){
-  var ok=isValidEmail(email.value)&&pw.value.length>=8&&pw.value===pw2.value&&agree.checked;
-  btn.disabled=!ok;
-}
-
-btn.addEventListener('click',function(){
-  if(!btn.disabled){
-    btn.textContent='Creating account...';
-    btn.disabled=true;
-    setTimeout(function(){
-      btn.textContent='✓ Account created!';
-      btn.style.background='#16A34A';
-    },1500);
-  }
-});
 </script>
 </body>
 </html>
