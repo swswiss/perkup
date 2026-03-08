@@ -238,7 +238,7 @@ body{display:flex;flex-direction:column;}
   <!-- Welcome -->
   <% if @user_card.present? %>
     <div class="welcome">
-      <h1>Hey <%= current_user.full_name %> ☀️</h1>
+      <h1>Hey <%= current_user.full_name %></h1>
       <% if @empty_stamps > 0 %>
         <p><%= @empty_stamps %> stamps away from a free coffee!</p>
       <% else %>

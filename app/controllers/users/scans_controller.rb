@@ -4,16 +4,15 @@ class Users::ScansController < ApplicationController
   def show
     token = params[:token]
     card_id = MyRedis.instance.get("scan_token:#{token}")
-    binding.pry
+
     if card_id.nil?
       render plain: "QR expired or invalid", status: :forbidden
       return
     end
 
     # Invalidate immediately (one-time use)
-    binding.pry
     MyRedis.instance.del("scan_token:#{token}")
-    binding.pry
+
     card = Card.find(card_id)
     user_card = UserCard.find_or_create_by(user: current_user, card: card)
     stamp = Stamp.create(user_card_id: user_card.id, scan_token: token) if user_card && token

@@ -14,7 +14,6 @@ class CouponsController < ApplicationController
   end
   
   def check
-    binding.pry
     @coupon = Coupon.find_by!(code: params[:token])
   end
 
@@ -40,7 +39,6 @@ class CouponsController < ApplicationController
   end
 
   def redeem
-    binding.pry
     @coupon = Coupon.find_by!(code: params[:token])
   
     if @coupon.used?

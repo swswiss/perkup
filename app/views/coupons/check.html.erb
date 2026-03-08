@@ -1,11 +1,274 @@
-<h2>Coupon</h2>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{
+  width:100%;height:100%;min-height:100vh;min-height:100dvh;
+  background:#F5F0E8;color:#2D1B06;
+  font-family:'DM Sans',system-ui,sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  -webkit-font-smoothing:antialiased;
+  padding:24px;
+}
 
-<p>Free Coffee</p>
+.card{
+  width:100%;max-width:420px;
+  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:24px;
+  padding:36px 32px;text-align:center;
+  box-shadow:0 8px 40px rgba(45,27,6,0.06);
+}
 
-<% if @coupon.used? %>
-  <p style="color:red;">Already used</p>
-<% elsif @coupon.expires_at < Time.current %>
-  <p style="color:red;">Expired</p>
-<% else %>
-  <%= button_to "Redeem", redeem_coupons_path(token: @coupon.code), method: :post %>
-<% end %>
+/* Status icon */
+.status-icon{
+  width:64px;height:64px;border-radius:18px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:32px;margin-bottom:20px;
+}
+.status-icon.valid{background:#D1FAE5;}
+.status-icon.used{background:#FEF2F2;}
+.status-icon.expired{background:#FEF3C7;}
+
+/* Coupon info */
+.coupon-name{
+  font-family:'DM Serif Display',serif;
+  font-size:26px;color:#2D1B06;margin-bottom:4px;
+}
+.coupon-shop{font-size:13px;color:#8C7A65;margin-bottom:24px;}
+
+/* Detail rows */
+.details{
+  background:#FDFAF5;border-radius:14px;
+  padding:4px 0;margin-bottom:24px;
+  text-align:left;
+}
+.d-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 18px;
+}
+.d-row+.d-row{border-top:1px solid #F0E9DE;}
+.d-label{font-size:12px;color:#8C7A65;font-weight:600;}
+.d-value{font-size:13px;color:#2D1B06;font-weight:600;}
+.d-value.code{
+  font-family:'DM Sans',monospace;
+  background:#F3ECE2;padding:3px 10px;border-radius:6px;
+  letter-spacing:1.5px;font-size:12px;
+}
+
+/* Status badges */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 14px;border-radius:8px;
+  font-size:12px;font-weight:700;
+}
+.badge.valid{background:#D1FAE5;color:#166534;}
+.badge.used{background:#FEF2F2;color:#991B1B;}
+.badge.expired{background:#FEF3C7;color:#92400E;}
+
+/* Customer info */
+.customer{
+  display:flex;align-items:center;gap:12px;
+  background:#FDFAF5;border-radius:14px;
+  padding:14px 18px;margin-bottom:24px;
+  text-align:left;
+}
+.customer-av{
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,#A16207,#D4A017);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:700;color:#fff;flex-shrink:0;
+}
+.customer-name{font-size:14px;font-weight:700;color:#2D1B06;}
+.customer-email{font-size:11px;color:#8C7A65;margin-top:1px;}
+
+/* Buttons */
+.btn-redeem{
+  width:100%;padding:16px;border-radius:14px;border:none;
+  background:#166534;color:#fff;
+  font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-redeem:hover{background:#14532D;box-shadow:0 4px 16px rgba(22,101,52,0.2);transform:translateY(-1px);}
+.btn-redeem:active{transform:translateY(0);}
+
+/* Disabled states */
+.msg-box{
+  width:100%;padding:16px;border-radius:14px;
+  font-size:14px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.msg-box.used-msg{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA;}
+.msg-box.expired-msg{background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;}
+
+/* Footer */
+.foot{margin-top:20px;font-size:11px;color:#D5C9BA;display:flex;align-items:center;justify-content:center;gap:5px;}
+.foot-dot{width:16px;height:16px;border-radius:5px;background:#2D1B06;display:inline-flex;align-items:center;justify-content:center;font-size:8px;color:#fff;}
+
+/* Confirmation state */
+.confirm-overlay{
+  display:none;
+  position:fixed;inset:0;z-index:100;
+  background:rgba(0,0,0,0.4);
+  align-items:center;justify-content:center;padding:24px;
+}
+.confirm-overlay.show{display:flex;}
+.confirm-box{
+  background:#FFFCF8;border-radius:20px;padding:32px;
+  text-align:center;max-width:340px;width:100%;
+  box-shadow:0 20px 60px rgba(0,0,0,0.15);
+  animation:pop .25s ease;
+}
+@keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+.confirm-box h3{font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:6px;}
+.confirm-box p{font-size:13px;color:#8C7A65;margin-bottom:20px;}
+.confirm-btns{display:flex;gap:8px;}
+.cbtn{
+  flex:1;padding:12px;border-radius:10px;border:none;
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .15s;
+}
+.cbtn-cancel{background:#F3ECE2;color:#5C4A35;}
+.cbtn-cancel:hover{background:#EAE0D2;}
+.cbtn-confirm{background:#166534;color:#fff;}
+.cbtn-confirm:hover{background:#14532D;}
+
+/* Success animation */
+.success-screen{
+  display:none;flex-direction:column;align-items:center;
+  justify-content:center;gap:12px;padding:40px 0;
+}
+.success-screen.show{display:flex;}
+.success-check{
+  width:72px;height:72px;border-radius:50%;
+  background:#D1FAE5;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;
+  animation:checkpop .4s ease;
+}
+@keyframes checkpop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.success-screen h2{font-family:'DM Serif Display',serif;font-size:24px;color:#166534;}
+.success-screen p{font-size:14px;color:#8C7A65;}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <% if @coupon.used? %>
+
+    <%# ══ ALREADY USED ══ %>
+    <div class="coupon-name">Free Coffee</div>
+    <div class="coupon-shop"><%= @coupon.card.name %></div>
+
+    <div class="customer">
+      <div>
+        <div class="customer-name"><%= @coupon.user.full_name %></div>
+        <div class="customer-email"><%= @coupon.user.email %></div>
+      </div>
+    </div>
+
+    <div class="details">
+      <div class="d-row">
+        <span class="d-label">Status</span>
+        <span class="badge used">● Already Used</span>
+      </div>
+      <div class="d-row">
+        <span class="d-label">Used on</span>
+        <span class="d-value"><%= @coupon.used_at.strftime("%b %d, %Y — %I:%M %p") %></span>
+      </div>
+      <div class="d-row">
+        <span class="d-label">Code</span>
+        <span class="d-value code"> <%= @coupon.code %></span>
+      </div>
+    </div>
+
+    <div class="msg-box used-msg">✕ This coupon has already been used</div>
+
+  <% elsif @coupon.expires_at < Time.current %>
+
+    <%# ══ EXPIRED ══ %>
+    <div class="coupon-name">Free Coffee</div>
+    <div class="coupon-shop"><%= @coupon.card.name %></div>
+
+    <div class="customer">
+      <div>
+        <div class="customer-name"><%= @coupon.user.full_name %></div>
+        <div class="customer-email"><%= @coupon.user.email %></div>
+      </div>
+    </div>
+
+    <div class="details">
+      <div class="d-row">
+        <span class="d-label">Status</span>
+        <span class="badge expired">● Expired</span>
+      </div>
+      <div class="d-row">
+        <span class="d-label">Expired on</span>
+        <span class="d-value"><%= @coupon.expires_at.strftime("%b %d, %Y") %></span>
+      </div>
+      <div class="d-row">
+        <span class="d-label">Code</span>
+        <span class="d-value code"><%= @coupon.code %></span>
+      </div>
+    </div>
+
+    <div class="msg-box expired-msg">⏱ This coupon has expired</div>
+
+  <% else %>
+
+    <%# ══ VALID — CAN REDEEM ══ %>
+    <div class="coupon-name">Free Coffee</div>
+    <div class="coupon-shop"><%= @coupon.card.name %></div>
+
+    <div class="customer">
+      <div>
+        <div class="customer-name"><%= @coupon.user.full_name %></div>
+        <div class="customer-email"><%= @coupon.user.email %></div>
+      </div>
+    </div>
+
+    <div class="details">
+      <div class="d-row">
+        <span class="d-label">Status</span>
+        <span class="badge valid">● Valid</span>
+      </div>
+      <div class="d-row">
+        <span class="d-label">Expires</span>
+        <span class="d-value"><%= @coupon.expires_at.strftime("%b %d, %Y") %></span>
+      </div>
+      <div class="d-row">
+        <span class="d-label">Code</span>
+        <span class="d-value code"><%= @coupon.code %></span>
+      </div>
+    </div>
+
+    <%= button_to "✓ Redeem Coupon",
+        redeem_coupons_path(token: @coupon.code),
+        method: :post,
+        class: "btn-redeem",
+        id: "redeemBtn",
+        data: {
+          turbo_confirm: "Redeem this coupon? This cannot be undone."
+        }
+    %>
+
+  <% end %>
+
+  <div class="foot">
+    <span class="foot-dot">☕</span> PerkUp
+  </div>
+</div>
+
+<script>
+
+function redeem() {
+  var btn = document.getElementById('redeemBtn');
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Processing...';
+
+  setTimeout(function() {
+    document.getElementById('validState').style.display = 'none';
+    var success = document.getElementById('successState');
+    success.classList.add('show');
+  }, 800);
+}
+</script>
