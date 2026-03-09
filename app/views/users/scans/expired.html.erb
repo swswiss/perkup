@@ -123,10 +123,27 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
     Please scan a fresh QR code at the counter.
   </div>
 
-  <button onclick="startScanner()" class="btn btn-dark">
-    Scan Again
+  <button class="scan-btn" id="scanBtn" onclick="toggleScanner()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+      <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+      <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+      <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+      <rect x="7" y="7" width="10" height="10" rx="1"/>
+    </svg>
+    Scan QR Code
   </button>
-  <div id="reader" style="width:300px; display:none;"></div>
+
+  <div class="scanner-wrap" id="scannerWrap">
+    <div class="scanner-header">
+      <span>📷 Camera</span>
+      <button class="scanner-close" onclick="closeScanner()">✕</button>
+    </div>
+    <div class="scanner-viewport">
+      <div id="reader"></div>
+    </div>
+    <div class="scanner-hint">Point your camera at the QR code on the counter</div>
+  </div>
 
   <div class="foot"><span class="foot-dot">☕</span> PerkUp</div>
 </div>
@@ -134,21 +151,83 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
   var html5QrCode;
+  var scanning = false;
 
-  function startScanner() {
-    const readerDiv = document.getElementById("reader");
-    readerDiv.style.display = "block";
+  function toggleScanner() {
+    if (scanning) {
+      closeScanner();
+    } else {
+      openScanner();
+    }
+  }
+
+  function openScanner() {
+    var wrap = document.getElementById("scannerWrap");
+    var btn  = document.getElementById("scanBtn");
+    wrap.classList.add("open");
+    scanning = true;
+
+    btn.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+        '<path d="M3 7V5a2 2 0 0 1 2-2h2"/>' +
+        '<path d="M17 3h2a2 2 0 0 1 2 2v2"/>' +
+        '<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
+        '<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>' +
+        '<circle cx="12" cy="12" r="3"/>' +
+      '</svg> Scanning...';
 
     html5QrCode = new Html5Qrcode("reader");
 
     html5QrCode.start(
       { facingMode: "environment" },
-      { fps: 10, qrbox: 250 },
-      (decodedText) => {
-        html5QrCode.stop();
-        window.location.href = decodedText;
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      function(decodedText) {
+        scanning = false;
+        html5QrCode.stop().then(function() {
+          btn.innerHTML =
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+              '<path d="M20 6L9 17l-5-5"/>' +
+            '</svg> Redirecting...';
+          btn.style.background = "#166534";
+          window.location.href = decodedText;
+        }).catch(function() {
+          window.location.href = decodedText;
+        });
       },
-      (errorMessage) => {}
-    );
+      function(errorMessage) {}
+    ).catch(function(err) {
+      // Camera permission denied or not available
+      scanning = false;
+      wrap.classList.remove("open");
+      resetButton();
+      alert("Camera access denied. Please allow camera permission in your browser settings and try again.");
+    });
+  }
+
+  function closeScanner() {
+    var wrap = document.getElementById("scannerWrap");
+    wrap.classList.remove("open");
+    resetButton();
+
+    if (html5QrCode && scanning) {
+      scanning = false;
+      html5QrCode.stop().catch(function() {});
+    } else {
+      scanning = false;
+    }
+  }
+
+  function resetButton() {
+    var btn = document.getElementById("scanBtn");
+    btn.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+        '<path d="M3 7V5a2 2 0 0 1 2-2h2"/>' +
+        '<path d="M17 3h2a2 2 0 0 1 2 2v2"/>' +
+        '<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
+        '<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>' +
+        '<rect x="7" y="7" width="10" height="10" rx="1"/>' +
+      '</svg> Scan QR Code';
+    btn.style.background = "";
   }
 </script>
+
