@@ -120,28 +120,6 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
 
   <div class="pts-box">+1 stamp earned</div>
 
-  <div class="progress-box">
-    <div class="progress-label">
-      <span><%= @stamps %> of <%= @total %> stamps</span>
-      <span><%= @remaining %> more to go</span>
-    </div>
-    <div class="pbar">
-      <div class="pfill" style="width:<%= (@stamps.to_f / @total * 100).round %>%"></div>
-    </div>
-    <div class="stamps-row">
-      <% (@stamps - 1).times do %>
-        <div class="st on">☕</div>
-      <% end %>
-      <div class="st on new">☕</div>
-      <% @remaining.times do %>
-        <div class="st off"></div>
-      <% end %>
-      <% @card.how_many.times do %>
-        <div class="st gift">🎁</div>
-      <% end %>
-    </div>
-  </div>
-
   <%= link_to "← Back to My Card", root_path, class: "btn btn-dark" %>
 
   <div class="foot"><span class="foot-dot">☕</span> PerkUp</div>
