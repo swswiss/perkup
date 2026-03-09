@@ -311,6 +311,73 @@ body{display:flex;flex-direction:column;}
   font-size:8px;color:#fff;
 }
 
+
+.btn1{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:12px;border:none;
+  background:#2D1B06;color:#FFFCF8;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .2s;text-decoration:none;
+}
+
+.btn1:hover{
+  background:#1A0F00;
+  box-shadow:0 4px 16px rgba(45,27,6,0.15);
+  transform:translateY(-1px);
+}
+
+
+.scan-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:16px;border-radius:14px;border:none;
+  background:#2D1B06;color:#FFFCF8;
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+  margin-bottom:24px;
+  box-shadow:0 2px 12px rgba(45,27,6,0.1);
+}
+.scan-btn:hover{
+  background:#1A0F00;
+  box-shadow:0 4px 20px rgba(45,27,6,0.2);
+  transform:translateY(-1px);
+}
+.scan-btn:active{transform:translateY(0);}
+.scan-btn svg{flex-shrink:0;}
+
+/* Scanner container */
+.scanner-wrap{
+  display:none;
+  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:16px;
+  overflow:hidden;margin-bottom:24px;
+  box-shadow:0 4px 20px rgba(45,27,6,0.06);
+}
+.scanner-wrap.open{display:block;animation:slideDown .3s ease;}
+@keyframes slideDown{from{opacity:0;max-height:0}to{opacity:1;max-height:400px}}
+
+.scanner-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;border-bottom:1px solid #F0E9DE;
+}
+.scanner-header span{font-size:13px;font-weight:600;color:#2D1B06;display:flex;align-items:center;gap:6px;}
+.scanner-close{
+  width:28px;height:28px;border-radius:8px;border:none;
+  background:#F3ECE2;cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  color:#8C7A65;transition:all .15s;
+}
+.scanner-close:hover{background:#EAE0D2;color:#2D1B06;}
+
+.scanner-viewport{
+  width:100%;aspect-ratio:1;position:relative;background:#0a0a0a;
+}
+.scanner-viewport #reader{width:100%!important;height:100%!important;}
+.scanner-viewport #reader video{border-radius:0!important;}
+
+.scanner-hint{
+  padding:10px 16px;text-align:center;
+  font-size:11px;color:#8C7A65;background:#FDFAF5;
+}
+
 </style>
 
 <!-- MAIN -->
@@ -353,6 +420,28 @@ body{display:flex;flex-direction:column;}
         <div class="mc-bar"><div class="mc-fill" style="width:<%= stamp_progress_width(@how_many_stamps_on_user_card, @card.reward_rule) %>%"></div></div>
         <div class="mc-bar-text"><span><%= @how_many_stamps_on_user_card %> of <%= @card.reward_rule %> stamps</span><span><%= @empty_stamps %> more to go</span></div>
       </div>
+    </div>
+        
+    <button class="scan-btn" id="scanBtn" onclick="toggleScanner()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+        <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+        <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+        <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+        <rect x="7" y="7" width="10" height="10" rx="1"/>
+      </svg>
+      Scan QR Code
+    </button>
+
+    <div class="scanner-wrap" id="scannerWrap">
+      <div class="scanner-header">
+        <span>📷 Camera</span>
+        <button class="scanner-close" onclick="closeScanner()">✕</button>
+      </div>
+      <div class="scanner-viewport">
+        <div id="reader"></div>
+      </div>
+      <div class="scanner-hint">Point your camera at the QR code on the counter</div>
     </div>
 
     <!-- Coupons -->
@@ -412,21 +501,84 @@ body{display:flex;flex-direction:column;}
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
   var html5QrCode;
+  var scanning = false;
 
-  function startScanner() {
-    const readerDiv = document.getElementById("reader");
-    readerDiv.style.display = "block";
+  function toggleScanner() {
+    if (scanning) {
+      closeScanner();
+    } else {
+      openScanner();
+    }
+  }
+
+  function openScanner() {
+    var wrap = document.getElementById("scannerWrap");
+    var btn  = document.getElementById("scanBtn");
+    wrap.classList.add("open");
+    scanning = true;
+
+    btn.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+        '<path d="M3 7V5a2 2 0 0 1 2-2h2"/>' +
+        '<path d="M17 3h2a2 2 0 0 1 2 2v2"/>' +
+        '<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
+        '<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>' +
+        '<circle cx="12" cy="12" r="3"/>' +
+      '</svg> Scanning...';
 
     html5QrCode = new Html5Qrcode("reader");
 
     html5QrCode.start(
       { facingMode: "environment" },
-      { fps: 10, qrbox: 250 },
-      (decodedText) => {
-        html5QrCode.stop();
-        window.location.href = decodedText;
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      function(decodedText) {
+        scanning = false;
+        html5QrCode.stop().then(function() {
+          btn.innerHTML =
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+              '<path d="M20 6L9 17l-5-5"/>' +
+            '</svg> Redirecting...';
+          btn.style.background = "#166534";
+          window.location.href = decodedText;
+        }).catch(function() {
+          window.location.href = decodedText;
+        });
       },
-      (errorMessage) => {}
-    );
+      function(errorMessage) {}
+    ).catch(function(err) {
+      // Camera permission denied or not available
+      scanning = false;
+      wrap.classList.remove("open");
+      resetButton();
+      alert("Camera access denied. Please allow camera permission in your browser settings and try again.");
+    });
+  }
+
+  function closeScanner() {
+    var wrap = document.getElementById("scannerWrap");
+    wrap.classList.remove("open");
+    resetButton();
+
+    if (html5QrCode && scanning) {
+      scanning = false;
+      html5QrCode.stop().catch(function() {});
+    } else {
+      scanning = false;
+    }
+  }
+
+  function resetButton() {
+    var btn = document.getElementById("scanBtn");
+    btn.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+        '<path d="M3 7V5a2 2 0 0 1 2-2h2"/>' +
+        '<path d="M17 3h2a2 2 0 0 1 2 2v2"/>' +
+        '<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
+        '<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>' +
+        '<rect x="7" y="7" width="10" height="10" rx="1"/>' +
+      '</svg> Scan QR Code';
+    btn.style.background = "";
   }
 </script>
+
+

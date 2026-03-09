@@ -18,10 +18,10 @@ class Users::ScansController < ApplicationController
     return unless stamp.persisted?
 
     user_card.increment!(:points)
-    coupon = create_coupon(user_card, card)
+    created = create_coupon(user_card, card)
 
-    if coupon
-      redirect_to users_scan_reward_path(card_id: card.id, coupon_id: coupon.id)
+    if created
+      redirect_to users_scan_reward_path(card_id: card.id)
     else
       redirect_to users_scan_success_path(card_id: card.id)
     end
@@ -44,10 +44,12 @@ class Users::ScansController < ApplicationController
   private
 
   def create_coupon(user_card, card)
-    if user_card.stamps.count % card.reward_rule == 0
-      card.how_many.times do
-        Coupon.create(user_id: current_user.id, card_id: card.id, used: false)
-      end
+    return false unless user_card.stamps.count % card.reward_rule == 0
+
+    card.how_many.times do
+      Coupon.create(user_id: current_user.id, card_id: card.id, used: false)
     end
+
+    true
   end
 end
