@@ -38,6 +38,11 @@ Rails.application.routes.draw do
       end
     end
     get "dashboard", to: "dashboard#index"
+    get "dashboard/count_users", to: "dashboard#count_users"
+    get "dashboard/count_stamps", to: "dashboard#count_stamps"
+    get "dashboard/count_coupons", to: "dashboard#count_coupons"
+    get "dashboard/activity", to: "dashboard#activity"
+    get "dashboard/coupons", to: "dashboard#coupons"
   end
 
   namespace :users do

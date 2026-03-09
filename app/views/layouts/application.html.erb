@@ -25,6 +25,7 @@
       navigator.serviceWorker.register("/service-worker.js");
     }
   </script>
+
   <body data-turbo-prefetch="false">
     <%= render "customers/shared/flash" %>
     <% if customer_signed_in? && params[:action] == 'live_qrcode' %>

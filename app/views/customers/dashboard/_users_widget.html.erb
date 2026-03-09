@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "users_widget" do %>
+  <div class="sc-num">
+    <%= @users_count %>
+  </div>
+  <div class="sc-sub"><span class="up">↑ <%= @users_this_month %></span> this month</div>
+<% end %>

@@ -178,6 +178,49 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
   font-size:11px;color:#8C7A65;background:#FDFAF5;
 }
 
+
+.pager{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  border-top:1px solid #F8F4ED;
+}
+
+.pg-btn{
+  display:inline-flex;
+  align-items:center;
+  padding:7px 14px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+  text-decoration:none;
+  color:#5C4A35;
+  background:#FFFCF8;
+  border:1px solid #F0E9DE;
+  transition:all .15s;
+}
+.pg-btn:hover{
+  background:#F8F1E7;
+  border-color:#D4C4AC;
+}
+.pg-btn.disabled{
+  color:#D5C9BA;
+  cursor:default;
+  border-color:#F0E9DE;
+  background:transparent;
+}
+.pg-btn.disabled:hover{
+  background:transparent;
+}
+
+.pg-info{
+  font-size:12px;
+  color:#8C7A65;
+}
+.pg-info strong{
+  color:#2D1B06;
+}
 </style>
 
 <!-- MAIN -->
@@ -196,30 +239,37 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 
     <!-- Welcome -->
     <div class="welcome">
-      <h2>Good morning, <%= current_customer.name %> ☀️</h2>
+      <h2>Good morning, <%= current_customer.name %></h2>
     </div>
 
     <!-- Stats -->
     <div class="stats-row">
       <div class="stat-card">
-        <div class="sc-top"><span class="sc-label">Points</span><div class="sc-icon c1">⭐</div></div>
-        <div class="sc-num">1,280</div>
-        <div class="sc-sub"><span class="up">↑ 120</span> this month</div>
-      </div>
-      <div class="stat-card">
-        <div class="sc-top"><span class="sc-label">Visits</span><div class="sc-icon c2">📊</div></div>
-        <div class="sc-num">47</div>
-        <div class="sc-sub"><span class="up">↑ 8</span> this month</div>
-      </div>
-      <div class="stat-card">
         <div class="sc-top"><span class="sc-label">Stamps</span><div class="sc-icon c3">💳</div></div>
-        <div class="sc-num">8/10</div>
-        <div class="sc-sub">2 more for <span>free coffee</span></div>
+        <%= turbo_frame_tag "stamps_widget", src: customers_dashboard_count_stamps_path do %>
+          <div class="sc-num">
+            <div class="spinner">Loading stamps...</div>
+          </div>
+          <div class="sc-sub"><span class="up">loading stamps</span> this month</div>
+        <% end %>
       </div>
       <div class="stat-card">
-        <div class="sc-top"><span class="sc-label">Rewards</span><div class="sc-icon c4">🎁</div></div>
-        <div class="sc-num">3</div>
-        <div class="sc-sub"><span>1 ready</span> to redeem</div>
+        <div class="sc-top"><span class="sc-label">Users</span><div class="sc-icon c2">🧑‍🦱</div></div>
+          <%= turbo_frame_tag "users_widget", src: customers_dashboard_count_users_path do %>
+            <div class="sc-num">
+              <div class="spinner">Loading users...</div>
+            </div>
+            <div class="sc-sub"><span class="up">loading users</span> this month</div>
+          <% end %>
+      </div>
+      <div class="stat-card">
+        <div class="sc-top"><span class="sc-label">Coupons</span><div class="sc-icon c3">🎟</div></div>
+        <%= turbo_frame_tag "coupons_widget", src: customers_dashboard_count_coupons_path do %>
+          <div class="sc-num">
+            <div class="spinner">Loading coupons...</div>
+          </div>
+          <div class="sc-sub"><span class="up">loading coupons</span> this month</div>
+        <% end %>
       </div>
     </div>
 
@@ -228,26 +278,21 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 
       <!-- Loyalty Card -->
       <div class="card">
-        <div class="card-h"><h3>My Loyalty Card</h3><a href="#">View card</a></div>
+        <div class="card-h"><h3>My Loyalty Card</h3>
+          <%= link_to "View Card",
+          customers_card_path(@card),
+          title: "View" %>
+        </div>
         <div class="loyalty">
           <div class="lbl">Total Points</div>
-          <div class="pts">1,280</div>
-          <div class="nxt">120 points to next reward</div>
+          <div class="pts"><%= Rails.cache.read("dashboard_points_total") %></div>
           <div class="stamps">
-            <div class="stmp on">☕</div>
-            <div class="stmp on">☕</div>
-            <div class="stmp on">☕</div>
-            <div class="stmp on">☕</div>
-            <div class="stmp on">☕</div>
-            <div class="stmp on">☕</div>
-            <div class="stmp on">☕</div>
-            <div class="stmp on">☕</div>
-            <div class="stmp off"></div>
-            <div class="stmp gift">🎁</div>
-          </div>
-          <div class="prog" style="margin-top:20px;">
-            <div class="prog-bar"><div class="prog-fill" style="width:80%"></div></div>
-            <div class="prog-text"><span>8 stamps</span><span>10 for free coffee</span></div>
+            <% @card.reward_rule.times do%>
+              <div class="stmp on">☕</div>
+            <% end %>
+            <% @card.how_many.times do%>
+              <div class="stmp gift">🎁</div>
+            <% end %>
           </div>
         </div>
       </div>
@@ -256,54 +301,18 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       <div class="card">
         <div class="card-h"><h3>Recent Activity</h3><a href="#">View all</a></div>
         <div class="activity-list">
-          <div class="act-item">
-            <div class="act-icon">☕</div>
-            <div class="act-info"><div class="act-name">Flat White</div><div class="act-date">Today, 8:32 AM · Downtown</div></div>
-            <div class="act-pts">+15 pts</div>
-          </div>
-          <div class="act-item">
-            <div class="act-icon">🥐</div>
-            <div class="act-info"><div class="act-name">Almond Croissant</div><div class="act-date">Yesterday, 9:15 AM · Central</div></div>
-            <div class="act-pts">+10 pts</div>
-          </div>
-          <div class="act-item">
-            <div class="act-icon">☕</div>
-            <div class="act-info"><div class="act-name">Oat Milk Latte</div><div class="act-date">Mon, 7:48 AM · Downtown</div></div>
-            <div class="act-pts">+15 pts</div>
-          </div>
-          <div class="act-item">
-            <div class="act-icon">🎁</div>
-            <div class="act-info"><div class="act-name">Free Coffee Redeemed</div><div class="act-date">Sun, 10:20 AM · Central</div></div>
-            <div class="act-pts used">-200 pts</div>
-          </div>
-          <div class="act-item">
-            <div class="act-icon">☕</div>
-            <div class="act-info"><div class="act-name">Double Espresso</div><div class="act-date">Sat, 8:05 AM · Downtown</div></div>
-            <div class="act-pts">+15 pts</div>
-          </div>
+          <%= turbo_frame_tag "activity_widget", src: customers_dashboard_activity_path do %>
+          <% end %>
         </div>
       </div>
     </div>
 
     <!-- Rewards -->
     <div class="card" style="margin-bottom:28px;">
-      <div class="card-h"><h3>My Rewards</h3><a href="#">Browse all</a></div>
+      <div class="card-h"><h3>Coupons Redeemed</h3><a href="#">Browse all</a></div>
       <div class="rewards-list">
-        <div class="rew">
-          <div class="rew-icon">☕</div>
-          <div class="rew-info"><div class="rew-name">Free Oat Milk Latte</div><div class="rew-desc">Any size · Expires in 14 days</div></div>
-          <span class="rew-badge ready">Ready</span>
-        </div>
-        <div class="rew">
-          <div class="rew-icon">🧁</div>
-          <div class="rew-info"><div class="rew-name">Free Pastry of Choice</div><div class="rew-desc">Croissant, muffin or danish</div></div>
-          <span class="rew-badge lock">480 pts</span>
-        </div>
-        <div class="rew">
-          <div class="rew-icon">⭐</div>
-          <div class="rew-info"><div class="rew-name">Double Points Day</div><div class="rew-desc">Earn 2x points on your next visit</div></div>
-          <span class="rew-badge lock">600 pts</span>
-        </div>
+        <%= turbo_frame_tag "coupons_data_widget", src: customers_dashboard_coupons_path do %>
+        <% end %>
       </div>
     </div>
 

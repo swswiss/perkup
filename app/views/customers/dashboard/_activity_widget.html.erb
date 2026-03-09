@@ -1,0 +1,38 @@
+<%= turbo_frame_tag "activity_widget" do %>
+  <% @activities.each do |activity| %>
+    <div class="act-item">
+      <div class="act-icon">☕</div>
+      <div class="act-info">
+        <div class="act-name">Free Coffee</div>
+        <div class="act-date"><%= friendly_time(activity.created_at) %></div>
+      </div>
+      <div class="act-pts">+1 pts</div>
+    </div>
+  <% end %>
+  
+  <div class="pager">
+    <% if @pagy.prev %>
+      <%= link_to customers_dashboard_activity_path(page: @pagy.prev),
+          class: "pg-btn",
+          data: { turbo_frame: "activity_widget" } do %>
+        ‹ Prev
+      <% end %>
+    <% else %>
+      <span class="pg-btn disabled">‹ Prev</span>
+    <% end %>
+
+    <span class="pg-info">
+      Page <strong><%= @pagy.page %></strong> of <strong><%= @pagy.last %></strong>
+    </span>
+
+    <% if @pagy.next %>
+      <%= link_to customers_dashboard_activity_path(page: @pagy.next),
+          class: "pg-btn",
+          data: { turbo_frame: "activity_widget" } do %>
+        Next ›
+      <% end %>
+    <% else %>
+      <span class="pg-btn disabled">Next ›</span>
+    <% end %>
+  </div>
+<% end %>
