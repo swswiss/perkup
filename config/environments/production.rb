@@ -73,7 +73,7 @@ Rails.application.configure do
     url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" },
     expires_in: 10.hours,        # default expiry if not set in fetch
     namespace: "cache_dashboard" # optional namespace
-  }, { fallback: :memory_store }
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque
