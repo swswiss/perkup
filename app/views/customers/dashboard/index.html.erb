@@ -221,6 +221,46 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 .pg-info strong{
   color:#2D1B06;
 }
+
+/* Spinner */
+.spinner{
+  width:27px;height:27px;border-radius:50%;
+  border:3px solid #E8DFD2;
+  border-top-color:#A16207;
+  animation:spin .8s linear infinite;
+  margin:0 auto 20px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.loader{text-align:center;padding:40px 20px;}
+.loader-text{font-size:13px;font-weight:600;color:#8C7A65;}
+.loader-dots::after{content:'';animation:dots 1.5s steps(3) infinite;}
+@keyframes dots{0%{content:''}33%{content:'.'}66%{content:'..'}100%{content:'...'}}
+
+/* Small inline spinner (for buttons, widgets) */
+.spinner-sm{
+  width:20px;height:20px;border-radius:50%;
+  border:2.5px solid #E8DFD2;
+  border-top-color:#A16207;
+  animation:spin .8s linear infinite;
+  display:inline-block;
+}
+
+/* Full page overlay */
+.loading-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(245,240,232,0.85);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:4px;
+}
+.loading-overlay .spinner{
+  width:48px;height:48px;
+  border-width:3px;
+}
+.loading-overlay .loader-text{
+  font-size:13px;font-weight:600;color:#8C7A65;
+}
 </style>
 
 <!-- MAIN -->
@@ -247,28 +287,28 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       <div class="stat-card">
         <div class="sc-top"><span class="sc-label">Stamps</span><div class="sc-icon c3">💳</div></div>
         <%= turbo_frame_tag "stamps_widget", src: customers_dashboard_count_stamps_path do %>
-          <div class="sc-num">
-            <div class="spinner">Loading stamps...</div>
+          <div class="loader">
+            <div class="spinner"></div>
+            <div class="loader-text">Loading<span class="loader-dots"></span></div>
           </div>
-          <div class="sc-sub"><span class="up">loading stamps</span> this month</div>
         <% end %>
       </div>
       <div class="stat-card">
         <div class="sc-top"><span class="sc-label">Users</span><div class="sc-icon c2">🧑‍🦱</div></div>
           <%= turbo_frame_tag "users_widget", src: customers_dashboard_count_users_path do %>
-            <div class="sc-num">
-              <div class="spinner">Loading users...</div>
+            <div class="loader">
+              <div class="spinner"></div>
+              <div class="loader-text">Loading<span class="loader-dots"></span></div>
             </div>
-            <div class="sc-sub"><span class="up">loading users</span> this month</div>
           <% end %>
       </div>
       <div class="stat-card">
         <div class="sc-top"><span class="sc-label">Coupons</span><div class="sc-icon c3">🎟</div></div>
         <%= turbo_frame_tag "coupons_widget", src: customers_dashboard_count_coupons_path do %>
-          <div class="sc-num">
-            <div class="spinner">Loading coupons...</div>
+          <div class="loader">
+            <div class="spinner"></div>
+            <div class="loader-text">Loading<span class="loader-dots"></span></div>
           </div>
-          <div class="sc-sub"><span class="up">loading coupons</span> this month</div>
         <% end %>
       </div>
     </div>
@@ -310,6 +350,10 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
         <div class="card-h"><h3>Recent Activity</h3><a href="#">View all</a></div>
         <div class="activity-list">
           <%= turbo_frame_tag "activity_widget", src: customers_dashboard_activity_path do %>
+            <div class="loader">
+              <div class="spinner"></div>
+              <div class="loader-text">Loading<span class="loader-dots"></span></div>
+            </div>
           <% end %>
         </div>
       </div>
@@ -320,6 +364,10 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       <div class="card-h"><h3>Coupons Redeemed</h3><a href="#">Browse all</a></div>
       <div class="rewards-list">
         <%= turbo_frame_tag "coupons_data_widget", src: customers_dashboard_coupons_path do %>
+          <div class="loader">
+            <div class="spinner"></div>
+            <div class="loader-text">Loading<span class="loader-dots"></span></div>
+          </div>
         <% end %>
       </div>
     </div>
