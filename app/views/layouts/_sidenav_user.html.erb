@@ -7,7 +7,7 @@
   <div class="topnav-r">
     <div class="nav-links-desktop">
       <%= link_to 'Home', users_dashboard_path, class: "nav-link #{nav_active(users_dashboard_path)}" %>
-      <a href="#" class="nav-link">Rewards</a>
+      <%= link_to 'Your Card', users_dashboard_your_card_path, class: "nav-link #{nav_active(users_dashboard_your_card_path)}" %>
       <a href="#" class="nav-link">History</a>
       <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "sn-item" %>
     </div>

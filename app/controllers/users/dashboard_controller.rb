@@ -22,4 +22,32 @@ class Users::DashboardController < ApplicationController
     @last_4_stamps = @user_card&.stamps&.last(3)
     @coupons = current_user.coupons.last(3)
 	end
+
+  def your_card
+    @user_card = current_user.user_cards.first
+    @card = @user_card&.card
+  end
+
+  def qr
+    require "rqrcode"
+
+    user_card = current_user.user_cards.find(params[:id])
+    token = user_card.token
+  
+    qr = RQRCode::QRCode.new(users_scan_url(token: token))
+  
+    png = qr.as_png(
+      bit_depth: 1,
+      border_modules: 4,
+      color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+      color: "black",
+      fill: "white",
+      size: 700
+    )
+  
+    send_data png.to_s,
+              type: "image/png",
+              disposition: "inline"
+  end
+   
 end

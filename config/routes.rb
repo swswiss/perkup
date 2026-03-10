@@ -47,6 +47,8 @@ Rails.application.routes.draw do
 
   namespace :users do
     get "dashboard", to: "dashboard#index"
+    get "dashboard/your_card", to: "dashboard#your_card"
+    get "dashboard/qr/:id", to: "dashboard#qr", as: :dashboard_qr
     get "scan/:token", to: "scans#show", as: :scan
     get "scan-success", to: "scans#success", as: :scan_success
     get "scan-reward",  to: "scans#reward",  as: :scan_reward

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_06_084221) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_10_222022) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,7 +71,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_06_084221) do
     t.integer "points", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "token"
     t.index ["card_id"], name: "index_user_cards_on_card_id"
+    t.index ["token"], name: "index_user_cards_on_token", unique: true
     t.index ["user_id", "card_id"], name: "index_user_cards_on_user_id_and_card_id", unique: true
     t.index ["user_id"], name: "index_user_cards_on_user_id"
   end
