@@ -2,8 +2,25 @@
   <% @coupons.each do |coupon| %>
     <div class="rew">
       <div class="rew-icon">☕</div>
-      <div class="rew-info"><div class="rew-name">Free Coffee</div><div class="rew-desc">Used at <%= friendly_time(coupon.used_at) %></div></div>
-      <span class="rew-badge ready">Ready</span>
+      <div class="rew-info"><div class="rew-name">Free Coffee</div>
+      <div class="rew-desc">
+        <% if coupon.used_at %>
+          Used at <%= friendly_time(coupon.used_at) %>! This coupon was created at <%= friendly_time(coupon.created_at) %>
+        <% else %>
+          Not used yet! This coupon was created at <%= friendly_time(coupon.created_at) %>.
+        <% end %>
+        <div class="coupon-user"><%= coupon.user.full_name %></div>
+      </div>
+      </div>
+      <% if coupon.used_at %>
+        <span class="rew-badge lock">
+          Used
+        </span>
+      <% else %>
+        <span class="rew-badge ready">
+          Ready
+        </span>
+      <% end %>
     </div>
   <% end %>
   

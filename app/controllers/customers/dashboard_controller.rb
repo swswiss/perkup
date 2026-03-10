@@ -10,11 +10,11 @@ class Customers::DashboardController < ApplicationController
   end
 
   def count_users
-    @users_count = Rails.cache.fetch("dashboard_users_count", expires_in: 10.hours) do
+    @users_count = Rails.cache.fetch("dashboard_users_count", expires_in: 1.minutes) do
       User.count
     end
 
-    @users_this_month = Rails.cache.fetch("dashboard_users_this_month_count", expires_in: 10.hours) do
+    @users_this_month = Rails.cache.fetch("dashboard_users_this_month_count", expires_in: 1.minutes) do
       User.where(created_at: Time.current.beginning_of_month..Time.current).count
     end
 
@@ -22,11 +22,11 @@ class Customers::DashboardController < ApplicationController
   end
 
   def count_stamps
-    @points_total = Rails.cache.fetch("dashboard_points_total", expires_in: 10.hours) do
+    @points_total = Rails.cache.fetch("dashboard_points_total", expires_in: 1.minutes) do
       UserCard.sum(:points)
     end
 
-    @points_total_this_month = Rails.cache.fetch("dashboard_points_this_month", expires_in: 10.hours) do
+    @points_total_this_month = Rails.cache.fetch("dashboard_points_this_month", expires_in: 1.minutes) do
       Stamp.where(created_at: Time.current.all_month).count
     end
 
@@ -34,11 +34,11 @@ class Customers::DashboardController < ApplicationController
   end
 
   def count_coupons
-    @coupons_total = Rails.cache.fetch("dashboard_coupons_total", expires_in: 10.hours) do
+    @coupons_total = Rails.cache.fetch("dashboard_coupons_total", expires_in: 1.minutes) do
       Coupon.count
     end
 
-    @coupons_total_this_month = Rails.cache.fetch("dashboard_coupons_this_month", expires_in: 10.hours) do
+    @coupons_total_this_month = Rails.cache.fetch("dashboard_coupons_this_month", expires_in: 1.minutes) do
       Coupon.where(created_at: Time.current.all_month).count
     end
 
@@ -52,7 +52,7 @@ class Customers::DashboardController < ApplicationController
   end
 
   def coupons
-    @pagy, @coupons = pagy(Coupon.order(created_at: :desc), items: 4)
+    @pagy, @coupons = pagy(Coupon.includes(:user).order(created_at: :desc), items: 4)
 
     render partial: "coupons_data_widget"
   end

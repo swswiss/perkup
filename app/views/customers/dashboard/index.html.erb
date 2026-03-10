@@ -278,23 +278,31 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 
       <!-- Loyalty Card -->
       <div class="card">
-        <div class="card-h"><h3>My Loyalty Card</h3>
-          <%= link_to "View Card",
-          customers_card_path(@card),
-          title: "View" %>
-        </div>
-        <div class="loyalty">
-          <div class="lbl">Total Points</div>
-          <div class="pts"><%= Rails.cache.read("dashboard_points_total") %></div>
-          <div class="stamps">
-            <% @card.reward_rule.times do%>
-              <div class="stmp on">☕</div>
-            <% end %>
-            <% @card.how_many.times do%>
-              <div class="stmp gift">🎁</div>
-            <% end %>
+        <% if @card %>
+          <div class="card-h"><h3>My Loyalty Card</h3>
+            <%= link_to "View Card",
+            customers_card_path(@card),
+            title: "View" %>
           </div>
-        </div>
+          <div class="loyalty">
+            <div class="lbl">Total Points</div>
+            <div class="pts"><%= Rails.cache.read("dashboard_points_total") %></div>
+            <div class="stamps">
+              <% @card.reward_rule.times do%>
+                <div class="stmp on">☕</div>
+              <% end %>
+              <% @card.how_many.times do%>
+                <div class="stmp gift">🎁</div>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <div class="card-h"><h3>My Loyalty Card</h3>
+          </div>
+          <div class="loyalty">
+            Your loyalty card will be here!
+          </div>
+        <% end %>
       </div>
 
       <!-- Recent Activity -->
