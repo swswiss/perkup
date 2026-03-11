@@ -1,0 +1,289 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{
+  width:100%;height:100%;min-height:100vh;min-height:100dvh;
+  background:#F5F0E8;color:#2D1B06;
+  font-family:'DM Sans',system-ui,sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  position:fixed;inset:0;
+  -webkit-font-smoothing:antialiased;
+  padding:24px;
+}
+
+.page{
+  width:100%;max-width:400px;
+  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:24px;
+  padding:40px 32px;text-align:center;
+  box-shadow:0 8px 40px rgba(45,27,6,0.06);
+}
+
+/* Icon circle */
+.icon-circle{
+  width:72px;height:72px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:36px;margin-bottom:20px;
+}
+.icon-circle.success{background:#D1FAE5;animation:pop .5s ease;}
+.icon-circle.error{background:#FEF2F2;animation:shake .4s ease;}
+.icon-circle.reward{background:#FEF3C7;animation:pop .5s ease;}
+
+@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+
+h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bottom:6px;}
+.sub{font-size:14px;color:#8C7A65;line-height:1.6;margin-bottom:24px;}
+
+/* Points earned box */
+.pts-box{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#D1FAE5;padding:8px 20px;border-radius:99px;
+  font-size:15px;font-weight:700;color:#166534;
+  margin-bottom:20px;
+}
+
+/* Stamp progress */
+.progress-box{
+  background:#FDFAF5;border-radius:14px;padding:18px 20px;
+  margin-bottom:24px;
+}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;color:#8C7A65;margin-bottom:8px;}
+.progress-label span{font-weight:600;}
+.pbar{height:8px;background:#F0E9DE;border-radius:99px;overflow:hidden;}
+.pfill{height:100%;border-radius:99px;background:linear-gradient(90deg,#A16207,#D4A017);transition:width .8s ease;}
+.stamps-row{display:flex;justify-content:center;gap:6px;margin-top:14px;}
+.st{
+  width:28px;height:28px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.st.on{background:rgba(161,98,7,0.12);border:1px solid rgba(161,98,7,0.2);}
+.st.off{background:#F8F4ED;border:1px dashed #E0D5C7;}
+.st.gift{background:linear-gradient(135deg,#A16207,#D4A017);border:none;box-shadow:0 0 10px rgba(161,98,7,0.2);}
+.st.new{animation:stampin .5s ease .3s both;}
+@keyframes stampin{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.2) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+
+/* Reward banner */
+.reward-banner{
+  background:linear-gradient(135deg,#FEF3C7,#FDE68A);
+  border:1px solid #F3D675;
+  border-radius:14px;padding:18px 20px;margin-bottom:24px;
+  text-align:center;
+}
+.reward-banner .rb-icon{font-size:32px;margin-bottom:8px;}
+.reward-banner .rb-title{font-family:'DM Serif Display',serif;font-size:18px;color:#92400E;margin-bottom:4px;}
+.reward-banner .rb-desc{font-size:12px;color:#A16207;}
+
+/* Error details */
+.error-box{
+  background:#FEF2F2;border:1px solid #FECACA;
+  border-radius:14px;padding:16px 20px;margin-bottom:24px;
+  font-size:13px;color:#991B1B;font-weight:600;
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 28px;border-radius:12px;border:none;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
+  cursor:pointer;transition:all .2s;text-decoration:none;
+}
+.btn-dark{background:#2D1B06;color:#FFFCF8;}
+.btn-dark:hover{background:#1A0F00;transform:translateY(-1px);}
+.btn-light{background:#F3ECE2;color:#5C4A35;}
+.btn-light:hover{background:#EAE0D2;}
+.btn-row{display:flex;gap:8px;justify-content:center;}
+
+/* Footer */
+.foot{margin-top:24px;font-size:11px;color:#D5C9BA;display:flex;align-items:center;justify-content:center;gap:5px;}
+.foot-dot{width:16px;height:16px;border-radius:5px;background:#2D1B06;display:inline-flex;align-items:center;justify-content:center;font-size:8px;color:#fff;}
+
+/* Toggle demo tabs */
+.demo-tabs{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  display:flex;gap:4px;background:#FFFCF8;border:1px solid #F0E9DE;
+  border-radius:10px;padding:4px;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,0.06);
+}
+.dtab{
+  padding:7px 14px;border-radius:7px;border:none;
+  font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;
+  cursor:pointer;color:#8C7A65;background:transparent;transition:all .15s;
+}
+.dtab.active{background:#2D1B06;color:#FFFCF8;}
+.state{display:none;}
+.state.show{display:block;}
+
+.scan-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:16px;border-radius:14px;border:none;
+  background:#2D1B06;color:#FFFCF8;
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;
+  cursor:pointer;transition:all .25s;
+  margin-bottom:24px;
+  box-shadow:0 2px 12px rgba(45,27,6,0.1);
+}
+.scan-btn:hover{
+  background:#1A0F00;
+  box-shadow:0 4px 20px rgba(45,27,6,0.2);
+  transform:translateY(-1px);
+}
+.scan-btn:active{transform:translateY(0);}
+.scan-btn svg{flex-shrink:0;}
+
+/* Scanner container */
+.scanner-wrap{
+  display:none;
+  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:16px;
+  overflow:hidden;margin-bottom:24px;
+  box-shadow:0 4px 20px rgba(45,27,6,0.06);
+}
+.scanner-wrap.open{display:block;animation:slideDown .3s ease;}
+@keyframes slideDown{from{opacity:0;max-height:0}to{opacity:1;max-height:400px}}
+
+.scanner-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;border-bottom:1px solid #F0E9DE;
+}
+.scanner-header span{font-size:13px;font-weight:600;color:#2D1B06;display:flex;align-items:center;gap:6px;}
+.scanner-close{
+  width:28px;height:28px;border-radius:8px;border:none;
+  background:#F3ECE2;cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  color:#8C7A65;transition:all .15s;
+}
+.scanner-close:hover{background:#EAE0D2;color:#2D1B06;}
+
+.scanner-viewport{
+  width:100%;aspect-ratio:1;position:relative;background:#0a0a0a;
+}
+.scanner-viewport #reader{width:100%!important;height:100%!important;}
+.scanner-viewport #reader video{border-radius:0!important;}
+
+.scanner-hint{
+  padding:10px 16px;text-align:center;
+  font-size:11px;color:#8C7A65;background:#FDFAF5;
+}
+
+</style>
+
+<div class="page">
+  <div class="icon-circle reward">🎉</div>
+  <h1>Congratulations!</h1>
+  <p class="sub">The user has just won a coupon!</p>
+
+  <div class="reward-banner">
+    <div class="rb-icon">🎟</div>
+    <div class="rb-title">New Coupon Unlocked!</div>
+  </div>
+
+  <div class="btn-row">
+    <%= link_to "← Back to Dashboard", root_path, class: "btn btn-light" %>
+  </div>
+  <br>
+  <button class="scan-btn" id="scanBtn" onclick="toggleScanner()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="M3 7V5a2 2 0 0 1 2-2h2"/>
+      <path d="M17 3h2a2 2 0 0 1 2 2v2"/>
+      <path d="M21 17v2a2 2 0 0 1-2 2h-2"/>
+      <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
+      <rect x="7" y="7" width="10" height="10" rx="1"/>
+    </svg>
+    Scan QR Code
+  </button>
+
+  <div class="scanner-wrap" id="scannerWrap">
+    <div class="scanner-header">
+      <span>📷 Camera</span>
+      <button class="scanner-close" onclick="closeScanner()">✕</button>
+    </div>
+    <div class="scanner-viewport">
+      <div id="reader"></div>
+    </div>
+    <div class="scanner-hint">Point your camera at the QR code on the counter</div>
+  </div>
+
+  <div class="foot"><span class="foot-dot">☕</span> PerkUp</div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script>
+  var html5QrCode;
+  var scanning = false;
+
+  function toggleScanner() {
+    if (scanning) {
+      closeScanner();
+    } else {
+      openScanner();
+    }
+  }
+
+  function openScanner() {
+    var wrap = document.getElementById("scannerWrap");
+    var btn  = document.getElementById("scanBtn");
+    wrap.classList.add("open");
+    scanning = true;
+
+    btn.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+        '<path d="M3 7V5a2 2 0 0 1 2-2h2"/>' +
+        '<path d="M17 3h2a2 2 0 0 1 2 2v2"/>' +
+        '<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
+        '<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>' +
+        '<circle cx="12" cy="12" r="3"/>' +
+      '</svg> Scanning...';
+
+    html5QrCode = new Html5Qrcode("reader");
+
+    html5QrCode.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      function(decodedText) {
+        scanning = false;
+        html5QrCode.stop().then(function() {
+          btn.innerHTML =
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+              '<path d="M20 6L9 17l-5-5"/>' +
+            '</svg> Redirecting...';
+          btn.style.background = "#166534";
+          window.location.href = decodedText;
+        }).catch(function() {
+          window.location.href = decodedText;
+        });
+      },
+      function(errorMessage) {}
+    ).catch(function(err) {
+      // Camera permission denied or not available
+      scanning = false;
+      wrap.classList.remove("open");
+      resetButton();
+      alert("Camera access denied. Please allow camera permission in your browser settings and try again.");
+    });
+  }
+
+  function closeScanner() {
+    var wrap = document.getElementById("scannerWrap");
+    wrap.classList.remove("open");
+    resetButton();
+
+    if (html5QrCode && scanning) {
+      scanning = false;
+      html5QrCode.stop().catch(function() {});
+    } else {
+      scanning = false;
+    }
+  }
+
+  function resetButton() {
+    var btn = document.getElementById("scanBtn");
+    btn.innerHTML =
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">' +
+        '<path d="M3 7V5a2 2 0 0 1 2-2h2"/>' +
+        '<path d="M17 3h2a2 2 0 0 1 2 2v2"/>' +
+        '<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
+        '<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>' +
+        '<rect x="7" y="7" width="10" height="10" rx="1"/>' +
+      '</svg> Scan QR Code';
+    btn.style.background = "";
+  }
+</script>
+

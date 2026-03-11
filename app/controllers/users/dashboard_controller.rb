@@ -34,7 +34,7 @@ class Users::DashboardController < ApplicationController
     user_card = current_user.user_cards.find(params[:id])
     token = user_card.token
   
-    qr = RQRCode::QRCode.new(users_scan_url(token: token))
+    qr = RQRCode::QRCode.new(customers_scan_url(token: token))
   
     png = qr.as_png(
       bit_depth: 1,

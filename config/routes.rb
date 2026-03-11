@@ -37,18 +37,25 @@ Rails.application.routes.draw do
         get :live_qrcode
       end
     end
+
     get "dashboard", to: "dashboard#index"
     get "dashboard/count_users", to: "dashboard#count_users"
     get "dashboard/count_stamps", to: "dashboard#count_stamps"
     get "dashboard/count_coupons", to: "dashboard#count_coupons"
     get "dashboard/activity", to: "dashboard#activity"
     get "dashboard/coupons", to: "dashboard#coupons"
+
+    get "scan/:token", to: "scans#show", as: :scan
+    get "scan-success", to: "scans#success", as: :scan_success
+    get "scan-reward",  to: "scans#reward",  as: :scan_reward
+    get "scan-expired", to: "scans#expired",  as: :scan_expired
   end
 
   namespace :users do
     get "dashboard", to: "dashboard#index"
     get "dashboard/your_card", to: "dashboard#your_card"
     get "dashboard/qr/:id", to: "dashboard#qr", as: :dashboard_qr
+
     get "scan/:token", to: "scans#show", as: :scan
     get "scan-success", to: "scans#success", as: :scan_success
     get "scan-reward",  to: "scans#reward",  as: :scan_reward

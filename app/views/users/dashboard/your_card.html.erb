@@ -190,11 +190,9 @@ body{display:flex;flex-direction:column;}
 
 <!-- MAIN -->
 <div class="main">
-
   <!-- Welcome -->
   <% if @user_card.present? %>
-    <div class="my-card" style="background:linear-gradient(160deg, <%= color_gradient(@card.color) %>);">
-
+    <div class="my-card" style="background: <%= color_gradient(@card.color) %>">
       <!-- Top -->
       <div class="mc-top">
         <div class="mc-header">
