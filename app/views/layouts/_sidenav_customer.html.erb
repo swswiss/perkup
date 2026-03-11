@@ -18,10 +18,14 @@
     <%= link_to "Create new Card",
       new_customers_card_path,
       class: "sn-item #{nav_active(new_customers_card_path)}" %>
-    <a class="sn-item">All users</a>
+    <%= link_to "All Users",
+      customers_lookup_path,
+      class: "sn-item #{nav_active(customers_lookup_path)}" %>
     <div class="sn-sep"></div>
     <a class="sn-item">Settings</a>
-    <a class="sn-item">Help</a>
+    <%= link_to "Help",
+      customers_dashboard_help_path,
+      class: "sn-item #{nav_active(customers_dashboard_help_path)}" %>
     <%= link_to 'Logout', destroy_customer_session_path, method: :delete, class: "sn-item" %>
   </nav>
   <div class="side-foot">

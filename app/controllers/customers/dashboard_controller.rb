@@ -9,6 +9,9 @@ class Customers::DashboardController < ApplicationController
     my_loyalty_card
   end
 
+  def help
+  end
+
   def count_users
     @users_count = Rails.cache.fetch("dashboard_users_count", expires_in: 1.minutes) do
       User.count

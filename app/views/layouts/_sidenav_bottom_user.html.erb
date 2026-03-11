@@ -3,7 +3,7 @@
   <div class="mob-nav-inner">
     <%= link_to 'Home', users_dashboard_path, class: "mn-item #{nav_active(users_dashboard_path)}" %>
     <%= link_to 'Your Card', users_dashboard_your_card_path, class: "mn-item #{nav_active(users_dashboard_your_card_path)}" %>
-    <a href="#" class="mn-item">Profile</a>
+    <%= link_to 'Help', users_dashboard_help_path, class: "mn-item #{nav_active(users_dashboard_help_path)}" %>
     <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "mn-item" %>
   </div>
 </nav>

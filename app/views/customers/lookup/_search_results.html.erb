@@ -1,0 +1,18 @@
+<% if @users.any? %>
+  <% @users.each do |user| %>
+    <div class="sd-item"
+         data-action="click->customer-search#select"
+         data-user-id="<%= user.id %>"
+         data-user-name="<%= user.full_name %>">
+      <div class="sd-info">
+        <div class="sd-name"><%= user.full_name %></div>
+        <div class="sd-email"><%= user.email %></div>
+      </div>
+      <span class="sd-pts">
+        <%= user.user_cards.first&.points || 0 %> pts
+      </span>
+    </div>
+  <% end %>
+<% else %>
+  <div class="sd-empty">No customers found</div>
+<% end %>

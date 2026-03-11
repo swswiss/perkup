@@ -49,5 +49,7 @@ class Users::DashboardController < ApplicationController
               type: "image/png",
               disposition: "inline"
   end
-   
+
+  def help
+  end
 end
