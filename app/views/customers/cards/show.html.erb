@@ -224,6 +224,22 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
             </div>
           </div>
         </div>
+        <!-- QR Code -->
+        <div class="qr-section">
+          <h3>QR Code</h3>
+          <p>Print or display at your counter for customers to create their cards</p>
+          <div class="qr-big" id="qr-to-print">
+            <%= image_tag print_qr_customers_card_path(@card),
+                  style: "width:200px;height:200px;" %>
+          </div>
+          <div class="qr-actions">
+            <%= link_to "⬇ Download PNG",
+            print_qr_customers_card_path(@card),
+            class: "btn-d",
+            download: "card-#{@card.uuid}.png" %>
+            <button class="btn-o" onclick="printQr()">🖨 Print</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -232,53 +248,41 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 
 <script>
 function printQr() {
-  var qrElement = document.getElementById('qr-to-print');
-  var qrHtml = qrElement.outerHTML;
+  var imgSrc = document.querySelector('#qr-to-print img').src;
 
-  // Remove inline styles so CSS can control size
-  qrHtml = qrHtml.replace(/style="[^"]*"/, "");
+  var win = window.open('', '_blank');
 
-  var newWindow = window.open('', '_blank');
-
-  newWindow.document.write(`
+  win.document.write(`
     <html>
       <head>
-        <title>Print QR</title>
         <style>
-          body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: #fff;
-            font-family: sans-serif;
+          body{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            flex-direction:column;
+            font-family:sans-serif;
           }
-          h1 {
-            font-size: 32px;
-            margin-bottom: 40px;
-            text-align: center;
-            color: #2D1B06;
-          }
-          #qr-to-print img {
-            width: 400px !important;
-            height: 400px !important;
-          }
+          img{width:400px}
         </style>
       </head>
       <body>
         <h1><%= j @card.name %></h1>
-        ${qrHtml}
+        <h3>Scan for creating a card.</h3>
+        <img src="${imgSrc}">
       </body>
     </html>
   `);
 
-  newWindow.document.close();
-  newWindow.focus();
-  newWindow.print();
-  newWindow.close();
+  win.document.close();
+
+  win.onload = function() {
+    win.print();
+    win.close();
+  };
 }
+
 
 
 

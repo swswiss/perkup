@@ -78,6 +78,27 @@ class Customers::CardsController < ApplicationController
               disposition: "inline"
   end
 
+  def print_qr
+    require "rqrcode"
+    card = current_customer.cards.find(params[:id])
+
+    token = card.uuid
+    qr = RQRCode::QRCode.new(users_scan_create_user_card_url(token))
+
+    png = qr.as_png(
+      bit_depth: 1,
+      border_modules: 4,
+      color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+      color: "black",
+      fill: "white",
+      size: 700
+    )
+
+    send_data png.to_s,
+              type: "image/png",
+              disposition: "inline"
+  end
+
   private
 
   def set_card

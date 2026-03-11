@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     resources :cards do
       member do
         get :qr
+        get :print_qr
         get :live_qrcode
       end
     end
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
     get "scan-success", to: "scans#success", as: :scan_success
     get "scan-reward",  to: "scans#reward",  as: :scan_reward
     get "scan-expired", to: "scans#expired",  as: :scan_expired
+    get "scan/create_user_card/:token", to: "scans#create_user_card", as: :scan_create_user_card
   end
 
   resources :coupons do

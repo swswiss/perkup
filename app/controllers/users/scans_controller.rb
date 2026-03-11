@@ -41,6 +41,14 @@ class Users::ScansController < ApplicationController
   def expired
   end
 
+  def create_user_card
+    token = params[:token]
+  
+    card = Card.find_by(uuid: token)
+    user_card = UserCard.find_or_create_by(user: current_user, card: card)
+    redirect_to root_path
+  end
+
   private
 
   def create_coupon(user_card, card)
