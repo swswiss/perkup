@@ -36,6 +36,7 @@ class Customers::ScansController < ApplicationController
 
   def create_coupon(user_card, card)
     return false unless user_card.stamps.count % card.reward_rule == 0
+    current_user = user_card.user
 
     card.how_many.times do
       Coupon.create(user_id: current_user.id, card_id: card.id, used: false)
