@@ -24,10 +24,9 @@
     <% if @cards.exists? %>
       <div class="toolbar">
         <div class="search-box">
-          <span class="s-icon">🔍</span>
           <input type="text" id="searchInput" placeholder="Search cards...">
         </div>
-        <button class="filter-btn" id="filterBtn">📋 All statuses</button>
+        <button class="filter-btn" id="filterBtn">All statuses</button>
       </div>
 
       <div class="table-wrap">
@@ -37,9 +36,8 @@
               <th>Name</th>
               <th>Reward Rule</th>
               <th>Description</th>
-              <th>Status</th>
               <th>UUID</th>
-              <th style="text-align:right;">Actions</th>
+              <th style="">Actions</th>
             </tr>
           </thead>
           <%= turbo_frame_tag "cards_table" do %>
@@ -49,15 +47,12 @@
                   <td><div class="td-name"><%= card.name %></div></td>
                   <td class="td-rule">Buy <%= card.reward_rule %> <%= card.product %> → next <%= card.how_many %> are free</td>
                   <td class="td-desc">Earn a stamp with every coffee</td>
-                  <td><span class="status active">Active</span></td>
                   <td><span class="td-uuid" onclick="copyUuid(this)" title="Click to copy"><%= card.uuid %><span class="copy-icon">📋</span></span></td>
                   <td><div class="td-actions">
                   <%= link_to "👁",
                     customers_card_path(card),
                     class: "act-btn",
                     title: "View" %>
-
-                  <button class="act-btn" title="Edit">✏️</button>
                   <%= link_to "🖥️",
                     live_qrcode_customers_card_path(card),
                     class: "act-btn",

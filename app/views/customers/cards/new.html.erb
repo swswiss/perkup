@@ -130,20 +130,22 @@
   // Live update rule
   function updateRule(){
     var n=ruleNum.value||'6';
+    var cadou=ruleFree.value||'1';
     var item=ruleItem.value||'coffees';
     var f='next ' + ruleFree.value + ' are free';
     cpRule.textContent='Buy '+n+' '+item+' → '+f;
-    updateStamps(parseInt(n)||6);
+    updateStamps(parseInt(n)||6, parseInt(cadou));
   }
   ruleNum.addEventListener('input',updateRule);
   ruleItem.addEventListener('input',updateRule);
   ruleFree.addEventListener('input',updateRule);
 
   // Update stamp count
-  function updateStamps(n){
+  function updateStamps(n, m){
     var html='';
     for(var i=0;i<n;i++) html+='<div class="cp-s">☕</div>';
-    html+='<div class="cp-s last">🎁</div>';
+    for(var i=0;i<m;i++) html+='<div class="cp-s last">🎁</div>';
+    
     cpStamps.innerHTML=html;
   }
 

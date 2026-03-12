@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PerkUp — How It Works</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -33,42 +27,7 @@ body{display:flex;flex-direction:column;}
 .user-pill .un{font-size:12px;font-weight:600;color:#2D1B06;}
 
 /* ── MAIN ── */
-.main{flex:1;max-width:680px;width:100%;margin:0 auto;padding:28px 20px 60px;}
 
-/* Welcome */
-.welcome{margin-bottom:28px;}
-.welcome h1{font-family:'DM Serif Display',serif;font-size:26px;color:#2D1B06;margin-bottom:4px;}
-.welcome p{font-size:14px;color:#8C7A65;}
-
-/* My card */
-.my-card{
-  width:100%;border-radius:20px;padding:28px 24px;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,#1C1108,#2D1B06);color:#FFFCF8;
-  box-shadow:0 10px 36px rgba(45,27,6,0.14);margin-bottom:24px;
-}
-.my-card::before{
-  content:'';position:absolute;top:-40%;right:-20%;width:60%;height:120%;
-  background:radial-gradient(circle,rgba(255,255,255,0.06),transparent 70%);pointer-events:none;
-}
-.my-card::after{
-  content:'☕';position:absolute;bottom:10px;right:20px;font-size:52px;opacity:.04;pointer-events:none;
-}
-.mc-shop{font-size:10px;text-transform:uppercase;letter-spacing:2px;opacity:.45;position:relative;}
-.mc-name{font-family:'DM Serif Display',serif;font-size:22px;margin-top:4px;position:relative;}
-.mc-rule{font-size:12px;opacity:.45;margin-top:4px;position:relative;}
-.mc-mid{display:flex;align-items:center;justify-content:space-between;margin-top:20px;position:relative;}
-.mc-stamps{display:flex;flex-wrap:wrap;gap:6px;}
-.mc-s{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;}
-.mc-s.on{background:rgba(212,160,23,0.2);border:1px solid rgba(245,203,92,0.25);}
-.mc-s.off{background:rgba(255,255,255,0.04);border:1px dashed rgba(255,255,255,0.1);}
-.mc-s.gift{background:linear-gradient(135deg,#A16207,#D4A017);border:none;box-shadow:0 0 12px rgba(212,160,23,0.3);}
-.mc-pts{text-align:right;}
-.mc-pts-label{font-size:9px;text-transform:uppercase;letter-spacing:2px;opacity:.4;}
-.mc-pts-num{font-family:'DM Serif Display',serif;font-size:32px;color:#F5CB5C;margin-top:2px;}
-.mc-progress{margin-top:18px;position:relative;}
-.mc-bar{height:5px;background:rgba(255,255,255,0.08);border-radius:99px;overflow:hidden;}
-.mc-fill{height:100%;background:linear-gradient(90deg,#A16207,#D4A017);border-radius:99px;}
-.mc-bar-text{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;opacity:.35;}
 
 
 /* ── MOBILE NAV ── */
@@ -192,11 +151,8 @@ body{display:flex;flex-direction:column;}
 .mc-qr-hint{
   font-size:11px;opacity:.2;
 }
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
-body{display:flex;flex-direction:column;}
 
-/* Nav */
+
 .topnav{height:56px;background:#FFFCF8;border-bottom:1px solid #F0E9DE;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:100;}
 .topnav-l{display:flex;align-items:center;gap:10px;}
 .logo-m{width:28px;height:28px;border-radius:8px;background:#2D1B06;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;}
@@ -204,418 +160,210 @@ body{display:flex;flex-direction:column;}
 .back-link{font-size:13px;color:#8C7A65;text-decoration:none;font-weight:600;display:flex;align-items:center;gap:4px;}
 .back-link:hover{color:#2D1B06;}
 
-/* Page */
-.page{max-width:640px;width:100%;margin:0 auto;padding:36px 20px 80px;}
+.tut{max-width:420px;margin:0 auto;padding:20px;}
+.tut-head{text-align:center;margin-bottom:32px;}
+.tut-logo{font-size:32px;margin-bottom:10px;}
+.tut-title{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bottom:4px;}
+.tut-sub{font-size:13px;color:#8C7A65;}
 
-/* Header */
-.page-head{text-align:center;margin-bottom:48px;}
-.page-head .badge{
-  display:inline-flex;align-items:center;gap:6px;
-  background:#F3ECE2;padding:5px 14px;border-radius:99px;
-  font-size:11px;font-weight:700;color:#A16207;
-  margin-bottom:16px;
-}
-.page-head h1{font-family:'DM Serif Display',serif;font-size:32px;margin-bottom:8px;}
-.page-head p{font-size:15px;color:#8C7A65;line-height:1.6;}
+.tut-steps{display:flex;flex-direction:column;gap:0;}
 
-/* ── STEP ── */
-.step{margin-bottom:48px;position:relative;}
-
-/* Connector line between steps */
-.step::after{
-  content:'';position:absolute;
-  left:24px;top:100%;width:2px;height:48px;
-  background:linear-gradient(180deg,#E0D5C7,transparent);
-}
-.step:last-child::after{display:none;}
-
-.step-header{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
-.step-num{
-  width:48px;height:48px;border-radius:14px;
+.ts{display:flex;gap:14px;position:relative;}
+.ts-line{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:36px;}
+.ts-num{
+  width:36px;height:36px;border-radius:10px;
   background:#2D1B06;color:#FFFCF8;
   display:flex;align-items:center;justify-content:center;
-  font-family:'DM Serif Display',serif;font-size:20px;
-  flex-shrink:0;
-  box-shadow:0 4px 12px rgba(45,27,6,0.12);
+  font-family:'DM Serif Display',serif;font-size:16px;
+  flex-shrink:0;box-shadow:0 3px 8px rgba(45,27,6,0.1);
 }
-.step-title{font-family:'DM Serif Display',serif;font-size:20px;color:#2D1B06;}
-.step-desc{font-size:14px;color:#8C7A65;line-height:1.7;margin-bottom:18px;padding-left:62px;}
+.ts-wire{flex:1;width:2px;background:#E8DFD2;margin:6px 0;}
+.ts:last-child .ts-wire{display:none;}
 
-/* Mockup container */
-.mockup{
-  margin-left:62px;
-  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 6px 24px rgba(45,27,6,0.05);
-}
+.ts-body{flex:1;padding-bottom:24px;}
+.ts:last-child .ts-body{padding-bottom:0;}
+.ts-title{font-size:15px;font-weight:700;color:#2D1B06;margin-bottom:4px;padding-top:6px;}
+.ts-desc{font-size:12px;color:#8C7A65;line-height:1.6;margin-bottom:12px;}
+.ts-desc .hl{background:#FEF3C7;padding:1px 6px;border-radius:4px;font-weight:700;color:#92400E;}
 
-/* Browser mockup */
-.browser-bar{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 16px;background:#F8F4ED;border-bottom:1px solid #F0E9DE;
-}
-.browser-dots{display:flex;gap:5px;}
-.browser-dots span{width:8px;height:8px;border-radius:50%;background:#E0D5C7;}
-.browser-url{
-  flex:1;background:#FFFCF8;border:1px solid #EBE3D7;border-radius:6px;
-  padding:5px 12px;font-size:11px;color:#8C7A65;font-weight:500;
-  display:flex;align-items:center;gap:6px;
-}
-.browser-url .lock{color:#16A34A;font-size:10px;}
-
-.browser-content{padding:24px;}
-
-/* Signup form mockup */
-.mock-form{max-width:280px;margin:0 auto;}
-.mock-logo{text-align:center;font-size:24px;margin-bottom:12px;}
-.mock-title{text-align:center;font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:16px;}
-.mock-field{
-  height:36px;background:#F8F4ED;border:1.5px solid #E8DFD2;border-radius:8px;
-  margin-bottom:8px;display:flex;align-items:center;padding:0 12px;
-  font-size:11px;color:#B8A898;
-}
-.mock-btn{
-  width:100%;height:36px;background:#2D1B06;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;color:#FFFCF8;margin-top:4px;
-}
-
-/* Phone mockup */
-.phone-mock{
-  width:220px;margin:0 auto;
-  background:#1A1207;border-radius:24px;padding:8px;
-  box-shadow:0 8px 24px rgba(0,0,0,0.1);
-}
-.phone-screen{
-  background:#F5F0E8;border-radius:18px;overflow:hidden;
-  min-height:300px;display:flex;flex-direction:column;
-}
-.phone-status{
-  display:flex;justify-content:space-between;
-  padding:6px 16px;font-size:9px;font-weight:600;color:#2D1B06;
-}
-.phone-cam-content{padding:20px 16px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-
-/* QR scanning illustration */
-.scan-illust{text-align:center;}
-.scan-frame{
-  width:140px;height:140px;margin:0 auto 12px;
-  border:3px solid #2D1B06;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
+/* Screenshot */
+.ts-img-wrap{
+  border-radius:14px;overflow:hidden;
+  border:2px solid #F0E9DE;
+  box-shadow:0 4px 16px rgba(45,27,6,0.06);
   position:relative;
 }
-.scan-frame::before,.scan-frame::after{
-  content:'';position:absolute;width:20px;height:20px;
-}
-.scan-frame::before{top:-2px;left:-2px;border-top:4px solid #A16207;border-left:4px solid #A16207;border-radius:4px 0 0 0;}
-.scan-frame::after{bottom:-2px;right:-2px;border-bottom:4px solid #A16207;border-right:4px solid #A16207;border-radius:0 0 4px 0;}
-.scan-qr{font-size:64px;opacity:.15;}
-.scan-line{
-  position:absolute;left:8px;right:8px;height:2px;
-  background:linear-gradient(90deg,transparent,#A16207,transparent);
-  animation:scanline 2s ease-in-out infinite;
-}
-@keyframes scanline{0%,100%{top:15%}50%{top:80%}}
-.scan-text{font-size:12px;color:#8C7A65;font-weight:600;}
-
-/* Callout / tip box */
-.callout{
-  margin-left:62px;margin-top:14px;
-  display:flex;align-items:flex-start;gap:10px;
-  background:#FEF3C7;border:1px solid #F3D675;border-radius:12px;
-  padding:14px 16px;
-}
-.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
-.callout p{font-size:12px;color:#92400E;line-height:1.6;}
-.callout strong{color:#78350F;}
-
-/* ── PWA Section ── */
-.pwa-section{margin-left:62px;}
-.pwa-tabs{display:flex;gap:4px;margin-bottom:16px;}
-.pwa-tab{
-  padding:8px 18px;border-radius:10px;font-size:13px;font-weight:600;
-  color:#8C7A65;cursor:pointer;border:none;background:transparent;
-  font-family:'DM Sans',sans-serif;transition:all .15s;
-}
-.pwa-tab:hover{background:#F8F1E7;}
-.pwa-tab.active{background:#2D1B06;color:#FFFCF8;}
-.pwa-content{display:none;}
-.pwa-content.show{display:block;}
-
-/* Instruction steps */
-.inst{
-  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:14px;
-  overflow:hidden;
-}
-.inst-step{
-  display:flex;align-items:flex-start;gap:14px;
-  padding:16px 18px;border-bottom:1px solid #F8F4ED;
-}
-.inst-step:last-child{border-bottom:none;}
-.inst-num{
-  width:28px;height:28px;border-radius:8px;
-  background:#F3ECE2;color:#A16207;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:800;flex-shrink:0;
-}
-.inst-body{flex:1;}
-.inst-text{font-size:13px;color:#2D1B06;font-weight:600;margin-bottom:6px;line-height:1.5;}
-.inst-sub{font-size:11px;color:#8C7A65;line-height:1.5;}
-
-/* Inline icon badges */
-.key{
-  display:inline-flex;align-items:center;gap:4px;
-  background:#F3ECE2;padding:2px 8px;border-radius:5px;
-  font-size:11px;font-weight:700;color:#5C4A35;
-  vertical-align:middle;
+.ts-img-wrap img{
+  width:100%;display:block;
 }
 
-/* Phone illustration for PWA */
-.pwa-phone{
-  width:200px;margin:20px auto 0;
-  background:#1A1207;border-radius:22px;padding:7px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+/* Red circle annotation overlay */
+.ts-img-wrap .annotation{
+  position:absolute;
+  border:3px solid #DC2626;
+  border-radius:50%;
+  pointer-events:none;
+  box-shadow:0 0 0 4px rgba(220,38,38,0.15);
+  animation:pulse-ring 2s ease infinite;
 }
-.pwa-screen{
-  background:#F5F0E8;border-radius:16px;overflow:hidden;
-  padding:16px 14px;
+@keyframes pulse-ring{
+  0%,100%{box-shadow:0 0 0 4px rgba(220,38,38,0.15);}
+  50%{box-shadow:0 0 0 8px rgba(220,38,38,0.08);}
 }
-.pwa-home-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
-.pwa-app{display:flex;flex-direction:column;align-items:center;gap:4px;width:52px;}
-.pwa-app-icon{
-  width:44px;height:44px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;
-}
-.pwa-app-icon.perkup{background:#2D1B06;box-shadow:0 2px 8px rgba(45,27,6,0.2);}
-.pwa-app-icon.other{background:#E0D5C7;}
-.pwa-app-name{font-size:8px;font-weight:600;color:#2D1B06;text-align:center;}
-.pwa-app.highlight .pwa-app-icon{animation:pophigh 1s ease infinite alternate;}
-@keyframes pophigh{0%{transform:scale(1)}100%{transform:scale(1.08);box-shadow:0 4px 16px rgba(45,27,6,0.25)}}
 
-/* Arrow annotation */
-.arrow-note{
-  display:flex;align-items:center;gap:6px;
-  margin:12px auto 0;width:fit-content;
-  font-size:11px;color:#A16207;font-weight:600;
+/* Arrow from annotation */
+.ts-img-wrap .arrow-label{
+  position:absolute;
+  background:#DC2626;color:#fff;
+  font-size:10px;font-weight:700;
+  padding:3px 10px;border-radius:6px;
+  white-space:nowrap;
+  box-shadow:0 2px 8px rgba(220,38,38,0.2);
 }
-.arrow-note svg{flex-shrink:0;}
 
-/* Footer */
-.help-foot{
-  text-align:center;padding:20px;
-  font-size:12px;color:#B8A898;
+/* Done banner */
+.tut-done{
+  text-align:center;margin-top:28px;
+  background:#D1FAE5;border-radius:14px;padding:18px;
 }
-.help-foot a{color:#A16207;text-decoration:none;font-weight:600;}
-.help-foot a:hover{text-decoration:underline;}
+.tut-done-icon{font-size:28px;margin-bottom:6px;}
+.tut-done-text{font-size:14px;font-weight:700;color:#166534;}
+.tut-done-sub{font-size:11px;color:#15803D;margin-top:2px;}
 
-/* Responsive */
-@media(max-width:600px){
-  .step-desc,.mockup,.callout,.pwa-section{margin-left:0;}
-  .step::after{display:none;}
-  .page-head h1{font-size:26px;}
-  .step-title{font-size:17px;}
+/* ── Override: horizontal steps ── */
+.tut{max-width:960px;margin:0 auto;padding:20px;}
+
+.tut-steps{
+  display:flex;
+  flex-direction:row;
+  gap:16px;
+  align-items:flex-start;
+}
+
+.ts{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  position:relative;
+}
+
+/* Horizontal connector arrow between steps */
+.ts:not(:last-child)::after{
+  content:'→';
+  position:absolute;
+  top:16px;
+  right:-14px;
+  font-size:18px;
+  color:#D5C9BA;
+  font-weight:700;
+}
+
+/* Hide vertical line elements */
+.ts-line{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:auto;
+  margin-bottom:12px;
+}
+.ts-wire{display:none;}
+
+.ts-body{
+  padding-bottom:0;
+  width:100%;
+}
+
+.ts-title{padding-top:0;}
+
+/* Responsive: stack on mobile */
+@media(max-width:700px){
+  .tut-steps{
+    flex-direction:column;
+    gap:0;
+  }
+  .ts{align-items:flex-start;text-align:left;flex-direction:row;gap:14px;}
+  .ts:not(:last-child)::after{display:none;}
+  .ts-line{margin-bottom:0;}
+  .ts-wire{display:block;}
 }
 </style>
-</head>
-<body>
 
-<div class="page">
+<!-- MAIN -->
+<div class="main">
+<div class="tut">
 
-  <!-- Header -->
-  <div class="page-head">
-    <h1>How PerkUp Works</h1>
-    <p>Start collecting stamps and earning free rewards in 3 easy steps.</p>
-  </div>
+<div class="tut-head">
+  <div class="tut-logo">📱</div>
+  <div class="tut-title">Install PerkUp on iPhone</div>
+  <div class="tut-sub">3 simple steps — no App Store needed</div>
+</div>
 
-  <!-- ══════ STEP 1 ══════ -->
-  <div class="step">
-    <div class="step-header">
-      <div class="step-num">1</div>
-      <div class="step-title">Create your account</div>
+<div class="tut-steps">
+
+  <%# ── STEP 1: Open in Safari & tap Share ── %>
+  <div class="ts">
+    <div class="ts-line">
+      <div class="ts-num">1</div>
+      <div class="ts-wire"></div>
     </div>
-    <p class="step-desc">
-      Go to <strong>www.perkup.ro</strong> and sign up with your email and a password. It takes less than 30 seconds.
-    </p>
-
-    <div class="mockup">
-      <div class="browser-bar">
-        <div class="browser-dots"><span></span><span></span><span></span></div>
-        <div class="browser-url"><span class="lock">🔒</span> www.perkup.ro/users/sign_up</div>
+    <div class="ts-body">
+      <div class="ts-title">Open PerkUp in Safari</div>
+      <div class="ts-desc">
+        Go to <strong>perkup.onrender.com</strong> in Safari, then tap the
+        <span class="hl">⬆ Share button</span> at the bottom of the screen.
       </div>
-      <div class="browser-content">
-        <div class="mock-form">
-          <div class="mock-logo">☕</div>
-          <div class="mock-title">Create your account</div>
-          <div class="mock-field">📧 your@email.com</div>
-          <div class="mock-field">🔒 Password</div>
-          <div class="mock-field">🔒 Confirm password</div>
-          <div class="mock-btn">Create account →</div>
-        </div>
+      <div class="ts-img-wrap">
+        <%= image_tag "tutorial/ios-step1-share.jpeg", alt: "Safari with Share button" %>
+        <%# Red circle around the share button — adjust top/left/size to match your screenshot %>
+        <div class="annotation" style="width:44px;height:44px;bottom:26px;left:calc(50% - 22px);"></div>
+        <div class="arrow-label" style="bottom:82px;left:calc(50% - 50px);">Tap here ⬆</div>
       </div>
-    </div>
-
-    <div class="callout">
-      <span class="callout-icon">💡</span>
-      <p><strong>Tip:</strong> Use the same email you use daily — you'll receive reward notifications there.</p>
     </div>
   </div>
 
-  <!-- ══════ STEP 2 ══════ -->
-  <div class="step">
-    <div class="step-header">
-      <div class="step-num">2</div>
-      <div class="step-title">Scan the shop's QR code</div>
+  <%# ── STEP 2: Tap "Add to Home Screen" ── %>
+  <div class="ts">
+    <div class="ts-line">
+      <div class="ts-num">2</div>
+      <div class="ts-wire"></div>
     </div>
-    <p class="step-desc">
-      At the coffee shop counter, you'll see a printed QR code. Open your camera and point it at the code. This creates your loyalty card automatically.
-    </p>
-
-    <div class="mockup" style="padding:24px;">
-      <div class="phone-mock">
-        <div class="phone-screen">
-          <div class="phone-status">
-            <span>9:41</span>
-            <span>📶 🔋</span>
-          </div>
-          <div class="phone-cam-content">
-            <div class="scan-illust">
-              <div class="scan-frame">
-                <div class="scan-qr">▣</div>
-                <div class="scan-line"></div>
-              </div>
-              <div class="scan-text" style="margin-top:14px;">Point camera at QR code</div>
-            </div>
-          </div>
-        </div>
+    <div class="ts-body">
+      <div class="ts-title">Tap "Add to Home Screen"</div>
+      <div class="ts-desc">
+        Scroll down in the menu and find
+        <span class="hl">＋ Add to Home Screen</span>. Tap it.
       </div>
-    </div>
-
-    <div class="callout">
-      <span class="callout-icon">☕</span>
-      <p><strong>Each scan = 1 stamp.</strong> Collect enough stamps and you'll automatically receive a coupon for a free coffee (or whatever the shop offers)!</p>
+      <div class="ts-img-wrap">
+        <%= image_tag "tutorial/ios-step2-menu.jpeg", alt: "Share menu - Add to Home Screen" %>
+        <%# Red circle around "Add to Home Screen" row — adjust position to match %>
+        <div class="annotation" style="width:90%;height:40px;border-radius:12px;bottom:21%;left:5%;"></div>
+        <div class="arrow-label" style="bottom:15%;left:calc(50% - 40px);">Tap this ☝</div>
+      </div>
     </div>
   </div>
 
-  <!-- ══════ STEP 3 ══════ -->
-  <div class="step">
-    <div class="step-header">
-      <div class="step-num">3</div>
-      <div class="step-title">Add PerkUp to your home screen</div>
+  <%# ── STEP 3: Tap "Save" ── %>
+  <div class="ts">
+    <div class="ts-line">
+      <div class="ts-num">3</div>
     </div>
-    <p class="step-desc">
-      For the fastest access, add PerkUp as an app on your phone. No download from the App Store needed — it works like a native app.
-    </p>
-
-    <div class="pwa-section">
-
-      <div class="pwa-tabs">
-        <button class="pwa-tab active" onclick="showPwa('ios',this)">iPhone / iPad</button>
-        <button class="pwa-tab" onclick="showPwa('android',this)">Android</button>
+    <div class="ts-body">
+      <div class="ts-title">Tap "Save"</div>
+      <div class="ts-desc">
+        You'll see the PerkUp name and icon. Tap
+        <span class="hl">Save</span> in the top right corner. That's it!
       </div>
-
-      <!-- iOS -->
-      <div class="pwa-content show" id="pwa-ios">
-        <div class="inst">
-          <div class="inst-step">
-            <div class="inst-num">1</div>
-            <div class="inst-body">
-              <div class="inst-text">Open <strong>www.perkup.ro</strong> in Safari</div>
-              <div class="inst-sub">It must be Safari — this won't work in Chrome or other browsers on iOS.</div>
-            </div>
-          </div>
-          <div class="inst-step">
-            <div class="inst-num">2</div>
-            <div class="inst-body">
-              <div class="inst-text">Tap the <span class="key">⬆ Share</span> button</div>
-              <div class="inst-sub">It's at the bottom of the screen (iPhone) or top (iPad). Looks like a square with an arrow pointing up.</div>
-            </div>
-          </div>
-          <div class="inst-step">
-            <div class="inst-num">3</div>
-            <div class="inst-body">
-              <div class="inst-text">Scroll down and tap <span class="key">＋ Add to Home Screen</span></div>
-              <div class="inst-sub">You may need to scroll down in the share menu to find it.</div>
-            </div>
-          </div>
-          <div class="inst-step">
-            <div class="inst-num">4</div>
-            <div class="inst-body">
-              <div class="inst-text">Tap <span class="key">Add</span> in the top right</div>
-              <div class="inst-sub">PerkUp will appear on your home screen just like any other app.</div>
-            </div>
-          </div>
-        </div>
+      <div class="ts-img-wrap">
+        <%= image_tag "tutorial/ios-step3-confirm.jpeg", alt: "Save confirmation" %>
+        <%# Red circle around "Save" button — adjust position to match %>
+        <div class="annotation" style="width:60px;height:34px;border-radius:10px;top:9%;right:0%;"></div>
+        <div class="arrow-label" style="top:14%;right:20%;">Tap Save ☝</div>
       </div>
-
-      <!-- Android -->
-      <div class="pwa-content" id="pwa-android">
-        <div class="inst">
-          <div class="inst-step">
-            <div class="inst-num">1</div>
-            <div class="inst-body">
-              <div class="inst-text">Open <strong>www.perkup.ro</strong> in Chrome</div>
-              <div class="inst-sub">Chrome is recommended for the best experience on Android.</div>
-            </div>
-          </div>
-          <div class="inst-step">
-            <div class="inst-num">2</div>
-            <div class="inst-body">
-              <div class="inst-text">Tap the <span class="key">⋮ Menu</span> button (top right)</div>
-              <div class="inst-sub">It's the three dots in the top-right corner of Chrome.</div>
-            </div>
-          </div>
-          <div class="inst-step">
-            <div class="inst-num">3</div>
-            <div class="inst-body">
-              <div class="inst-text">Tap <span class="key">📲 Install app</span> or <span class="key">Add to Home Screen</span></div>
-              <div class="inst-sub">Android may show a banner at the bottom too — just tap "Install".</div>
-            </div>
-          </div>
-          <div class="inst-step">
-            <div class="inst-num">4</div>
-            <div class="inst-body">
-              <div class="inst-text">Tap <span class="key">Install</span> to confirm</div>
-              <div class="inst-sub">Done! PerkUp is now on your home screen.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Phone illustration -->
-      <div class="pwa-phone">
-        <div class="pwa-screen">
-          <div class="pwa-home-bar">
-            <div class="pwa-app"><div class="pwa-app-icon other">📷</div><div class="pwa-app-name">Camera</div></div>
-            <div class="pwa-app"><div class="pwa-app-icon other">💬</div><div class="pwa-app-name">Messages</div></div>
-            <div class="pwa-app highlight"><div class="pwa-app-icon perkup">☕</div><div class="pwa-app-name">PerkUp</div></div>
-            <div class="pwa-app"><div class="pwa-app-icon other">🎵</div><div class="pwa-app-name">Music</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arrow-note">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-        PerkUp on your home screen — just like a real app!
-      </div>
-
     </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="help-foot">
-    <p>Still need help? <a href="#">Contact support</a></p>
   </div>
 
 </div>
-
-<script>
-function showPwa(id, btn) {
-  document.querySelectorAll('.pwa-tab').forEach(function(t){t.classList.remove('active');});
-  btn.classList.add('active');
-  document.querySelectorAll('.pwa-content').forEach(function(c){c.classList.remove('show');});
-  document.getElementById('pwa-'+id).classList.add('show');
-}
-</script>
-</body>
-</html>
+</div>
+</div>

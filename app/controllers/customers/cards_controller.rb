@@ -39,17 +39,17 @@ class Customers::CardsController < ApplicationController
   end
 
   def destroy
-    @card.destroy
-    flash.now[:success] = "Card \"#{@card.name}\" destroyed!"
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.remove("card_#{@card.id}"),
-          turbo_stream.update("flash-container", partial: "customers/shared/flash_messages")
-        ]
-      end
-      format.html { redirect_to customers_cards_path, notice: "Card destroyed!" }
-    end
+    # @card.destroy
+    # flash.now[:success] = "Card \"#{@card.name}\" destroyed!"
+    # respond_to do |format|
+    #   format.turbo_stream do
+    #     render turbo_stream: [
+    #       turbo_stream.remove("card_#{@card.id}"),
+    #       turbo_stream.update("flash-container", partial: "customers/shared/flash_messages")
+    #     ]
+    #   end
+    #   format.html { redirect_to customers_cards_path, notice: "Card destroyed!" }
+    # end
   end
 
   def live_qrcode
