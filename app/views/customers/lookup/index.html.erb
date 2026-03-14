@@ -231,7 +231,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
     <div class="section-title">Top Users</div>
     <div class="leader-grid">
       <div class="leader-card">
-        <div class="leader-h"><h3>Most Stamps</h3><span class="lh-icon">☕</span></div>
+        <div class="leader-h"><h3>Most Stamps</h3></div>
         <% @top_stamps.each_with_index do |uc, i| %>
           <div class="lb-item">
             <span class="lb-rank <%= i < 3 ? "r#{i+1}" : 'rn' %>"><%= i + 1 %></span>
@@ -242,7 +242,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       </div>
 
       <div class="leader-card">
-        <div class="leader-h"><h3>Most Coupons Earned</h3><span class="lh-icon">🎟</span></div>
+        <div class="leader-h"><h3>Most Coupons Earned</h3></div>
         <% @top_coupons.each_with_index do |user, i| %>
           <div class="lb-item">
             <span class="lb-rank <%= i < 3 ? "r#{i+1}" : 'rn' %>"><%= i + 1 %></span>
