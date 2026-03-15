@@ -80,4 +80,5 @@ Rails.application.routes.draw do
     end
     get :activities, on: :collection
   end
+
 end
