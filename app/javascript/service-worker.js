@@ -1,3 +1,4 @@
+importScripts("https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js");
 const CACHE_NAME = "perkup-v2";
 const OFFLINE_URL = "/offline.html";
 
