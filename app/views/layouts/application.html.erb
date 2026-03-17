@@ -27,9 +27,7 @@
     window.OneSignalDeferred = window.OneSignalDeferred || [];
     OneSignalDeferred.push(async function(OneSignal) {
       await OneSignal.init({                                                                                       
-        appId: "<%= ONESIGNAL_CONFIG[:app_id] %>",
-        serviceWorkerParam: { scope: "/" },                                                                        
-        serviceWorkerPath: "OneSignalSDKWorker.js"
+        appId: "<%= ONESIGNAL_CONFIG[:app_id] %>"
       });
                                                                                                                     
       <% if user_signed_in? %>
