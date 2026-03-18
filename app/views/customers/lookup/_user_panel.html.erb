@@ -4,9 +4,6 @@
     <div class="up-email"><%= @user.email %></div>
     <div class="up-badges">
       <span class="up-badge member">● Active</span>
-      <% if @stats[:stamps] >= 30 %>
-        <span class="up-badge vip">⭐ VIP</span>
-      <% end %>
     </div>
   </div>
   <button class="up-close" data-action="customer-search#closeUser">✕</button>
@@ -40,48 +37,16 @@
   <button class="tab" data-action="customer-search#switchTab" data-tab="coupons">Coupons</button>
 </div>
 
+
 <div class="tab-content show" id="tab-stamps">
-  <div class="stamps-list">
-    <% @stamps.each do |stamp| %>
-      <div class="sl-item">
-        <div class="sl-icon">☕</div>
-        <div class="sl-info">
-          <div class="sl-title">Coffee</div>
-          <div class="sl-time"><%= friendly_time(stamp.created_at) %></div>
-        </div>
-        <div class="sl-val">+1</div>
-      </div>
-    <% end %>
-    <% if @stamps.empty? %>
-      <div class="sd-empty">No stamps yet</div>
-    <% end %>
-  </div>
+  <%= turbo_frame_tag "lookup-stamps" do %>
+    <%= render "stamps_list" %>
+  <% end %>
 </div>
 
 <div class="tab-content" id="tab-coupons">
-  <div class="stamps-list">
-    <% @coupons.each do |coupon| %>
-      <div class="cl-item">
-        <div class="cl-icon">🎟</div>
-        <div class="cl-info">
-          <div class="cl-name">Free Coffee</div>
-          <div class="cl-desc">
-            <% if coupon.used? %>
-              Redeemed
-            <% elsif coupon.expires_at < Time.current %>
-              Expired
-            <% else %>
-              Expires in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>
-            <% end %>
-          </div>
-        </div>
-        <span class="cl-badge <%= coupon.used? ? 'used' : coupon.expires_at < Time.current ? 'expired' : 'active' %>">
-          <%= coupon.used? ? 'Used' : coupon.expires_at < Time.current ? 'Expired' : 'Active' %>
-        </span>
-      </div>
-    <% end %>
-    <% if @coupons.empty? %>
-      <div class="sd-empty">No coupons</div>
-    <% end %>
-  </div>
+  <%= turbo_frame_tag "lookup-coupons" do %>
+    <%= render "coupons_list" %>
+  <% end %>
 </div>
+

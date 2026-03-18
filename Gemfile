@@ -43,6 +43,7 @@ gem "redis"
 gem 'connection_pool', '~> 2.4.1'
 gem "pagy", "~> 6.3"
 gem 'httparty'
+gem 'letter_opener'
 
 
 group :development, :test do

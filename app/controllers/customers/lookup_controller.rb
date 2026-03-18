@@ -1,4 +1,5 @@
 class Customers::LookupController < ApplicationController
+  include Pagy::Backend
   before_action :authenticate_customer!
 
   def index
@@ -32,11 +33,16 @@ class Customers::LookupController < ApplicationController
   end
 
   def show
-    @user      = User.find(params[:id])
+    @user = User.find(params[:id])
     @user_card = UserCard.find_by(user: @user, card: current_card)
-    @stamps    = @user_card&.stamps&.order(created_at: :desc)&.limit(10) || []
-    @coupons   = @user.coupons.where(card: current_card).order(created_at: :desc)
-    @stats     = {
+
+    stamps_scope = @user_card&.stamps&.order(created_at: :desc) || Stamp.none
+    @pagy, @stamps = pagy(stamps_scope, items: 20, page: params[:page] || 1)
+
+    coupons_scope = @user.coupons.where(card: current_card).order(created_at: :desc) || Coupon.none
+    @pagy, @coupons = pagy(coupons_scope, items: 20, page: params[:page] || 1)
+
+    @stats = {
       stamps:  @user_card&.stamps&.count || 0,
       points:  @user_card&.points || 0,
       coupons: @coupons.count,
@@ -44,6 +50,27 @@ class Customers::LookupController < ApplicationController
     }
 
     render partial: "user_panel"
+  end
+
+  # NEW: standalone stamps page endpoint for Turbo Frame pagination
+  def stamps
+    @user = User.find(params[:id])
+    @user_card = UserCard.find_by(user: @user, card: current_card)
+
+    stamps_scope = @user_card&.stamps&.order(created_at: :desc) || Stamp.none
+    @pagy, @stamps = pagy(stamps_scope, items: 20, page: params[:page] || 1)
+
+    render partial: "stamps_list"
+  end
+
+  # NEW: standalone stamps page endpoint for Turbo Frame pagination
+  def coupons
+    @user = User.find(params[:id])
+
+    coupons_scope = @user.coupons.where(card: current_card).order(created_at: :desc) || Coupon.none
+    @pagy, @coupons = pagy(coupons_scope, items: 20, page: params[:page] || 1)
+
+    render partial: "coupons_list"
   end
 
   private

@@ -65,7 +65,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 
 /* Card + details row */
 .show-row{display:flex;gap:28px;align-items:flex-start;}
-.show-left{flex:0 0 340px;}
+.show-left{flex:0 0 420px;}
 .show-right{flex:1;min-width:0;}
 
 /* Preview card */
@@ -240,6 +240,22 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
             <button class="btn-o" onclick="printQr()">🖨 Print</button>
           </div>
         </div>
+        <!-- QR Code -->
+        <div class="qr-section">
+          <h3>QR Code</h3>
+          <p>Print or display at your counter for customers to create their accounts</p>
+          <div class="qr-big" id="qr-to-print-signup">
+            <%= image_tag print_qr_sign_up_customers_card_path(@card),
+                  style: "width:200px;height:200px;" %>
+          </div>
+          <div class="qr-actions">
+            <%= link_to "⬇ Download PNG",
+            print_qr_sign_up_customers_card_path(@card),
+            class: "btn-d",
+            download: "card-sign-up.png" %>
+            <button class="btn-o" onclick="printQrsignup()">🖨 Print</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -247,6 +263,42 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 </div>
 
 <script>
+function printQrsignup() {
+  var imgSrc = document.querySelector('#qr-to-print-signup img').src;
+
+  var win = window.open('', '_blank');
+
+  win.document.write(`
+    <html>
+      <head>
+        <style>
+          body{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            flex-direction:column;
+            font-family:sans-serif;
+          }
+          img{width:400px}
+        </style>
+      </head>
+      <body>
+        <h1><%= j @card.name %></h1>
+        <h3>Scan for creating an account.</h3>
+        <img src="${imgSrc}">
+      </body>
+    </html>
+  `);
+
+  win.document.close();
+
+  win.onload = function() {
+    win.print();
+    win.close();
+  };
+}
+
 function printQr() {
   var imgSrc = document.querySelector('#qr-to-print img').src;
 

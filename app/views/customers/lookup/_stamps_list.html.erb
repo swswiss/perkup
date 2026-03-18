@@ -1,0 +1,46 @@
+<%= turbo_frame_tag "lookup-stamps" do %>
+  <div class="stamps-list">
+    <% @stamps.each do |stamp| %>
+      <div class="sl-item">
+        <div class="sl-icon">☕</div>
+        <div class="sl-info">
+          <div class="sl-title">Coffee</div>
+          <div class="sl-time"><%= friendly_time(stamp.created_at) %></div>
+        </div>
+        <div class="sl-val">+1</div>
+      </div>
+    <% end %>
+
+    <% if @stamps.empty? %>
+      <div class="sd-empty">No stamps yet</div>
+    <% end %>
+  </div>
+
+  <% if @pagy.pages > 1 %>
+    <div class="pager">
+      <% if @pagy.prev %>
+        <%= link_to customers_lookup_user_stamps_path(@user, page: @pagy.prev),
+            class: "pg-btn",
+            data: { turbo_frame: "lookup-stamps" } do %>
+          ‹ Prev
+        <% end %>
+      <% else %>
+        <span class="pg-btn disabled">‹ Prev</span>
+      <% end %>
+
+      <span class="pg-info">
+        Page <strong><%= @pagy.page %></strong> of <strong><%= @pagy.last %></strong>
+      </span>
+
+      <% if @pagy.next %>
+        <%= link_to customers_lookup_user_stamps_path(@user, page: @pagy.next),
+            class: "pg-btn",
+            data: { turbo_frame: "lookup-stamps" } do %>
+          Next ›
+        <% end %>
+      <% else %>
+        <span class="pg-btn disabled">Next ›</span>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

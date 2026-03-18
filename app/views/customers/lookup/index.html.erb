@@ -215,6 +215,49 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
   .up-header{flex-direction:column;text-align:center;}
   .up-badges{justify-content:center;}
 }
+
+.pager{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 18px;
+  border-top:1px solid #F8F4ED;
+}
+
+.pg-btn{
+  display:inline-flex;
+  align-items:center;
+  padding:7px 14px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:600;
+  text-decoration:none;
+  color:#5C4A35;
+  background:#FFFCF8;
+  border:1px solid #F0E9DE;
+  transition:all .15s;
+}
+.pg-btn:hover{
+  background:#F8F1E7;
+  border-color:#D4C4AC;
+}
+.pg-btn.disabled{
+  color:#D5C9BA;
+  cursor:default;
+  border-color:#F0E9DE;
+  background:transparent;
+}
+.pg-btn.disabled:hover{
+  background:transparent;
+}
+
+.pg-info{
+  font-size:12px;
+  color:#8C7A65;
+}
+.pg-info strong{
+  color:#2D1B06;
+}
 </style>
 
 <div class="content">

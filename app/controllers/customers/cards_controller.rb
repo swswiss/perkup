@@ -99,6 +99,24 @@ class Customers::CardsController < ApplicationController
               disposition: "inline"
   end
 
+  def print_qr_sign_up
+    require "rqrcode"
+    qr = RQRCode::QRCode.new("https://perkup.onrender.com/users/sign_up")
+
+    png = qr.as_png(
+      bit_depth: 1,
+      border_modules: 4,
+      color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+      color: "black",
+      fill: "white",
+      size: 700
+    )
+
+    send_data png.to_s,
+              type: "image/png",
+              disposition: "inline"
+  end
+
   private
 
   def set_card

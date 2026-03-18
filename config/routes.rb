@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   }
   devise_for :users, path: 'users', controllers: {
     registrations: 'users/registrations',
-    sessions: 'users/sessions'
+    sessions: 'users/sessions',
+    passwords: 'users/passwords'
   }
 
   devise_scope :customer do  
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
       member do
         get :qr
         get :print_qr
+        get :print_qr_sign_up
         get :live_qrcode
       end
     end
@@ -55,6 +57,8 @@ Rails.application.routes.draw do
     get "lookup",          to: "lookup#index"
     get "lookup/search",   to: "lookup#search"
     get "lookup/user/:id", to: "lookup#show", as: :lookup_user
+    get "lookup/user/:id/stamps", to: "lookup#stamps", as: :lookup_user_stamps
+    get "lookup/user/:id/coupons", to: "lookup#coupons", as: :lookup_user_coupons
   end
 
   namespace :users do

@@ -1,0 +1,55 @@
+<%= turbo_frame_tag "lookup-coupons" do %>
+  <div class="stamps-list">
+    <% @coupons.each do |coupon| %>
+      <div class="cl-item">
+        <div class="cl-icon">🎟</div>
+        <div class="cl-info">
+          <div class="cl-name">Free Coffee</div>
+          <div class="cl-desc">
+            <% if coupon.used? %>
+              Redeemed
+            <% elsif coupon.expires_at < Time.current %>
+              Expired
+            <% else %>
+              Expires in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>
+            <% end %>
+          </div>
+        </div>
+        <span class="cl-badge <%= coupon.used? ? 'used' : coupon.expires_at < Time.current ? 'expired' : 'active' %>">
+          <%= coupon.used? ? 'Used' : coupon.expires_at < Time.current ? 'Expired' : 'Active' %>
+        </span>
+      </div>
+    <% end %>
+    <% if @coupons.empty? %>
+      <div class="sd-empty">No coupons</div>
+    <% end %>
+  </div>
+
+  <% if @pagy.pages > 1 %>
+    <div class="pager">
+      <% if @pagy.prev %>
+        <%= link_to customers_lookup_user_coupons_path(@user, page: @pagy.prev),
+            class: "pg-btn",
+            data: { turbo_frame: "lookup-coupons" } do %>
+          ‹ Prev
+        <% end %>
+      <% else %>
+        <span class="pg-btn disabled">‹ Prev</span>
+      <% end %>
+
+      <span class="pg-info">
+        Page <strong><%= @pagy.page %></strong> of <strong><%= @pagy.last %></strong>
+      </span>
+
+      <% if @pagy.next %>
+        <%= link_to customers_lookup_user_coupons_path(@user, page: @pagy.next),
+            class: "pg-btn",
+            data: { turbo_frame: "lookup-coupons" } do %>
+          Next ›
+        <% end %>
+      <% else %>
+        <span class="pg-btn disabled">Next ›</span>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
