@@ -19,21 +19,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+
   <script>
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("/service-worker.js");
     }
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-    OneSignalDeferred.push(async function(OneSignal) {
-      await OneSignal.init({                                                                                       
-        appId: "<%= ONESIGNAL_CONFIG[:app_id] %>"
-      });
-                                                                                                                    
-      <% if user_signed_in? %>
-        await OneSignal.login("<%= current_user.id %>");                                                           
-      <% end %> 
-    });
   </script>
 
   <body data-turbo-prefetch="false">

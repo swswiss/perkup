@@ -1,1 +1,0 @@
-ONESIGNAL_CONFIG = Rails.application.credentials.onesignal
