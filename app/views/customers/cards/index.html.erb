@@ -5,7 +5,7 @@
   <header class="topbar">
     <div style="display:flex;align-items:center;gap:12px;">
       <div class="burger" id="burger">☰</div>
-      <h1>My Cards</h1>
+      <h1>Cardurile mele</h1>
     </div>
   </header>
 
@@ -13,10 +13,10 @@
 
     <div class="page-header">
       <div class="page-header-left">
-        <h2>All Loyalty Cards</h2>
-        <p>Manage your loyalty cards, rules and QR codes</p>
+        <h2>Toate cardurile de loialitate</h2>
+        <p>Gestionează cardurile de fidelitate, regulile și codurile QR</p>
       </div>
-      <%= link_to "+ New Card",
+      <%= link_to "+ Card Nou",
             new_customers_card_path,
             class: "btn-new" %>
     </div>
@@ -26,18 +26,18 @@
         <div class="search-box">
           <input type="text" id="searchInput" placeholder="Search cards...">
         </div>
-        <button class="filter-btn" id="filterBtn">All statuses</button>
+        <button class="filter-btn" id="filterBtn">Toate statusurile</button>
       </div>
 
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Reward Rule</th>
-              <th>Description</th>
+              <th>Nume</th>
+              <th>Regulă de recompensă</th>
+              <th>Descriere</th>
               <th>UUID</th>
-              <th style="">Actions</th>
+              <th style="">Actiuni</th>
             </tr>
           </thead>
           <%= turbo_frame_tag "cards_table" do %>
@@ -45,8 +45,8 @@
               <% @cards.each do |card| %>
                 <tr id="card_<%= card.id %>">
                   <td><div class="td-name"><%= card.name %></div></td>
-                  <td class="td-rule">Buy <%= card.reward_rule %> <%= card.product %> → next <%= card.how_many %> are free</td>
-                  <td class="td-desc">Earn a stamp with every coffee</td>
+                  <td class="td-rule">Cumpara <%= card.reward_rule %> <%= card.product %> → urmatoarea <%= card.how_many %> este gratis</td>
+                  <td class="td-desc">Castiga o stampila pentru fiecare cafea.</td>
                   <td><span class="td-uuid" onclick="copyUuid(this)" title="Click to copy"><%= card.uuid %><span class="copy-icon">📋</span></span></td>
                   <td><div class="td-actions">
                   <%= link_to "👁",
@@ -75,7 +75,7 @@
       </div>
     <%else%>
       <br><br><br>
-      <center>You have no cards yet.</center>
+      <center>Nu ai niciun card inca.</center>
     <%end%>
 
   </div>

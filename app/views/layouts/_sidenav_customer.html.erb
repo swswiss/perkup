@@ -7,29 +7,29 @@
     <span class="lt">PerkUp</span>
   </div>
   <nav class="side-nav">
-    <%= link_to 'Dashboard',
+    <%= link_to 'Panou de control',
     customers_dashboard_path,
     class: "sn-item #{nav_active(customers_dashboard_path)}" %>
 
-    <%= link_to "My Cards",
+    <%= link_to "Cardurile mele",
       customers_cards_path,
       class: "sn-item #{nav_active(customers_cards_path)}" %>
 
-    <%= link_to "Create new Card",
+    <%= link_to "Creaza un card",
       new_customers_card_path,
       class: "sn-item #{nav_active(new_customers_card_path)}" %>
-    <%= link_to "Statistics",
+    <%= link_to "Statistici",
       customers_lookup_path,
       class: "sn-item #{nav_active(customers_lookup_path)}" %>
-    <%= link_to "All Users",
+    <%= link_to "Toti utilizatorii",
       customers_clients_path,
       class: "sn-item #{nav_active(customers_clients_path)}" %>
     <div class="sn-sep"></div>
-    <a class="sn-item">Settings</a>
-    <%= link_to "Help",
+    <a class="sn-item">Setari</a>
+    <%= link_to "Ajutor",
       customers_dashboard_help_path,
       class: "sn-item #{nav_active(customers_dashboard_help_path)}" %>
-    <%= link_to 'Logout', destroy_customer_session_path, method: :delete, class: "sn-item" %>
+    <%= link_to 'Iesi din cont', destroy_customer_session_path, method: :delete, class: "sn-item" %>
   </nav>
   <div class="side-foot">
     <div class="side-user">

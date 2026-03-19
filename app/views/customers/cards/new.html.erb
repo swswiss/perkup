@@ -5,41 +5,40 @@
   <header class="topbar">
     <div style="display:flex;align-items:center;gap:12px;">
       <div class="burger" id="burger">☰</div>
-      <h1>My Card</h1>
+      <h1>Cardul meu</h1>
     </div>
   </header>
 
   <div class="page">
-    <p class="page-desc">Design your loyalty card, set the reward rule, and generate a QR code your customers can scan.</p>
-
+    <p class="page-desc">Proiectează-ți cardul de fidelitate, stabilește regula de recompensă și generează un cod QR pe care clienții tăi îl pot scana.</p>
     <div class="page-row">
     <div class="page-left">
     <!-- FORM -->
     <div class="form-section">
-      <div class="form-title">Card Details</div>
+      <div class="form-title">Detalile cardului</div>
       <%= form_with(model: [:customers, @card], local: true) do |f| %>
       <div class="field">
-        <label for="cardName">Card name</label>
+        <label for="cardName">Numele cardului</label>
         <%= f.text_field :name, maxlength: 40, id:"cardName" %>
-        <div class="hint">This appears as the title on your card</div>
+        <div class="hint">Acesta apare ca titlu pe cardul tău</div>
       </div>
 
       <div class="field">
-        <label>Reward rule</label>
+        <label>Regulă de recompensă</label>
         <div class="rule-row">
           <div class="field" style="margin:0;">
             <%= f.number_field :reward_rule, value: 6, min: 1, max: 30, style: "text-align:center;", id:"ruleNum" %>
           </div>
           <div class="connector">×</div>
           <div class="field" style="margin:0;">
-            <%= f.text_field :product, placeholder: "e.g. coffees, pizzas, washes...", value: "coffees", id:"ruleItem" %>
+            <%= f.text_field :product, placeholder: "e.g. coffees, pizzas, washes...", value: "cafele", id:"ruleItem" %>
           </div>
           <div class="connector">→</div>
         </div>
 
         <div style="margin-top:10px;">
           <div class="rule-row">
-            <div class="connector">Next</div>
+            <div class="connector">Urmatoarele</div>
             <div class="field" style="margin:0;">
               <%= f.number_field :how_many,
                     value: 1,
@@ -48,20 +47,20 @@
                     style: "text-align:center;",
                     id: "ruleFree" %>
             </div>
-            <div class="connector">free</div>
+            <div class="connector">gratis</div>
           </div>
         </div>
 
-        <div class="hint" style="margin-top:8px;">Set how many purchases earn a reward</div>
+        <div class="hint" style="margin-top:8px;">Stabilește câte achiziții dau dreptul la o recompensă</div>
       </div>
 
       <div class="field">
-        <label for="cardDesc">Short description (optional)</label>
+        <label for="cardDesc">Scurta descriere (optional)</label>
         <%= f.text_area :description, placeholder: "e.g. Earn a stamp with every coffee. Your 7th is on us!", maxlength: 80, rows: 2, id:"cardDesc" %>
       </div>
 
       <div class="field">
-        <label>Card color</label>
+        <label>Culoarea cardului</label>
         <div class="color-row">
           <% ["dark","amber","green","navy","wine","slate"].each_with_index do |c,i| %>
             <div class="color-opt">
@@ -73,7 +72,7 @@
       </div>
 
       <div class="actions">
-        <%= f.submit "Create Card", class: "submit", id: "submit-btn", class: "gen-btn" %>
+        <%= f.submit "Creaza Card", class: "submit", id: "submit-btn", class: "gen-btn" %>
       </div>
       <% end %>
     </div>
@@ -82,12 +81,12 @@
     <div class="page-right">
     <!-- LIVE PREVIEW -->
     <div class="preview-section">
-      <div class="preview-label">Live Preview</div>
+      <div class="preview-label">Previzualizare live</div>
       <div class="card-preview theme-dark" id="cardPreview">
         <div class="cp-top">
           <div class="cp-shop">PerkUp</div>
-          <div class="cp-name" id="cpName">Your Card Name</div>
-          <div class="cp-rule" id="cpRule">Buy 6 coffees → next one is free</div>
+          <div class="cp-name" id="cpName">Numele cardului tau</div>
+          <div class="cp-rule" id="cpRule">Cumperi 6 cafele → urmatoarea este gratis</div>
         </div>
         <div class="cp-bottom">
           <div class="cp-stamps-mini" id="cpStamps">
@@ -131,9 +130,9 @@
   function updateRule(){
     var n=ruleNum.value||'6';
     var cadou=ruleFree.value||'1';
-    var item=ruleItem.value||'coffees';
-    var f='next ' + ruleFree.value + ' are free';
-    cpRule.textContent='Buy '+n+' '+item+' → '+f;
+    var item=ruleItem.value||'cafele';
+    var f='urmatoarea ' + ruleFree.value + ' este gratis';
+    cpRule.textContent='Cumperi '+n+' '+item+' → '+f;
     updateStamps(parseInt(n)||6, parseInt(cadou));
   }
   ruleNum.addEventListener('input',updateRule);

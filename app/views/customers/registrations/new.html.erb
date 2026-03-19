@@ -117,9 +117,9 @@ body>*{display:block;width:100%;}
 <div class="main">
   <div class="card">
     <div class="card-head">
-      <div class="card-icon">☕</div>
-      <h1>Create your account</h1>
-      <p>Start building customer loyalty today</p>
+      <div class="card-icon"><a href="<%= root_path %>">☕</a></div>
+      <h1>Creează-ți contul</h1>
+      <p>Începe să construiești loialitatea clienților chiar astăzi</p>
     </div>
 
     <!-- FORM -->
@@ -128,7 +128,7 @@ body>*{display:block;width:100%;}
     
     <div id="form">
       <div class="field">
-        <label for="email">Email address</label>
+        <label for="email">Email</label>
         <p>
           <%= f.email_field :email, 
                 id: "email", 
@@ -141,7 +141,7 @@ body>*{display:block;width:100%;}
       </div>
 
       <div class="field">
-        <label for="name">Name</label>
+        <label for="name">Numele Cafenelei</label>
         <p>
           <%= f.text_field :name, 
                 id: "name", 
@@ -153,7 +153,7 @@ body>*{display:block;width:100%;}
       </div>
 
       <div class="field">
-        <label for="pw">Password</label>
+        <label for="pw">Parola</label>
         <div class="pw-toggle">
         <p>
           <%= f.password_field :password,
@@ -171,7 +171,7 @@ body>*{display:block;width:100%;}
       </div>
 
       <div class="field">
-        <label for="pw2">Confirm password</label>
+        <label for="pw2">Confirma parola</label>
         <div class="pw-toggle">
         <p>
           <%= f.password_field :password_confirmation,
@@ -191,14 +191,14 @@ body>*{display:block;width:100%;}
         <label for="agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
       </div>
 
-      <%= f.submit "Create Account", 
+      <%= f.submit "Creează-ți contul", 
       class: "submit btn-s btn-s-f",
       disabled: false %>
 
     </div>
     <% end %>
 
-    <div class="footer-text">Already have an account? <a href="<%= new_customer_session_path %>">Log in</a></div>
+    <div class="footer-text">Ai deja un cont? <a href="<%= new_customer_session_path %>">Autentifica-te</a></div>
   </div>
 </div>
 

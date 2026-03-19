@@ -14,7 +14,7 @@
       <div class="cm-icon">☕</div>
 
       <h3 class="cm-title"
-          data-coupon-modal-target="name">Free Coffee</h3>
+          data-coupon-modal-target="name">Cafea gratis</h3>
 
       <p class="cm-expires"
          data-coupon-modal-target="expires"></p>
@@ -29,15 +29,15 @@
       <div class="cm-code"
            data-coupon-modal-target="code"></div>
 
-      <p class="cm-hint">Show this to the cashier to redeem</p>
+      <p class="cm-hint">Arată acest lucru casierului pentru a răscumpăra!</p>
     </div>
   </div>
 
   <%# Coupons list — each coupon triggers the modal %>
   <div class="section">
     <div class="section-h">
-      <h2>My Coupons</h2>
-      <%= link_to 'View all', coupons_path %>
+      <h2>Cupoanele mele</h2>
+      <%= link_to 'Vezi toate', coupons_path %>
     </div>
 
     <% if @coupons.any? %>
@@ -47,14 +47,14 @@
            data-action="click->coupon-modal#open"
            data-coupon-id="<%= coupon.id %>"
            data-coupon-name="Free Coffee"
-           data-coupon-expires="Expires in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>"
+           data-coupon-expires="Expira in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>"
            data-coupon-code="<%= coupon.code %>">
           <div class="rew">
             <div class="rew-icon">☕</div>
             <div class="rew-info">
-              <div class="rew-name">Free Coffee</div>
+              <div class="rew-name">Cafea gratis</div>
               <div class="rew-desc">
-                Any size · Expires in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>
+                Expira in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>
               </div>
             </div>
             <span class="rew-badge <%= status_coupon(coupon)[:class] %>">
@@ -66,7 +66,7 @@
     <% else %>
       <div class="rew">
         <div class="rew-info">
-          <div class="rew-name">You have no Coupons yet!</div>
+          <div class="rew-name">Nu ai niciun Coupon inca!</div>
         </div>
       </div>
     <% end %>

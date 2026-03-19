@@ -1,10 +1,10 @@
 <div class="main">
   <div class="card">
     <div class="card-head">
-      <div class="card-icon">☕</div>
-      <h1>Forgot your password?</h1>
+      <div class="card-icon"><a href="<%= root_path %>">☕</a></div>
+      <h1>Ați uitat parola?</h1>
     </div>
-<h2>Change your password</h2>
+<h2>Schimba-ti parola</h2>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>

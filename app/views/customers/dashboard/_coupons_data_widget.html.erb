@@ -2,23 +2,23 @@
   <% @coupons.each do |coupon| %>
     <div class="rew">
       <div class="rew-icon">🎟</div>
-      <div class="rew-info"><div class="rew-name">Free Coffee</div>
+      <div class="rew-info"><div class="rew-name">Cafea gratis</div>
       <div class="rew-desc">
         <% if coupon.used_at %>
-          Used at <%= friendly_time(coupon.used_at) %>! This coupon was created at <%= friendly_time(coupon.created_at) %>
+          Folosit la <%= friendly_time(coupon.used_at) %>! Acest cupon a fost creat la <%= friendly_time(coupon.created_at) %>
         <% else %>
-          Not used yet! This coupon was created at <%= friendly_time(coupon.created_at) %>.
+          Inca nu e folosit! Acest cupon a fost creat la <%= friendly_time(coupon.created_at) %>.
         <% end %>
         <div class="coupon-user"><%= coupon.user.full_name %></div>
       </div>
       </div>
       <% if coupon.used_at %>
         <span class="rew-badge lock">
-          Used
+          Folosit
         </span>
       <% else %>
         <span class="rew-badge ready">
-          Ready
+          Valabil
         </span>
       <% end %>
     </div>

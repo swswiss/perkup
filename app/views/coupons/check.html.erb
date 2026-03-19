@@ -156,7 +156,7 @@ html,body{
   <% if @coupon.used? %>
 
     <%# ══ ALREADY USED ══ %>
-    <div class="coupon-name">Free Coffee</div>
+    <div class="coupon-name">Cafea gratis</div>
     <div class="coupon-shop"><%= @coupon.card.name %></div>
 
     <div class="customer">
@@ -169,10 +169,10 @@ html,body{
     <div class="details">
       <div class="d-row">
         <span class="d-label">Status</span>
-        <span class="badge used">● Already Used</span>
+        <span class="badge used">● Deja folosit</span>
       </div>
       <div class="d-row">
-        <span class="d-label">Used on</span>
+        <span class="d-label">Folosit pe</span>
         <span class="d-value"><%= @coupon.used_at.strftime("%b %d, %Y — %I:%M %p") %></span>
       </div>
       <div class="d-row">
@@ -181,12 +181,12 @@ html,body{
       </div>
     </div>
 
-    <div class="msg-box used-msg">✕ This coupon has already been used</div>
+    <div class="msg-box used-msg">✕ Acest cupon a fost deja folosit</div>
 
   <% elsif @coupon.expires_at < Time.current %>
 
     <%# ══ EXPIRED ══ %>
-    <div class="coupon-name">Free Coffee</div>
+    <div class="coupon-name">Cafea gratis</div>
     <div class="coupon-shop"><%= @coupon.card.name %></div>
 
     <div class="customer">
@@ -199,10 +199,10 @@ html,body{
     <div class="details">
       <div class="d-row">
         <span class="d-label">Status</span>
-        <span class="badge expired">● Expired</span>
+        <span class="badge expired">● Expirat</span>
       </div>
       <div class="d-row">
-        <span class="d-label">Expired on</span>
+        <span class="d-label">Expirat pe</span>
         <span class="d-value"><%= @coupon.expires_at.strftime("%b %d, %Y") %></span>
       </div>
       <div class="d-row">
@@ -211,12 +211,12 @@ html,body{
       </div>
     </div>
 
-    <div class="msg-box expired-msg">⏱ This coupon has expired</div>
+    <div class="msg-box expired-msg">⏱ Acest cupon a fost expirat</div>
 
   <% else %>
 
     <%# ══ VALID — CAN REDEEM ══ %>
-    <div class="coupon-name">Free Coffee</div>
+    <div class="coupon-name">Cafea gratis</div>
     <div class="coupon-shop"><%= @coupon.card.name %></div>
 
     <div class="customer">
@@ -232,7 +232,7 @@ html,body{
         <span class="badge valid">● Valid</span>
       </div>
       <div class="d-row">
-        <span class="d-label">Expires</span>
+        <span class="d-label">Expira</span>
         <span class="d-value"><%= @coupon.expires_at.strftime("%b %d, %Y") %></span>
       </div>
       <div class="d-row">
@@ -241,13 +241,13 @@ html,body{
       </div>
     </div>
 
-    <%= button_to "✓ Redeem Coupon",
+    <%= button_to "✓ Valideaza cupon",
         redeem_coupons_path(token: @coupon.code),
         method: :post,
         class: "btn-redeem",
         id: "redeemBtn",
         data: {
-          turbo_confirm: "Redeem this coupon? This cannot be undone."
+          turbo_confirm: "Validezi acest cupon? Aceasta nu poate fi anulată."
         }
     %>
 

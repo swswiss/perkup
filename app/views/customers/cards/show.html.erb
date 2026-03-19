@@ -143,7 +143,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
   <header class="topbar">
     <div style="display:flex;align-items:center;gap:12px;">
       <div class="burger" id="burger">☰</div>
-      <h1>Card Details</h1>
+      <h1>Detaliile Cardului</h1>
     </div>
   </header>
 
@@ -153,8 +153,8 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
     <div class="page-top">
       <h2><%= @card.name %></h2>
       <div class="top-actions">
-        <button class="btn-o">Edit</button>
-        <%= button_to "Delete",
+        <button class="btn-o">Editeaza</button>
+        <%= button_to "Sterge",
           customers_card_path(@card),
           method: :delete,
           data: { turbo: false },
@@ -173,7 +173,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
           <div>
             <div class="cv-shop">PerkUp</div>
             <div class="cv-name"><%= @card.name %></div>
-            <div class="cv-rule">Buy <%= @card.reward_rule %> coffees → next <%= @card.how_many %> are free</div>
+            <div class="cv-rule">Cumpara <%= @card.reward_rule %> cafele → urmatoarea <%= @card.how_many %> este gratis</div>
           </div>
           <div class="cv-bottom">
             <div class="cv-stamps">
@@ -192,24 +192,24 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       <div class="show-right">
         <div class="detail-card">
           <div class="dc-row">
-            <div class="dc-label">Name</div>
+            <div class="dc-label">Nume</div>
             <div class="dc-value"><%= @card.name %></div>
           </div>
           <div class="dc-row">
-            <div class="dc-label">Reward Rule</div>
-            <div class="dc-value">Buy <%= @card.reward_rule %> coffees → next <%= @card.how_many %> are free</div>
+            <div class="dc-label">Regula de recompensa</div>
+            <div class="dc-value">Cumpara <%= @card.reward_rule %> cafele → urmatoarea <%= @card.how_many %> este gratis</div>
           </div>
           <div class="dc-row">
-            <div class="dc-label">Description</div>
+            <div class="dc-label">Descriere</div>
             <div class="dc-value"><%= @card.description %></div>
           </div>
           <div class="dc-row">
-            <div class="dc-label">Stamps</div>
-            <div class="dc-value"><%= @card.reward_rule %> purchases + <%= @card.how_many %> reward</div>
+            <div class="dc-label">Stampile</div>
+            <div class="dc-value"><%= @card.reward_rule %> cumparate + <%= @card.how_many %> castigate</div>
           </div>
           <div class="dc-row">
-            <div class="dc-label">Created</div>
-            <div class="dc-value">Feb 28, 2026</div>
+            <div class="dc-label">Creat</div>
+            <div class="dc-value"><%= friendly_time(@card.created_at) %></div>
           </div>
           <div class="dc-row">
             <div class="dc-label">UUID</div>
@@ -227,7 +227,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
         <!-- QR Code -->
         <div class="qr-section">
           <h3>QR Code</h3>
-          <p>Print or display at your counter for customers to create their cards</p>
+          <p>Printează sau afișează la tejghea pentru ca clienții să-și creeze cardurile.</p>
           <div class="qr-big" id="qr-to-print">
             <%= image_tag print_qr_customers_card_path(@card),
                   style: "width:200px;height:200px;" %>
@@ -243,7 +243,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
         <!-- QR Code -->
         <div class="qr-section">
           <h3>QR Code</h3>
-          <p>Print or display at your counter for customers to create their accounts</p>
+          <p>Printează sau afișează la tejghea pentru ca clienții să-și creeze conturile.</p>
           <div class="qr-big" id="qr-to-print-signup">
             <%= image_tag print_qr_sign_up_customers_card_path(@card),
                   style: "width:200px;height:200px;" %>
@@ -285,7 +285,7 @@ function printQrsignup() {
       </head>
       <body>
         <h1><%= j @card.name %></h1>
-        <h3>Scan for creating an account.</h3>
+        <h3>Scanează pentru a-ți crea un cont.</h3>
         <img src="${imgSrc}">
       </body>
     </html>
@@ -321,7 +321,7 @@ function printQr() {
       </head>
       <body>
         <h1><%= j @card.name %></h1>
-        <h3>Scan for creating a card.</h3>
+        <h3>Scanează pentru a-ți crea un card de fidelitate.</h3>
         <img src="${imgSrc}">
       </body>
     </html>

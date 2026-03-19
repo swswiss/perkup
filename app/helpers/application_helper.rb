@@ -16,7 +16,7 @@ module ApplicationHelper
     return "" unless time
   
     if time.today?
-      "Today, #{time.strftime('%-I:%M %p')}"
+      "Astazi, #{time.strftime('%-I:%M %p')}"
     else
       time.strftime('%b %d, %-I:%M %p')
     end
@@ -24,11 +24,11 @@ module ApplicationHelper
   
   def status_coupon(coupon)
     if coupon.used == false
-      {used: false, label: "Redeem", class: "ready"}
+      {used: false, label: "Valabil", class: "ready"}
     elsif coupon.used == true
-      {used: true, label: "Redeemed", class: "lock"}
+      {used: true, label: "Invalid", class: "lock"}
     elsif coupon.expires_at < Time.current
-      {used: true, label: "Expired", class: "lock"}
+      {used: true, label: "Expirat", class: "lock"}
     end
   end
   

@@ -279,13 +279,13 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 
     <!-- Welcome -->
     <div class="welcome">
-      <h2>Good morning, <%= current_customer.name %></h2>
+      <h2>Bine ai venit, <%= current_customer.name %></h2>
     </div>
 
     <!-- Stats -->
     <div class="stats-row">
       <div class="stat-card">
-        <div class="sc-top"><span class="sc-label">Stamps</span><div class="sc-icon c3">💳</div></div>
+        <div class="sc-top"><span class="sc-label">Ștampile</span><div class="sc-icon c3">💳</div></div>
         <%= turbo_frame_tag "stamps_widget", src: customers_dashboard_count_stamps_path do %>
           <div class="loader">
             <div class="spinner"></div>
@@ -294,7 +294,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
         <% end %>
       </div>
       <div class="stat-card">
-        <div class="sc-top"><span class="sc-label">Users</span><div class="sc-icon c2">🧑‍🦱</div></div>
+        <div class="sc-top"><span class="sc-label">Utilizatori</span><div class="sc-icon c2">🧑‍🦱</div></div>
           <%= turbo_frame_tag "users_widget", src: customers_dashboard_count_users_path do %>
             <div class="loader">
               <div class="spinner"></div>
@@ -303,7 +303,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
           <% end %>
       </div>
       <div class="stat-card">
-        <div class="sc-top"><span class="sc-label">Coupons</span><div class="sc-icon c3">🎟</div></div>
+        <div class="sc-top"><span class="sc-label">Cupoane</span><div class="sc-icon c3">🎟</div></div>
         <%= turbo_frame_tag "coupons_widget", src: customers_dashboard_count_coupons_path do %>
           <div class="loader">
             <div class="spinner"></div>
@@ -319,13 +319,13 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       <!-- Loyalty Card -->
       <div class="card">
         <% if @card %>
-          <div class="card-h"><h3>My Loyalty Card</h3>
+          <div class="card-h"><h3>Cardul cafenelei</h3>
             <%= link_to "View Card",
             customers_card_path(@card),
             title: "View" %>
           </div>
           <div class="loyalty">
-            <div class="lbl">Total Points</div>
+            <div class="lbl">Puncte totale</div>
             <div class="pts"><%= Rails.cache.read("dashboard_points_total") %></div>
             <div class="stamps">
               <% @card.reward_rule.times do%>
@@ -337,17 +337,17 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
             </div>
           </div>
         <% else %>
-          <div class="card-h"><h3>My Loyalty Card</h3>
+          <div class="card-h"><h3>Cardul cafenelei</h3>
           </div>
           <div class="loyalty">
-            Your loyalty card will be here!
+            Cardul cafenelei va fi aici!
           </div>
         <% end %>
       </div>
 
       <!-- Recent Activity -->
       <div class="card">
-        <div class="card-h"><h3>Recent Activity</h3><a href="#">View all</a></div>
+        <div class="card-h"><h3>Activitati recente</h3><a href="#">Vezi toate</a></div>
         <div class="activity-list">
           <%= turbo_frame_tag "activity_widget", src: customers_dashboard_activity_path do %>
             <div class="loader">
@@ -361,7 +361,7 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
 
     <!-- Rewards -->
     <div class="card" style="margin-bottom:28px;">
-      <div class="card-h"><h3>Coupons Redeemed</h3><a href="#">Browse all</a></div>
+      <div class="card-h"><h3>Cupoanele utilizatorilor</h3><a href="#">Vezi toate</a></div>
       <div class="rewards-list">
         <%= turbo_frame_tag "coupons_data_widget", src: customers_dashboard_coupons_path do %>
           <div class="loader">
@@ -377,8 +377,8 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
       <button id="scanBtn" onclick="toggleScanner()">
         <div class="qa">
           <div class="qa-icon">📷</div>
-          <div class="qa-title">Scan QR Code</div>
-          <div class="qa-desc">Redeem Client`s Coupons</div>
+          <div class="qa-title">Scaneaza QR Codul</div>
+          <div class="qa-desc">Valideaza cuponul clientului</div>
         </div>
       </button>
 
@@ -390,22 +390,22 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
         <div class="scanner-viewport">
           <div id="reader"></div>
         </div>
-        <div class="scanner-hint">Point your camera at the QR code on the counter</div>
+        <div class="scanner-hint">Îndreaptă camera către codul QR de pe tejghea</div>
       </div>
 
       <button id="" onclick="">
         <div class="qa">
           <div class="qa-icon">📍</div>
-          <div class="qa-title">Find a Shop</div>
-          <div class="qa-desc">Nearby PerkUp locations</div>
+          <div class="qa-title">Gaseste o cafenea</div>
+          <div class="qa-desc">Locații PerkUp în apropiere</div>
         </div>
       </button>
       
       <button id="" onclick="">
         <div class="qa">
           <div class="qa-icon">👥</div>
-          <div class="qa-title">Refer a Friend</div>
-          <div class="qa-desc">Both earn 50 bonus points</div>
+          <div class="qa-title">Recomandă un prieten</div>
+          <div class="qa-desc">Amândoi primesc 50 de puncte bonus</div>
         </div>
       </button>
     </div>

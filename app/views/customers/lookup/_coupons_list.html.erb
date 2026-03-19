@@ -4,24 +4,24 @@
       <div class="cl-item">
         <div class="cl-icon">🎟</div>
         <div class="cl-info">
-          <div class="cl-name">Free Coffee</div>
+          <div class="cl-name">Cafea gratis</div>
           <div class="cl-desc">
             <% if coupon.used? %>
-              Redeemed
+              Invalid
             <% elsif coupon.expires_at < Time.current %>
-              Expired
+              Expirat
             <% else %>
-              Expires in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>
+              Expira in <%= distance_of_time_in_words(Time.current, coupon.expires_at) %>
             <% end %>
           </div>
         </div>
         <span class="cl-badge <%= coupon.used? ? 'used' : coupon.expires_at < Time.current ? 'expired' : 'active' %>">
-          <%= coupon.used? ? 'Used' : coupon.expires_at < Time.current ? 'Expired' : 'Active' %>
+          <%= coupon.used? ? 'Folosit' : coupon.expires_at < Time.current ? 'Expirat' : 'Activ' %>
         </span>
       </div>
     <% end %>
     <% if @coupons.empty? %>
-      <div class="sd-empty">No coupons</div>
+      <div class="sd-empty">Nu exista cupoane</div>
     <% end %>
   </div>
 

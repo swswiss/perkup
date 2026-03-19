@@ -86,7 +86,7 @@ body>*,section,nav,footer{display:block;width:100%;}
 /* ── Section labels ── */
 .tag{font-size:11px;text-transform:uppercase;letter-spacing:3px;color:#A16207;font-weight:700;margin-bottom:10px;}
 .heading{font-family:'DM Serif Display',serif;font-size:40px;line-height:1.15;margin-bottom:12px;color:#2D1B06;letter-spacing:-.5px;}
-.subh{font-size:15px;color:#8C7A65;max-width:440px;line-height:1.65;margin-bottom:52px;}
+.subh{font-size:15px;color:#8C7A65;max-width:490px;line-height:1.65;margin-bottom:52px;}
 
 /* ── FEATURES ── */
 .feat{padding:96px 0;}

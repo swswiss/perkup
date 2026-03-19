@@ -199,12 +199,12 @@ body{display:flex;flex-direction:column;}
           <div class="mc-brand">
             <span class="mc-shop"><%= @card.name %></span>
           </div>
-          <span class="mc-type">Loyalty Card</span>
+          <span class="mc-type">Card de loialitate</span>
         </div>
         <div class="mc-name"><%= current_user.full_name %></div>
         <div class="mc-since">
           <span class="mc-since-dot"></span>
-          Member since <%= @user_card.created_at.strftime("%b %Y") %>
+          Membru de la <%= @user_card.created_at.strftime("%b %Y") %>
         </div>
       </div>
 
@@ -216,11 +216,11 @@ body{display:flex;flex-direction:column;}
 
       <!-- QR -->
       <div class="mc-qr">
-        <div class="mc-qr-label">Scan at counter</div>
+        <div class="mc-qr-label">Scaneaza la tejghea</div>
         <div class="mc-qr-frame">
           <%= image_tag users_dashboard_qr_path(@user_card.id), width: 180, height: 180 %>
         </div>
-        <div class="mc-qr-hint">Show this card to earn stamps</div>
+        <div class="mc-qr-hint">Arata acest card casierului.</div>
       </div>
 
     </div>

@@ -167,16 +167,16 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
 
 <div class="page">
   <div class="icon-circle reward">🎉</div>
-  <h1>Congratulations!</h1>
-  <p class="sub">The user has just won a coupon!</p>
+  <h1>Felicitari!</h1>
+  <p class="sub">Utilizatorul a obținut recent un cupon!</p>
 
   <div class="reward-banner">
     <div class="rb-icon">🎟</div>
-    <div class="rb-title">New Coupon Unlocked!</div>
+    <div class="rb-title">Un cupon nou a fost deblocat!</div>
   </div>
 
   <div class="btn-row">
-    <%= link_to "← Back to Dashboard", root_path, class: "btn btn-light" %>
+    <%= link_to "← Inpoi la Dashboard", root_path, class: "btn btn-light" %>
   </div>
   <br>
   <button class="scan-btn" id="scanBtn" onclick="toggleScanner()">
@@ -187,7 +187,7 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
       <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
       <rect x="7" y="7" width="10" height="10" rx="1"/>
     </svg>
-    Scan QR Code
+    Scaneaza QR Code
   </button>
 
   <div class="scanner-wrap" id="scannerWrap">
@@ -256,7 +256,7 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
       scanning = false;
       wrap.classList.remove("open");
       resetButton();
-      alert("Camera access denied. Please allow camera permission in your browser settings and try again.");
+      alert("Accesul la cameră a fost refuzat. Te rugăm să permiți accesul la cameră în setările browserului și încearcă din nou.");
     });
   }
 
@@ -282,7 +282,7 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
         '<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
         '<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>' +
         '<rect x="7" y="7" width="10" height="10" rx="1"/>' +
-      '</svg> Scan QR Code';
+      '</svg> Scaneaza QR Code';
     btn.style.background = "";
   }
 </script>

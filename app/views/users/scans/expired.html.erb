@@ -168,12 +168,11 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
 
 <div class="page">
   <div class="icon-circle error">⏱</div>
-  <h1>QR Code Expired</h1>
-  <p class="sub">This QR code is no longer valid. Just wait few seconds before scanning again.</p>
+  <h1>QR Code Expirat</h1>
+  <p class="sub">Acest cod QR nu mai este valabil. Așteaptă câteva secunde înainte să îl scanezi din nou.</p>
 
   <div class="error-box">
-    The QR token has expired or was already used.
-    Please scan a fresh QR code at the counter.
+  Tokenul QR a expirat sau a fost deja utilizat. Te rugăm să scanezi un cod QR nou la tejghea.
   </div>
 
   <button class="scan-btn" id="scanBtn" onclick="toggleScanner()">
@@ -184,7 +183,7 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
       <path d="M7 21H5a2 2 0 0 1-2-2v-2"/>
       <rect x="7" y="7" width="10" height="10" rx="1"/>
     </svg>
-    Scan QR Code
+    Scaneaza QR Code
   </button>
 
   <div class="scanner-wrap" id="scannerWrap">
@@ -195,7 +194,7 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
     <div class="scanner-viewport">
       <div id="reader"></div>
     </div>
-    <div class="scanner-hint">Point your camera at the QR code on the counter</div>
+    <div class="scanner-hint">Îndreaptă camera către codul QR de pe tejghea.</div>
   </div>
 
   <div class="foot"><span class="foot-dot">☕</span> PerkUp</div>
@@ -253,7 +252,7 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
       scanning = false;
       wrap.classList.remove("open");
       resetButton();
-      alert("Camera access denied. Please allow camera permission in your browser settings and try again.");
+      alert("Accesul la cameră a fost refuzat. Te rugăm să permiți accesul la cameră în setările browserului și încearcă din nou.");
     });
   }
 
@@ -279,7 +278,7 @@ h1{font-family:'DM Serif Display',serif;font-size:24px;color:#2D1B06;margin-bott
         '<path d="M21 17v2a2 2 0 0 1-2 2h-2"/>' +
         '<path d="M7 21H5a2 2 0 0 1-2-2v-2"/>' +
         '<rect x="7" y="7" width="10" height="10" rx="1"/>' +
-      '</svg> Scan QR Code';
+      '</svg> Scaneaza QR Code';
     btn.style.background = "";
   }
 </script>

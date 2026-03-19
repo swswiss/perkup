@@ -9,13 +9,17 @@
           <div class="ul-name"><%= user.full_name %></div>
           <div class="ul-email"><%= user.email %></div>
         </div>
-
+        <div class="ul-meta">
+          <div class="ul-stat">
+            <div class="ul-stat-label"><%= friendly_time(user.created_at) %></div>
+          </div>
+        </div>
       </div>
     <% end %>
 
     <% if @clients.empty? %>
       <div class="empty">
-        <p>No clients found</p>
+        <p>Niciun client gasit</p>
       </div>
     <% end %>
 
