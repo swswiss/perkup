@@ -314,3 +314,19 @@ html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-fami
     <div class="user-panel" data-customer-search-target="panel"></div>
   </div>
 </div>
+
+<script>
+// Sidebar toggle
+var burger=document.getElementById('burger');
+var sidebar=document.getElementById('sidebar');
+var ov=document.getElementById('overlay');
+burger.addEventListener('click',function(){sidebar.classList.toggle('open');ov.classList.toggle('open');});
+ov.addEventListener('click',function(){sidebar.classList.remove('open');ov.classList.remove('open');});
+document.querySelectorAll('.sn-item').forEach(function(item){
+  item.addEventListener('click',function(){
+    document.querySelectorAll('.sn-item').forEach(function(i){i.classList.remove('active');});
+    this.classList.add('active');
+    if(window.innerWidth<=900){sidebar.classList.remove('open');ov.classList.remove('open');}
+  });
+});
+</script>

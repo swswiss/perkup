@@ -18,9 +18,12 @@
     <%= link_to "Create new Card",
       new_customers_card_path,
       class: "sn-item #{nav_active(new_customers_card_path)}" %>
-    <%= link_to "All Users",
+    <%= link_to "Statistics",
       customers_lookup_path,
       class: "sn-item #{nav_active(customers_lookup_path)}" %>
+    <%= link_to "All Users",
+      customers_clients_path,
+      class: "sn-item #{nav_active(customers_clients_path)}" %>
     <div class="sn-sep"></div>
     <a class="sn-item">Settings</a>
     <%= link_to "Help",

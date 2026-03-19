@@ -1,0 +1,167 @@
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;min-height:100vh;background:#F5F0E8;color:#2D1B06;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+
+.layout{display:flex;min-height:100vh;}
+
+/* Sidebar */
+.side{width:240px;background:#FFFCF8;border-right:1px solid #F0E9DE;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s;}
+.side-head{padding:24px 22px 20px;display:flex;align-items:center;gap:10px;}
+.lm{width:32px;height:32px;border-radius:10px;background:#2D1B06;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;flex-shrink:0;}
+.lt{font-weight:800;font-size:17px;color:#2D1B06;}
+.side-nav{flex:1;padding:8px 12px;display:flex;flex-direction:column;gap:2px;}
+.sn-item{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:10px;font-size:14px;font-weight:500;color:#8C7A65;cursor:pointer;transition:all .15s;text-decoration:none;}
+.sn-item:hover{background:#F8F1E7;color:#2D1B06;}
+.sn-item.active{background:#F3ECE2;color:#2D1B06;font-weight:700;}
+.sn-item .icon{width:20px;text-align:center;font-size:16px;flex-shrink:0;}
+.sn-sep{height:1px;background:#F0E9DE;margin:10px 8px;}
+.side-foot{padding:16px;border-top:1px solid #F0E9DE;}
+.side-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:10px;}
+.avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#A16207,#D4A017);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0;}
+.u-name{font-size:13px;font-weight:700;color:#2D1B06;}
+.u-email{font-size:11px;color:#B8A898;}
+
+/* Main */
+.content{flex:1;margin-left:240px;min-height:100vh;}
+.topbar{height:64px;background:rgba(245,240,232,0.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #EBE3D7;display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:50;}
+.topbar h1{font-family:'DM Serif Display',serif;font-size:22px;color:#2D1B06;}
+.burger{display:none;width:36px;height:36px;border-radius:10px;background:#FFFCF8;border:1px solid #F0E9DE;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:99;}
+
+.page{padding:28px 32px 60px;}
+
+/* Header */
+.page-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;}
+.page-top h2{font-family:'DM Serif Display',serif;font-size:22px;}
+.page-top .count{font-size:13px;color:#8C7A65;font-weight:500;margin-left:8px;}
+
+/* Search */
+.search-bar{
+  display:flex;align-items:center;gap:10px;
+  background:#FFFCF8;border:1.5px solid #E8DFD2;border-radius:12px;
+  padding:0 16px;max-width:360px;width:100%;
+  transition:all .2s;margin-bottom:20px;
+}
+.search-bar:focus-within{border-color:#A16207;box-shadow:0 0 0 3px rgba(161,98,7,0.06);}
+.search-bar .s-icon{font-size:16px;color:#B8A898;flex-shrink:0;}
+.search-bar input{
+  flex:1;border:none;background:transparent;padding:12px 0;
+  font-family:'DM Sans',sans-serif;font-size:14px;color:#2D1B06;outline:none;
+}
+.search-bar input::placeholder{color:#C4B5A2;}
+
+/* User list */
+.user-list{
+  background:#FFFCF8;border:1px solid #F0E9DE;border-radius:16px;
+  overflow:hidden;
+}
+
+.ul-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 20px;border-bottom:1px solid #F8F4ED;
+  transition:background .1s;text-decoration:none;color:inherit;
+}
+.ul-item:last-child{border-bottom:none;}
+.ul-item:hover{background:#FDFAF5;}
+
+.ul-av{
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,#A16207,#D4A017);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;color:#fff;flex-shrink:0;
+}
+
+.ul-info{flex:1;min-width:0;}
+.ul-name{font-size:14px;font-weight:600;color:#2D1B06;}
+.ul-email{font-size:11px;color:#B8A898;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+.ul-meta{display:flex;align-items:center;gap:16px;flex-shrink:0;}
+.ul-stat{text-align:center;min-width:48px;}
+.ul-stat-num{font-size:14px;font-weight:700;color:#2D1B06;}
+.ul-stat-label{font-size:9px;color:#B8A898;text-transform:uppercase;letter-spacing:0.5px;}
+
+.ul-badge{
+  padding:4px 10px;border-radius:6px;
+  font-size:10px;font-weight:700;white-space:nowrap;
+}
+.ul-badge.active{background:#D1FAE5;color:#166534;}
+.ul-badge.inactive{background:#F3ECE2;color:#8C7A65;}
+
+.ul-arrow{font-size:14px;color:#D5C9BA;flex-shrink:0;}
+
+/* Empty */
+.empty{text-align:center;padding:48px 20px;}
+.empty-icon{font-size:36px;margin-bottom:12px;}
+.empty p{font-size:13px;color:#8C7A65;}
+
+/* Pagination */
+.pager{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;border-top:1px solid #F0E9DE;
+}
+.pg-btn{
+  display:inline-flex;align-items:center;
+  padding:7px 14px;border-radius:8px;
+  font-size:12px;font-weight:600;text-decoration:none;
+  color:#5C4A35;background:#FFFCF8;border:1px solid #F0E9DE;
+  transition:all .15s;cursor:pointer;
+}
+.pg-btn:hover{background:#F8F1E7;border-color:#D4C4AC;}
+.pg-btn.disabled{color:#D5C9BA;cursor:default;border-color:#F0E9DE;background:transparent;pointer-events:none;}
+.pg-info{font-size:12px;color:#8C7A65;}
+.pg-info strong{color:#2D1B06;}
+
+/* Responsive */
+@media(max-width:900px){
+  .side{transform:translateX(-100%);}
+  .side.open{transform:translateX(0);}
+  .overlay.open{display:block;}
+  .content{margin-left:0;}
+  .burger{display:flex;}
+  .topbar{padding:0 20px;}
+  .page{padding:20px 16px 40px;}
+  .ul-meta{display:none;}
+}
+</style>
+<div class="content">
+  <header class="topbar">
+      <div class="burger" id="burger">☰</div>
+  </header>
+<div class="page" data-controller="clients-search">
+
+  <div class="page-top">
+    <div style="display:flex;align-items:baseline;">
+      <h2>All clients</h2>
+      <span class="count"><%= @total %> members</span>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <input type="text"
+           placeholder="Search by name or email..."
+           data-clients-search-target="input"
+           data-action="input->clients-search#search">
+  </div>
+
+  <%= turbo_frame_tag "clients-frame" do %>
+    <%= render "clients_list" %>
+  <% end %>
+
+</div>
+</div>
+
+<script>
+// Sidebar toggle
+var burger=document.getElementById('burger');
+var sidebar=document.getElementById('sidebar');
+var ov=document.getElementById('overlay');
+burger.addEventListener('click',function(){sidebar.classList.toggle('open');ov.classList.toggle('open');});
+ov.addEventListener('click',function(){sidebar.classList.remove('open');ov.classList.remove('open');});
+document.querySelectorAll('.sn-item').forEach(function(item){
+  item.addEventListener('click',function(){
+    document.querySelectorAll('.sn-item').forEach(function(i){i.classList.remove('active');});
+    this.classList.add('active');
+    if(window.innerWidth<=900){sidebar.classList.remove('open');ov.classList.remove('open');}
+  });
+});
+</script>

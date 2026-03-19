@@ -32,6 +32,9 @@ Rails.application.routes.draw do
   root "home#index"
 
   namespace :customers do
+    get "clients",        to: "clients#index"
+    get "clients/search", to: "clients#search"
+
     resources :cards do
       member do
         get :qr

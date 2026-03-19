@@ -1,0 +1,51 @@
+
+<%= turbo_frame_tag "clients-frame" do %>
+  <div class="user-list">
+
+    <% @clients.each do |user| %>
+      <div class="ul-item">
+
+        <div class="ul-info">
+          <div class="ul-name"><%= user.full_name %></div>
+          <div class="ul-email"><%= user.email %></div>
+        </div>
+
+      </div>
+    <% end %>
+
+    <% if @clients.empty? %>
+      <div class="empty">
+        <p>No clients found</p>
+      </div>
+    <% end %>
+
+    <% if @pagy.pages > 1 %>
+      <div class="pager">
+        <% if @pagy.prev %>
+          <%= link_to customers_clients_search_path(q: params[:q], page: @pagy.prev),
+              class: "pg-btn",
+              data: { turbo_frame: "clients-frame" } do %>
+            ‹ Prev
+          <% end %>
+        <% else %>
+          <span class="pg-btn disabled">‹ Prev</span>
+        <% end %>
+
+        <span class="pg-info">
+          Page <strong><%= @pagy.page %></strong> of <strong><%= @pagy.last %></strong>
+        </span>
+
+        <% if @pagy.next %>
+          <%= link_to customers_clients_search_path(q: params[:q], page: @pagy.next),
+              class: "pg-btn",
+              data: { turbo_frame: "clients-frame" } do %>
+            Next ›
+          <% end %>
+        <% else %>
+          <span class="pg-btn disabled">Next ›</span>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+<% end %>
