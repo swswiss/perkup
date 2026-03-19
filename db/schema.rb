@@ -56,16 +56,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_19_194647) do
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
 
-  create_table "push_subscriptions", force: :cascade do |t|
-    t.string "endpoint"
-    t.string "p256dh"
-    t.string "auth"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
-  end
-
   create_table "stamps", force: :cascade do |t|
     t.bigint "user_card_id", null: false
     t.string "scan_token", null: false
@@ -105,8 +95,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_19_194647) do
   add_foreign_key "cards", "customers"
   add_foreign_key "coupons", "cards"
   add_foreign_key "coupons", "users"
-  add_foreign_key "push_subscribers", "users"
-  add_foreign_key "push_subscriptions", "users"
   add_foreign_key "stamps", "user_cards"
   add_foreign_key "user_cards", "cards"
   add_foreign_key "user_cards", "users"
