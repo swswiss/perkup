@@ -44,7 +44,8 @@ gem 'connection_pool', '~> 2.4.1'
 gem "pagy", "~> 6.3"
 gem 'httparty'
 gem 'letter_opener'
-
+# Gemfile
+gem 'web-push'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

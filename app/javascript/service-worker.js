@@ -1,4 +1,4 @@
-const CACHE_NAME = "perkup-v2";
+const CACHE_NAME = "perkup-v3";
 const OFFLINE_URL = "/offline.html";
 
 self.addEventListener("install", event => {
@@ -17,5 +17,23 @@ self.addEventListener("fetch", event => {
     fetch(event.request).catch(() => {
       return caches.match(OFFLINE_URL);
     })
+  );
+});
+
+self.addEventListener('push', function(event) {
+  const data = event.data.json();
+  event.waitUntil(
+    self.registration.showNotification(data.title, {
+      body: data.body,
+      icon: '/favicon.ico',
+      data: data.url
+    })
+  );
+});
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+    clients.openWindow(event.notification.data.url || '/')
   );
 });

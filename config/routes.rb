@@ -89,4 +89,8 @@ Rails.application.routes.draw do
     get :activities, on: :collection
   end
 
+  resources :push_subscriptions, only: [:create]
+  # config/routes.rb
+  post "/push_test", to: "push_test#create", as: :push_test
+
 end

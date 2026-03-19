@@ -33,6 +33,15 @@
     </div>
   </div>
 
+  <h1>Test Push Notifications</h1>
+
+  <%= form_with url: push_test_path, method: :post, local: true do %>
+    <%= hidden_field_tag :title, "Hello from Rails!" %>
+    <%= hidden_field_tag :body, "This is a test notification" %>
+    <%= hidden_field_tag :url, "/" %>
+    <%= submit_tag "Send Test Notification to User.first", class: "btn btn-primary" %>
+  <% end %>
+
   <%# Coupons list — each coupon triggers the modal %>
   <div class="section">
     <div class="section-h">
