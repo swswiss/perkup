@@ -678,3 +678,73 @@ tr:hover td{background:#FDFAF5;}
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+
+
+#pwa-install-banner{
+  position:fixed;bottom:20px;left:20px;right:20px;
+  max-width:350px;margin:0 auto;z-index:9999;
+  background:#FFFCF8;
+  border:1px solid #F0E9DE;
+  border-radius:16px;
+  padding:16px 20px;
+  box-shadow:0 8px 30px rgba(45,27,6,0.12);
+  font-family:'DM Sans',sans-serif;
+}
+#pwa-install-banner .pwa-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+#pwa-install-banner .pwa-left{
+  display:flex;align-items:center;gap:12px;
+}
+#pwa-install-banner .pwa-logo{
+  width:40px;height:40px;border-radius:10px;
+  background:#2D1B06;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+#pwa-install-banner .pwa-label strong{
+  font-size:14px;color:#2D1B06;display:block;
+}
+#pwa-install-banner .pwa-label small{
+  font-size:11px;color:#8C7A65;
+}
+#pwa-install-banner .pwa-right{
+  display:flex;align-items:center;gap:6px;flex-shrink:0;
+}
+#install-btn{
+  padding:8px 18px;border-radius:8px;border:none;
+  background:#2D1B06;color:#FFFCF8;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:700;
+  cursor:pointer;
+}
+#install-btn:hover{background:#1A0F00;}
+#close-install{
+  width:28px;height:28px;border-radius:7px;border:none;
+  background:transparent;color:#B8A898;font-size:14px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+#close-install:hover{background:#F3ECE2;color:#5C4A35;}
+
+/* Safari instructions */
+#pwa-install-banner .safari-hint{
+  display:none;
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid #F0E9DE;
+  font-size:12px;color:#5C4A35;
+  line-height:1.7;
+}
+#pwa-install-banner .safari-hint .step{
+  display:flex;align-items:center;gap:8px;
+  margin-bottom:4px;
+}
+#pwa-install-banner .safari-hint .step:last-child{margin-bottom:0;}
+#pwa-install-banner .safari-hint .key{
+  background:#F3ECE2;padding:2px 8px;border-radius:5px;
+  font-weight:700;font-size:11px;color:#2D1B06;
+  white-space:nowrap;
+}
+#pwa-install-banner.ios .safari-hint{display:block;}
+#pwa-install-banner.ios #install-btn{display:none;}
