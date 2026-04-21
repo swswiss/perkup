@@ -32,7 +32,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
+  resources :push_subscriptions, only: [:create] do
+    collection do
+      delete :destroy
+    end
+  end
+
   namespace :customers do
+    resources :notifications, only: [:new, :create]
+    
     get "clients",        to: "clients#index"
     get "clients/search", to: "clients#search"
 

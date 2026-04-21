@@ -7,6 +7,7 @@ Rails.application.configure do
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.enable_reloading = true
+  config.hosts << "8b63-2a02-2f0e-5506-b000-dd0f-4347-47a1-f7b0.ngrok-free.app"
 
   # Do not eager load code on boot.
   config.eager_load = false
