@@ -1,0 +1,48 @@
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<div class="content">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="burger" id="burger">☰</div>
+      <h1>Trimitere Notificare</h1>
+    </div>
+  </header>
+
+  <div class="page">
+    <p class="page-desc">Scrie un mesaj personalizat si trimite-l catre toti utilizatorii care au activat notificarile push.</p>
+
+    <div class="page-row">
+      <div class="page-left">
+        <div class="form-section">
+          <div class="form-title">Mesajul tau</div>
+
+          <%= form_with url: customers_notifications_path, method: :post, local: true do |f| %>
+            <div class="field">
+              <label for="notifTitle">Titlu</label>
+              <%= f.text_field :title, value: @title, maxlength: 60, id: "notifTitle", required: true %>
+              <div class="hint">Apare ca titlul notificarii (pana la 60 caractere).</div>
+            </div>
+
+            <div class="field">
+              <label for="notifBody">Mesaj</label>
+              <%= f.text_area :body, value: @body, maxlength: 200, rows: 4, id: "notifBody", required: true %>
+              <div class="hint">Corpul notificarii (pana la 200 caractere).</div>
+            </div>
+
+            <div class="field">
+              <label for="notifUrl">URL la click (optional)</label>
+              <%= f.text_field :url, value: @url, id: "notifUrl", placeholder: "/" %>
+              <div class="hint">Unde sa ajunga utilizatorul cand apasa pe notificare.</div>
+            </div>
+
+            <div class="actions">
+              <%= f.submit "Trimite catre toti utilizatorii",
+                    class: "submit gen-btn",
+                    data: { confirm: "Trimiti notificarea catre toti utilizatorii abonati?" } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

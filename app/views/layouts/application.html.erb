@@ -18,6 +18,7 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <meta name="vapid-public-key" content="<%= Perkup::VAPID[:public_key] %>">
   </head>
 
   <script>
@@ -26,7 +27,7 @@
     }
   </script>
 
-  <body data-turbo-prefetch="false">
+  <body data-turbo-prefetch="false" <%= 'data-controller=push'.html_safe if user_signed_in? %>>
     <%= render "customers/shared/flash" %>
 
     <% if customer_signed_in? && params[:action] == 'live_qrcode' %>
